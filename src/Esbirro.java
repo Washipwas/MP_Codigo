@@ -6,6 +6,7 @@ public abstract class Esbirro {
     /**
      * Default constructor
      */
+
     public Esbirro(String nombre, int vida) {
         this.nombre = nombre;
         this.vida = vida;
