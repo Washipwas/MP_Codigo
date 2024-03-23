@@ -16,9 +16,20 @@ public class MenuUsuario {
             return true;
         }
         else if (usuarioActivo instanceof UsuarioEstandar && usuarioActivo.getDesafiante() != null){
-            terminal.show("Tiene una solicitud de combate");
             UsuarioEstandar desafiante = (UsuarioEstandar) usuarioActivo.getDesafiante();
             terminal.show(desafiante.getNick());
+            terminal.show("Tiene una solicitud de combate de " + desafiante.getNombre());
+            terminal.show("¿Aceptar? (Si/No)");
+            String opcion = terminal.read();
+            if ("Si".equalsIgnoreCase(opcion)){
+                terminal.show("Combate aceptado");
+                //FALTAN COMPROBACIONES DE ORO
+                //POSTERIORMENTE VIENE EL PROCESO DE ELECION DE ARMAS ANTES DE COMBATE
+            } else {
+                terminal.show("Combate cancelado");
+            }
+            ((UsuarioEstandar) usuarioActivo).setDesafiante(null);
+            mostrarMenu();
             return false;
         }
         else {

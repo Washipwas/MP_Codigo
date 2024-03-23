@@ -45,4 +45,8 @@ public class Usuario implements Serializable {
     public Object getDesafiante() {
         return null;
     }
+
+    public boolean oroValido(int dinero) {
+        return true;
+    }
 }

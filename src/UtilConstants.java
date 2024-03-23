@@ -1,4 +1,5 @@
 public class UtilConstants {
+    public final static String FILE_COMBATS = "ficheros/";
     public final static String FILE_USERS = "ficheros/";
     public final static String FILE_NUMREG = "ficheros/numreg.txt";
     public final static String ANSI_RESET = "\u001B[0m";
