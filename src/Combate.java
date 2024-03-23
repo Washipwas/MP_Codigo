@@ -57,7 +57,7 @@ public class Combate {
      * @param int 
      * @return
      */
-    public int generPotencialAtaque(void int) {
+    public int generPotencialAtaque() {
         // TODO implement here
         return 0;
     }
@@ -66,7 +66,7 @@ public class Combate {
      * @param int 
      * @return
      */
-    public int generarPotencialDefensa(void int) {
+    public int generarPotencialDefensa() {
         // TODO implement here
         return 0;
     }

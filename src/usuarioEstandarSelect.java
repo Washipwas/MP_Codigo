@@ -8,10 +8,5 @@ public class usuarioEstandarSelect {
      */
     public usuarioEstandarSelect() {
     }
-
-    /**
-     * 
-     */
-    private void usuario;
-
+    private UsuarioEstandar usuario;
 }

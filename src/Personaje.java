@@ -19,7 +19,7 @@ public abstract class Personaje {
     /**
      * 
      */
-    private Set<Habilidad> habilidad;
+    private Set<HabilidadEspecial> habilidad;
 
     /**
      * 
