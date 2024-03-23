@@ -12,6 +12,7 @@ public abstract class Esbirro {
         this.vida = vida;
     }
 
+
     /**
      * 
      */

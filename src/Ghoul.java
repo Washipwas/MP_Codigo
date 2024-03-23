@@ -13,6 +13,7 @@ public class Ghoul extends Esbirro {
     }
 
     /**
+     *
      * 
      */
     private int dependencia;
