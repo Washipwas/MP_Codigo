@@ -85,7 +85,7 @@ public class MenuInicial {
         correcto = false;
         String password = " ";
         while (! correcto) {
-            terminal.show("Pasword: (debe contener entre 8 y 12 caracteres)");
+            terminal.show("Password: (debe contener entre 8 y 12 caracteres)");
             password = terminal.read();
             if (8 <= password.length() && password.length() <= 12) {
                 correcto = true;
