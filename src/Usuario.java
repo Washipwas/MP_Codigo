@@ -1,37 +1,33 @@
+import java.io.Serializable;
+
 /**
  * 
  */
-public class Usuario {
+public class Usuario implements Serializable {
 
-    /**
-     * Default constructor
-     */
-    public Usuario() {
+    public Usuario(String nombre, String nick, String password) {
+        this.nombre = nombre;
+        this.nick = nick;
+        this.contrasenia = password;
     }
-
-    /**
-     * 
-     */
     private String nombre;
-
-    /**
-     * 
-     */
     private String nick;
-
-    /**
-     * 
-     */
     private String contrasenia;
 
-    /**
-     * @param n 
-     * @param c 
-     * @return
-     */
     public boolean datosCorrectos(String n, String c) {
         // TODO implement here
         return false;
     }
 
+    public String getNick(){
+        return this.nick;
+    }
+
+    public String getPassword() {
+        return this.contrasenia;
+    }
+
+    public String getNombre() {
+        return  this.nombre;
+    }
 }
