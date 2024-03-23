@@ -10,16 +10,20 @@ public class Manager implements Serializable {
         this.terminal = new TextTerminal();
         this.listaUsuarios = new HashMap<>();
         this.listaPersonajes = new HashMap<>();
+        this.listaCombates = new HashMap<>();
     }
     private Map<String,Personaje> listaPersonajes;
     private Map<String,Usuario> listaUsuarios;
+    private Map<String,Combate> listaCombates;
     private transient TextTerminal terminal;
 
     public void aniadir(Object object, String fichero){
         if (object instanceof Usuario) {
             listaUsuarios.put(((Usuario) object).getNick(), (Usuario) object);
-        } else {
+        } else if (object instanceof Personaje){
             listaPersonajes.put(((Personaje) object).getNombre(), (Personaje) object);
+        } else if (object instanceof Combate){
+            listaCombates.put(((Combate) object).getId(), (Combate) object);
         }
         try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(fichero + "usuarios.ser"))) {
             objetoSalida.writeObject(this);
@@ -38,6 +42,10 @@ public class Manager implements Serializable {
     public void eliminar(Object obj,String fichero) {
         if (obj instanceof Usuario){
             listaUsuarios.remove(((Usuario) obj).getNick());
+        } else if (obj instanceof Personaje){
+            listaPersonajes.remove(((Personaje) obj).getNombre());
+        } else if (obj instanceof Combate){
+            listaCombates.remove(((Combate) obj).getId());
         }
         try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(fichero + "usuarios.ser"))) {
             objetoSalida.writeObject(this);
@@ -49,10 +57,12 @@ public class Manager implements Serializable {
     public boolean existe(String id, int num) {
         if (num == 1){
             return this.listaUsuarios.containsKey(id);
-        }
-        else{
+        } else if (num == 2){
             return this.listaPersonajes.containsKey(id);
+        } else if (num == 3){
+            return this.listaCombates.containsKey(id);
         }
+        else return false;
     }
 
     public void mostrar(int num) {
@@ -61,8 +71,13 @@ public class Manager implements Serializable {
                 String key = entry.getKey();
                 terminal.show("Clave: " + key);
             }
-        } else {
+        } else if (num == 2) {
             for (Map.Entry<String, Personaje> entry : listaPersonajes.entrySet()) {
+                String key = entry.getKey();
+                terminal.show("Clave: " + key);
+            }
+        } else if (num == 3) {
+            for (Map.Entry<String, Combate> entry : listaCombates.entrySet()) {
                 String key = entry.getKey();
                 terminal.show("Clave: " + key);
             }
@@ -156,5 +171,10 @@ public class Manager implements Serializable {
             }
         }
         return encontrado;
+    }
+
+    public void asociarDesafio(String opcion) {
+        Combate combate = this.listaCombates.get(opcion);
+        combate.asociarDesafio();
     }
 }

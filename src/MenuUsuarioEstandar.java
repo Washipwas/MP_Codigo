@@ -83,8 +83,17 @@ public class MenuUsuarioEstandar extends MenuUsuario {
             String opcion = terminal.read();
             if (this.manager.existeDesafiar(opcion)){
                 UsuarioEstandar usuario2 = (UsuarioEstandar) this.manager.asociarUsuario(opcion);
-                usuario2.setDesafiante(this.usuarioActivo);
-                terminal.show("Solicitud de desafio enviada");
+                terminal.show("Que cantidad de dinero desea apostar?");
+                int dinero = Integer.parseInt(terminal.read());
+                if (usuarioActivo.oroValido(dinero)){
+                    Combate combate = new Combate((UsuarioEstandar) usuarioActivo,usuario2,dinero,"id0");
+                    this.manager.aniadir(combate,UtilConstants.FILE_COMBATS);
+                    this.manager.guardar();
+                    terminal.show("Solicitud de desafio enviada");
+                } else{
+                    terminal.show("La cantidad de oro apostad no es válida");
+                    terminal.show("Combate cancelado");
+                }
             } else {
                 terminal.show("El nick no es correcto");
             }

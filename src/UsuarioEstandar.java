@@ -89,4 +89,9 @@ public class UsuarioEstandar extends Usuario {
     public Object getDesafiante() {
         return this.desafiante;
     }
+
+    @Override
+    public boolean oroValido(int dinero) {
+        return this.personaje.oroSufiencte(dinero);
+    }
 }

@@ -1,37 +1,28 @@
+import java.io.Serializable;
+
 /**
  * 
  */
-public class Combate {
+public class Combate implements Serializable {
 
     /**
      * Default constructor
      */
-    public Combate() {
+    public Combate(UsuarioEstandar usuarioActivo, UsuarioEstandar usuario2, int dinero,String id) {
+        this.personaje1 = usuarioActivo;
+        this.personaje2 = usuario2;
+        this.oroApostado = dinero;
+        this.id = id;
+        this.rondas = 0;
     }
 
-    /**
-     * 
-     */
-    private PersonajeUser personaje1;
+    private String id;
+    private UsuarioEstandar personaje1;
 
-    /**
-     * 
-     */
-    private PersonajeUser personaje2;
-
-    /**
-     * 
-     */
+    private UsuarioEstandar personaje2;
     private int oroApostado;
 
-    /**
-     * 
-     */
     private int rondas;
-
-    /**
-     * @return
-     */
     public Boolean hayGanador() {
         // TODO implement here
         return null;
@@ -53,22 +44,21 @@ public class Combate {
         return null;
     }
 
-    /**
-     * @param int 
-     * @return
-     */
     public int generPotencialAtaque() {
         // TODO implement here
         return 0;
     }
 
-    /**
-     * @param int 
-     * @return
-     */
     public int generarPotencialDefensa() {
         // TODO implement here
         return 0;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
+    public void asociarDesafio() {
+        this.personaje2.setDesafiante(this.personaje1);
+    }
 }
