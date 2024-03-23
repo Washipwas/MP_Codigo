@@ -7,7 +7,5 @@ public class Simulador {
         menuIni.mostrarMenu();
         menuIni.seleccionarOpcion();
         System.out.println("Hasta luego");
-        System.out.println("Prueba33");
-        System.out.println("Prueba2333");
     }
 }
