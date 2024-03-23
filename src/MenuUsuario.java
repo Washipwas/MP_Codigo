@@ -15,6 +15,12 @@ public class MenuUsuario {
             terminal.show("Se le redirigirá automáticamente a la pantalla de inicio");
             return true;
         }
+        else if (usuarioActivo instanceof UsuarioEstandar && usuarioActivo.getDesafiante() != null){
+            terminal.show("Tiene una solicitud de combate");
+            UsuarioEstandar desafiante = (UsuarioEstandar) usuarioActivo.getDesafiante();
+            terminal.show(desafiante.getNick());
+            return false;
+        }
         else {
             terminal.show("Seleccione una opción escribiendo el numero correspondiente");
             if (this.usuarioActivo instanceof UsuarioEstandar) {

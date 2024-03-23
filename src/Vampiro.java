@@ -6,7 +6,8 @@ public class Vampiro extends Personaje {
     /**
      * Default constructor
      */
-    public Vampiro() {
+    public Vampiro(String nombre) {
+        super(nombre);
     }
 
     /**

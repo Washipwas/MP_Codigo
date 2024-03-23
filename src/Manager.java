@@ -9,6 +9,7 @@ public class Manager implements Serializable {
     public Manager(String fichero) {
         this.terminal = new TextTerminal();
         this.listaUsuarios = new HashMap<>();
+        this.listaPersonajes = new HashMap<>();
     }
     private Map<String,Personaje> listaPersonajes;
     private Map<String,Usuario> listaUsuarios;
@@ -17,6 +18,8 @@ public class Manager implements Serializable {
     public void aniadir(Object object, String fichero){
         if (object instanceof Usuario) {
             listaUsuarios.put(((Usuario) object).getNick(), (Usuario) object);
+        } else {
+            listaPersonajes.put(((Personaje) object).getNombre(), (Personaje) object);
         }
         try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(fichero + "usuarios.ser"))) {
             objetoSalida.writeObject(this);
@@ -24,8 +27,12 @@ public class Manager implements Serializable {
             e.printStackTrace();
         }
     }
-    public void cargarInformacion(String fichero) {
-
+    public void guardar() {
+        try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(UtilConstants.FILE_USERS + "usuarios.ser"))) {
+            objetoSalida.writeObject(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void eliminar(Object obj,String fichero) {
@@ -44,7 +51,7 @@ public class Manager implements Serializable {
             return this.listaUsuarios.containsKey(id);
         }
         else{
-            return false;
+            return this.listaPersonajes.containsKey(id);
         }
     }
 
@@ -93,6 +100,10 @@ public class Manager implements Serializable {
         return listaUsuarios.get(nick);
     }
 
+    public Personaje asociarPersonaje(String nick) {
+        return listaPersonajes.get(nick);
+    }
+
     public boolean datosUsuarioEstandar(String nick) {
         Usuario user = listaUsuarios.get(nick);
         return user instanceof UsuarioEstandar;
@@ -115,5 +126,35 @@ public class Manager implements Serializable {
 
     public void setTerminal() {
         this.terminal = new TextTerminal();
+    }
+
+
+    public void mostrarUsuariosParaDesafiar(String nick) {
+        terminal.show("Usuarios para desafiar:");
+        for (Map.Entry<String, Usuario> entry : listaUsuarios.entrySet()) {
+            Usuario user = entry.getValue();
+            if (user instanceof UsuarioEstandar){
+                if (!(((UsuarioEstandar) user).getBloqueado())){
+                    if (user.getNick() != nick) {
+                        terminal.show(user.getNick());
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean existeDesafiar(String opcion) {
+        Boolean encontrado = false;
+        for (Map.Entry<String, Usuario> entry : listaUsuarios.entrySet()) {
+            Usuario user = entry.getValue();
+            if (user instanceof UsuarioEstandar){
+                if (!(((UsuarioEstandar) user).getBloqueado())){
+                    if (user.getNick().equalsIgnoreCase(opcion)) {
+                        encontrado = true;
+                    }
+                }
+            }
+        }
+        return encontrado;
     }
 }
