@@ -1,12 +1,15 @@
+import java.io.Serializable;
+
 /**
  * 
  */
-public class PersonajeUser {
+public class PersonajeUser implements Serializable {
 
     /**
      * Default constructor
      */
     public PersonajeUser() {
+        this.personaje = new Personaje("prueba");
     }
 
     /**
@@ -79,4 +82,11 @@ public class PersonajeUser {
         return false;
     }
 
+    public void setPersonaje(Personaje personaje) {
+        this.personaje = personaje;
+    }
+
+    public Personaje getPersonaje() {
+        return this.personaje;
+    }
 }

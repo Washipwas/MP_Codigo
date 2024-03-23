@@ -6,7 +6,8 @@ public class Cazador extends Personaje {
     /**
      * Default constructor
      */
-    public Cazador() {
+    public Cazador(String nombre) {
+        super(nombre);
     }
 
     /**

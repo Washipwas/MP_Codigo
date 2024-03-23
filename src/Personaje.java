@@ -1,19 +1,11 @@
+import java.io.Serializable;
 import java.util.Set;
 
-/**
- * 
- */
-public abstract class Personaje {
+public class Personaje implements Serializable {
 
-    /**
-     * Default constructor
-     */
-    public Personaje() {
+    public Personaje(String nombre) {
+        this.nombre = nombre;
     }
-
-    /**
-     * 
-     */
     private String nombre;
 
     /**
@@ -72,4 +64,7 @@ public abstract class Personaje {
         return 0;
     }
 
+    public String getNombre() {
+        return this.nombre;
+    }
 }

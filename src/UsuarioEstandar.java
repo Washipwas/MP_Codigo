@@ -10,11 +10,14 @@ public class UsuarioEstandar extends Usuario {
         super(nombre, nick, password);
         this.numeroDeRegistro = generarNumeroDeRegistro();
         this.bloqueado = false;
+        this.personaje = new PersonajeUser();
+        this.desafiante = null;
     }
 
     private String numeroDeRegistro;
     private PersonajeUser personaje;
     private boolean bloqueado;
+    private UsuarioEstandar desafiante;
 
     public String generarNumeroDeRegistro() {
         try {
@@ -46,7 +49,6 @@ public class UsuarioEstandar extends Usuario {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
                     String nuevaLinea = num + " " + letra;
                     writer.write(nuevaLinea);
-                    System.out.println(letra + num + num + letra + letra);
                     return (letra + num + num + letra + letra);
                 }
             }
@@ -64,4 +66,27 @@ public class UsuarioEstandar extends Usuario {
         this.bloqueado = bool;
     }
 
+    @Override
+    public void setPersonaje(PersonajeUser personaje) {
+        this.personaje = personaje;
+    }
+
+    @Override
+    public Personaje getPersonaje() {
+        return this.personaje.getPersonaje();
+    }
+
+    @Override
+    public boolean getPersonajeNull() {
+        return this.personaje == null;
+    }
+
+    public void setDesafiante(Usuario usuarioActivo) {
+        this.desafiante = (UsuarioEstandar) usuarioActivo;
+    }
+
+    @Override
+    public Object getDesafiante() {
+        return this.desafiante;
+    }
 }

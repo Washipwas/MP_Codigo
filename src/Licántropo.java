@@ -6,7 +6,8 @@ public class Licántropo extends Personaje {
     /**
      * Default constructor
      */
-    public Licántropo() {
+    public Licántropo(String nombre) {
+        super(nombre);
     }
 
     /**

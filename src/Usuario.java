@@ -30,4 +30,19 @@ public class Usuario implements Serializable {
     public String getNombre() {
         return  this.nombre;
     }
+
+    public void setPersonaje(PersonajeUser personaje) {
+    }
+
+    public Personaje getPersonaje() {
+        return null;
+    }
+
+    public boolean getPersonajeNull() {
+        return true;
+    }
+
+    public Object getDesafiante() {
+        return null;
+    }
 }

@@ -39,23 +39,34 @@ public class MenuUsuarioEstandar extends MenuUsuario {
     }
     private PersonajeUser personaje;
 
-    /**
-     * 
-     */
     public void aniadirPersonaje() {
-        // TODO implement here
+        terminal.show("Elige un personaje");
+        manager.mostrar(2);
+        String opcion = terminal.read();
+        if (this.manager.existe(opcion,2)){
+            this.personaje.setPersonaje(this.manager.asociarPersonaje(opcion));
+            usuarioActivo.setPersonaje(this.personaje);
+            this.manager.guardar();
+        } else {
+            terminal.show("El nombre es incorrecto");
+        }
+
     }
 
-    /**
-     * 
-     */
     public void eliminarPersonaje() {
-        // TODO implement here
+        if (usuarioActivo.getPersonajeNull()){
+            terminal.show("No tiene ningún personaje asociado a su cuenta");
+        } else{
+            terminal.show("Se va a eliminar el personaje vinculado al usuario " + usuarioActivo.getNombre());
+            terminal.show("¿Continuar? (Si/No)");
+            String opcion = terminal.read();
+            if ("Si".equalsIgnoreCase(opcion)) {
+                usuarioActivo.setPersonaje(null);
+            }
+            this.manager.guardar();
+        }
     }
 
-    /**
-     * 
-     */
     public void elegirArmasYArmaduras() {
         // TODO implement here
     }
@@ -63,9 +74,21 @@ public class MenuUsuarioEstandar extends MenuUsuario {
     /**
      * @return
      */
-    public Personaje desafiarUsuarios() {
-        // TODO implement here
-        return null;
+    public void desafiarUsuarios() {
+        if (usuarioActivo.getPersonajeNull()){
+            terminal.show("No tiene ningún personaje asociado a su cuenta para desafiar a otros jugadores");
+        } else{
+            terminal.show("A que usuario quiere desafiar");
+            this.manager.mostrarUsuariosParaDesafiar(usuarioActivo.getNick());
+            String opcion = terminal.read();
+            if (this.manager.existeDesafiar(opcion)){
+                UsuarioEstandar usuario2 = (UsuarioEstandar) this.manager.asociarUsuario(opcion);
+                usuario2.setDesafiante(this.usuarioActivo);
+                terminal.show("Solicitud de desafio enviada");
+            } else {
+                terminal.show("El nick no es correcto");
+            }
+        }
     }
 
     /**
