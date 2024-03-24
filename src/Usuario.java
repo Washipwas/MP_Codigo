@@ -49,4 +49,8 @@ public class Usuario implements Serializable {
     public boolean oroValido(int dinero) {
         return true;
     }
+
+    public PersonajeUser getPersonajeUser() {
+        return null;
+    }
 }

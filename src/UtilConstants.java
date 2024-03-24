@@ -1,6 +1,9 @@
 public class UtilConstants {
     public final static String FILE_COMBATS = "ficheros/";
     public final static String FILE_USERS = "ficheros/";
+    public final static String FILE_PERSONAJES = "ficheros/";
+    public final static String FILE_ARMAS = "ficheros/";
+    public final static String FILE_ARMADURAS = "ficheros/";
     public final static String FILE_NUMREG = "ficheros/numreg.txt";
     public final static String ANSI_RESET = "\u001B[0m";
     public final static String ANSI_BLUE = "\u001B[34m";

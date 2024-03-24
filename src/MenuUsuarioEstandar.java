@@ -8,6 +8,7 @@ public class MenuUsuarioEstandar extends MenuUsuario {
      */
     public MenuUsuarioEstandar(String nick, Manager manager) {
         super(nick,manager);
+        this.personaje = usuarioActivo.getPersonajeUser();
     }
 
     @Override
@@ -40,17 +41,21 @@ public class MenuUsuarioEstandar extends MenuUsuario {
     private PersonajeUser personaje;
 
     public void aniadirPersonaje() {
-        terminal.show("Elige un personaje");
-        manager.mostrar(2);
+        terminal.show("Escribe el nombre del personaje");
         String opcion = terminal.read();
-        if (this.manager.existe(opcion,2)){
-            this.personaje.setPersonaje(this.manager.asociarPersonaje(opcion));
-            usuarioActivo.setPersonaje(this.personaje);
-            this.manager.guardar();
-        } else {
-            terminal.show("El nombre es incorrecto");
+        while (this.manager.existe(opcion,2)) {
+            terminal.show("El nombre ya existe");
+            terminal.show("Escribe el nombre del personaje");
+            opcion = terminal.read();
         }
+        terminal.show("Escribe...");
+        // Implementar resto de atributos
 
+        Personaje personaje = new Personaje(opcion);
+        this.manager.aniadir(personaje,UtilConstants.FILE_PERSONAJES);
+        this.personaje.setPersonaje(this.manager.asociarPersonaje(opcion));
+        usuarioActivo.setPersonaje(this.personaje);
+        this.manager.guardar();
     }
 
     public void eliminarPersonaje() {
