@@ -35,7 +35,16 @@ public class MenuOperador extends MenuUsuario {
     }
 
     public void editarPersonaje() {
-        // TODO implement here
+        terminal.show("Elige un personaje");
+        manager.mostrar(2);
+        String opcion = terminal.read();
+        if (this.manager.existe(opcion,2)){
+            Personaje personaje = (this.manager.asociarPersonaje(opcion));
+            personaje.editar();
+            this.manager.guardar();
+        } else {
+            terminal.show("El nombre es incorrecto");
+        }
     }
 
     public void aniadirAlPersonaje() {

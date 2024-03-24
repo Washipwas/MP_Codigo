@@ -8,7 +8,8 @@ public class Demonio extends Esbirro {
     /**
      * Default constructor
      */
-    public Demonio() {
+    public Demonio(String nombre, int vida) {
+        super(nombre, vida);
     }
 
     /**

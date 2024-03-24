@@ -40,4 +40,7 @@ public abstract class Equipo {
         return 0;
     }
 
+    public String getId() {
+        return this.nombre;
+    }
 }
