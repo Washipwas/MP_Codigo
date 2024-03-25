@@ -17,11 +17,21 @@ public abstract class HabilidadEspecial {
     /**
      * 
      */
-    private int valorAtaque;
+    private static int valorAtaque;
 
     /**
      * 
      */
     private int valorDefensa;
+
+    public  int getValorAtaque() {
+        return this.valorAtaque;
+    }
+
+    public int getValorDefensa() {
+        return this.valorDefensa;
+    }
+
+
 
 }
