@@ -10,6 +10,7 @@ public class Vampiro extends Personaje {
         super(nombre,poder,salud);
         this.puntoSangre = puntoSangre;
         this.edad = edad;
+
     }
 
 
