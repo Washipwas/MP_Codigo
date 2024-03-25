@@ -7,7 +7,7 @@ public class MenuInicial {
 
     public MenuInicial() {
         this.terminal = new TextTerminal();
-        File archivo = new File(UtilConstants.FILE_USERS + "usuarios.ser");
+        File archivo = new File(UtilConstants.FILE_USERS + "usuarios.ser"); // se lee el fichero con la direccion que te da utilconstanst.fileusers
         if (!archivo.exists()) {
             manager = new Manager(UtilConstants.FILE_USERS);
             try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(UtilConstants.FILE_USERS + "usuarios.ser"))) {
@@ -17,13 +17,15 @@ public class MenuInicial {
             }
             return;
         }
-        try (ObjectInputStream objetoEntrada = new ObjectInputStream(new FileInputStream(archivo))) {
-            manager = (Manager) objetoEntrada.readObject();
-            manager.setTerminal();
+        try (ObjectInputStream objetoEntrada = new ObjectInputStream(new FileInputStream(archivo))) { //se utiliza objectinputstream para leer los bytes del fichero
+            manager = (Manager) objetoEntrada.readObject(); //convierte lo que lee en un objeto de clase manager y lo asoscia al atributo privado manager
+            manager.setTerminal(); //crea un terminal
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+    //hasta aquí manager tiene el objeto leido del fichero File_users
+
 
     public void mostrarMenu() {
         terminal.show("Seleccione una opción escribiendo el número correspondiente");
@@ -42,9 +44,10 @@ public class MenuInicial {
         if (manager.existe(nick,1)){
             if (manager.datosCorrectos(nick,password)){
                 terminal.show("Acceso correcto");
-                MenuUsuario userMenu = null;
+                MenuUsuario userMenu = null; //se instancia a nulo el menu-usuario
                 if (manager.datosUsuarioEstandar(nick)){
-                    userMenu = new MenuUsuarioEstandar(nick,this.manager);
+                    userMenu = new MenuUsuarioEstandar(nick,this.manager); //se crea el menu del usuario_estandar pasándole el nick y el manager  de este
+                                                                            //menu el cual tiene toda la información
                 } else {
                     userMenu = new MenuOperador(nick,this.manager);
                 }
