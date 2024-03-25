@@ -9,7 +9,7 @@ public class PersonajeUser implements Serializable {
      * Default constructor
      */
     public PersonajeUser() {
-        this.personaje = new Personaje("prueba");
+        this.personaje = null;
         this.oro = 500;
     }
 

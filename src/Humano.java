@@ -6,7 +6,8 @@ public class Humano extends Esbirro {
     /**
      * Default constructor
      */
-    public Humano() {
+    public Humano(String nombre, int vida) {
+        super(nombre,vida);
     }
 
     /**
