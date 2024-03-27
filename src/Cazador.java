@@ -6,13 +6,20 @@ public class Cazador extends Personaje {
     /**
      * Default constructor
      */
-    public Cazador(String nombre) {
-        super(nombre);
+    private int voluntad;
+    private Talento talento;
+
+    public Cazador(String nombre, int salud, int poder,int puntoSangre,int edad, Talento talento) {
+        super(nombre,poder,salud);
+        this.voluntad = 3;
+        this.talento = talento;
     }
 
-    /**
-     * 
-     */
-    private int voluntad;
+    @Override
+    public int sumarPotencialAtaque() {
+        int valor = getPoder() + talento.getValorAtaque() + this.voluntad;
+        return super.sumarPotencialAtaque();
+    }
+
 
 }

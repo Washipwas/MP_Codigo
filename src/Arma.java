@@ -6,12 +6,14 @@ public class Arma extends Equipo {
     /**
      * Default constructor
      */
-    public Arma() {
+    private int manos;
+
+    public Arma(String nombre , int manos, int modificadorAtaque, int modificadorDefensa) {
+
+        super(nombre, modificadorAtaque, modificadorDefensa);
+        this.manos =  manos;
     }
 
-    /**
-     * 
-     */
-    private int manos;
+
 
 }
