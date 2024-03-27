@@ -3,6 +3,10 @@
  */
 public class Arma extends Equipo {
 
+    public int getManos() {
+        return this.manos;
+    }
+
     /**
      * Default constructor
      */
