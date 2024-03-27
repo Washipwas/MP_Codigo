@@ -10,6 +10,11 @@ public abstract class Modificador {
         this.valor = valor;
     }
 
+
+    public String getNombre(){
+        return this.nombre;
+    }
+
     public int getValor() {
         return this.valor;
     }
