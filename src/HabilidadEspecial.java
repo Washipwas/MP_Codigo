@@ -5,8 +5,12 @@ public abstract class HabilidadEspecial {
 
     /**
      * Default constructor
+     *
      */
-    public HabilidadEspecial() {
+    public HabilidadEspecial(String nombre, int valorAtaque, int valorDefensa) {
+        this.nombre = nombre;
+        this.valorAtaque = valorAtaque;
+        this.valorDefensa = valorDefensa;
     }
 
     /**

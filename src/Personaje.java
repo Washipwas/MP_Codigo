@@ -37,6 +37,10 @@ public abstract class Personaje implements Serializable {
         return 0;
     }
 
+    public int getPoder() {
+        return this.poder;
+    }
+
     public String getNombre() {
         return this.nombre;
     }
