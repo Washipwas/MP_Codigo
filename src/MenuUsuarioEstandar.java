@@ -55,7 +55,7 @@ public class MenuUsuarioEstandar extends MenuUsuario {
         terminal.show("Escribe...");
         // Implementar resto de atributos
 
-        Personaje personaje = new Personaje(opcion);
+        Personaje personaje = new Personaje(opcion);   // personaje es abstracto, y el constructor ahora tiene más parametros
         this.manager.aniadir(personaje,UtilConstants.FILE_PERSONAJES);
         this.personaje.setPersonaje(this.manager.asociarPersonaje(opcion));
         usuarioActivo.setPersonaje(this.personaje);

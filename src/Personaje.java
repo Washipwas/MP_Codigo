@@ -1,11 +1,13 @@
 import java.io.Serializable;
 import java.util.Set;
 
-public class Personaje implements Serializable {
+public abstract class Personaje implements Serializable {
 
-    public Personaje(String nombre) {
+    public Personaje(String nombre, int salud, int poder) {
         this.terminal = new TextTerminal();
         this.nombre = nombre;
+        this.salud = salud;
+        this.poder = poder;
     }
     private String nombre;
     private transient TextTerminal terminal;

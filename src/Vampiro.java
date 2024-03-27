@@ -3,14 +3,11 @@
  */
 public class Vampiro extends Personaje {
 
-    /**
-     * Default constructor
-     */
+
     public Vampiro(String nombre, int salud, int poder,int puntoSangre,int edad) {
         super(nombre,poder,salud);
         this.puntoSangre = puntoSangre;
         this.edad = edad;
-
     }
 
 
@@ -27,6 +24,8 @@ public class Vampiro extends Personaje {
     public int getPuntoSangre() {
         return puntoSangre;
     }
+
+
 
 
     private int puntoSangre;
