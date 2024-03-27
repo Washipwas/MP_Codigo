@@ -6,7 +6,9 @@ public class Armadura extends Equipo {
     /**
      * Default constructor
      */
-    public Armadura() {
+    public Armadura(String nombre) {
+        super(nombre);
+
     }
 
 }

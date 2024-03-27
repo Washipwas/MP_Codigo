@@ -18,27 +18,15 @@ public class PersonajeUser implements Serializable {
      */
     private Personaje personaje;
 
-    /**
-     * 
-     */
     private Arma armaIzq;
 
-    /**
-     * 
-     */
     private Arma armaDer;
 
-    /**
-     * 
-     */
     private Armadura armadura;
 
     private int oro;
     private int salud;
 
-    /**
-     * 
-     */
     private boolean cuentaAtras;
 
     /**

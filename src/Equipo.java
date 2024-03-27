@@ -1,12 +1,15 @@
 /**
  * 
  */
-public abstract class Equipo {
+public abstract class Equipo{
 
     /**
      * Default constructor
      */
-    public Equipo() {
+
+
+    public Equipo(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
