@@ -6,8 +6,12 @@ public abstract class Modificador {
     /**
      * Default constructor
      */
-    public Modificador() {
+    public Modificador(String nombre, int valor) {
+
+        this.nombre = nombre;
+        this.valor = valor;
     }
+
 
     /**
      * 
@@ -19,20 +23,22 @@ public abstract class Modificador {
      */
     private int valor;
 
+
+
+    // generar potencial ataque y defensa no deberian de ir aquí
     /**
-     * @return
-     */
     public int generarPotencialAtaque() {
         // TODO implement here
         return 0;
     }
 
-    /**
-     * @return
-     */
+
+     *
+
     public int generarPotencialDefensa() {
         // TODO implement here
         return 0;
     }
 
 }
+     */

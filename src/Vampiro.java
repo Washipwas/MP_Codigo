@@ -4,17 +4,19 @@
 public class Vampiro extends Personaje {
 
 
-    public Vampiro(String nombre, int salud, int poder,int puntoSangre,int edad) {
+    public Vampiro(String nombre, int salud, int poder,int puntoSangre,int edad, Disciplina disciplina) {
         super(nombre,poder,salud);
         this.puntoSangre = puntoSangre;
         this.edad = edad;
+        this.disciplina = disciplina;
+
     }
 
 
-    public int sumarPotencialAtaque(Vampiro vampiro, HabilidadEspecial hab, int poder) {
+    public int sumarPotencialAtaque() {
         int potencial;
-        int sangre = vampiro.getPuntoSangre();
-        potencial = sangre + hab.getValorAtaque() + poder;
+        int sangre = getPuntoSangre();
+        potencial = sangre + disciplina.getValorAtaque() + super.getPoder();
         if (sangre > 5){
             potencial+= 2;
         }
@@ -30,7 +32,7 @@ public class Vampiro extends Personaje {
 
     private int puntoSangre;
     private int edad;
-
+    private Disciplina disciplina;
 
 
 }

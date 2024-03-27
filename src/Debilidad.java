@@ -6,7 +6,9 @@ public class Debilidad extends Modificador {
     /**
      * Default constructor
      */
-    public Debilidad() {
+    public Debilidad(String nombre, int valor) {
+        super(nombre,valor);
+
     }
 
 }
