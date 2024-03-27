@@ -9,6 +9,8 @@ public class Vampiro extends Personaje {
         this.puntoSangre = puntoSangre;
         this.edad = edad;
         this.disciplina = disciplina;
+        crearDebilidades();
+        crearFortalezas();
 
     }
 
@@ -27,7 +29,20 @@ public class Vampiro extends Personaje {
         return this.puntoSangre;
     }
 
+    public void crearDebilidades(){
+        Debilidad debilidad1 =  new Debilidad("Luz solar", 4);
+        getDebilidades().put(debilidad1.getNombre(),debilidad1);
+        Debilidad debilidad2 =  new Debilidad("Lluvia de ajos", 2);
+        getDebilidades().put(debilidad2.getNombre(), debilidad2);
 
+    }
+
+    public void crearFortalezas(){
+        Fortaleza fortaleza1 = new Fortaleza("Inmortalidad", 5);
+        getFortalezas().put(fortaleza1.getNombre(), fortaleza1);
+        Fortaleza fortaleza2 = new Fortaleza("Fuerza sobrenatural", 4);
+        getFortalezas().put(fortaleza2.getNombre(), fortaleza2);
+    }
 
 
 
