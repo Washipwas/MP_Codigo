@@ -8,36 +8,35 @@ public abstract class Equipo{
      */
 
 
-    public Equipo(String nombre) {
+    public Equipo(String nombre, int modificadorAtaque, int modificadorDefensa) {
         this.nombre = nombre;
+        this.modificadorDeAtaque =  modificadorAtaque;
+        this.modificadorDeDefensa =  modificadorDefensa;
     }
 
-    /**
-     * 
-     */
     private String nombre;
 
-    /**
-     * 
-     */
+
+    public int getModificadorDeAtaque() {
+        return modificadorDeAtaque;
+    }
+
+    public int getModificadorDeDefensa() {
+        return modificadorDeDefensa;
+    }
+
     private int modificadorDeAtaque;
 
-    /**
-     * 
-     */
+
     private int modificadorDeDefensa;
 
-    /**
-     * @return
-     */
+
     public int generarPotencialAtaque() {
         // TODO implement here
         return 0;
     }
 
-    /**
-     * @return
-     */
+
     public int generarPotencialDefensa() {
         // TODO implement here
         return 0;

@@ -48,7 +48,7 @@ public class MenuUsuario {
                 terminal.show("6.Ver ranking global");
                 terminal.show("7.Darme de baja");
                 terminal.show("8.Volver a la pantalla de inicio");
-            } else {
+            } else { //si es un operador
                 terminal.show("1.Editar personaje");
                 terminal.show("2.Aniadir armas/armaduras/fortalezas/debilidades/esbirros");
                 terminal.show("3.Validar desafios");

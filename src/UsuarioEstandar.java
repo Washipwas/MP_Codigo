@@ -67,7 +67,7 @@ public class UsuarioEstandar extends Usuario {
     }
 
     @Override
-    public void setPersonaje(PersonajeUser personaje) {
+    public void setPersonaje(PersonajeUser personaje) {//deberia ser personaje, no PersonajeUser
         this.personaje = personaje;
     }
 

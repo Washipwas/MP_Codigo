@@ -1,4 +1,7 @@
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class Personaje implements Serializable {
@@ -8,15 +11,19 @@ public abstract class Personaje implements Serializable {
         this.nombre = nombre;
         this.salud = salud;
         this.poder = poder;
+        this.armas = new HashMap<>();
+        this.armaduras = new HashMap<>();
+        crearArmas();
+        crearArmaduras();
     }
     private String nombre;
     private transient TextTerminal terminal;
 
     private Set<HabilidadEspecial> habilidad;
 
-    private Set<Arma> armas;
+    private Map< String, Arma> armas = null;
 
-    private Set<Armadura> armadura;
+    private Map< String, Armadura> armaduras = null;
     private Set<Esbirro> esbirros;
 
     private int salud;
@@ -57,4 +64,29 @@ public abstract class Personaje implements Serializable {
         terminal.show("¿Cambiar ...");
         //Implementar resto de características
     }
+
+    public void crearArmas(){
+        Arma arma1 =  new Arma("Pump", 1, 3,0);
+        armas.put(arma1.getId(), arma1);
+        Arma arma2 =  new Arma("Catana", 2, 2,0);
+        armas.put(arma2.getId(), arma2);
+        Arma arma3 =  new Arma("Cañon de mano", 1, 2,0);
+        armas.put(arma3.getId(), arma3);
+        Arma arma4 =  new Arma("Lanza Cohetes", 2, 3,1);
+        armas.put(arma4.getId(), arma4);
+    }
+    public void crearArmaduras(){
+        Armadura armadura1 =  new Armadura("Armadura de papel", 0, 1);
+        armaduras.put(armadura1.getId(),armadura1);
+        Armadura armadura2 =  new Armadura("Armadura de dioses", 1, 3);
+        armaduras.put(armadura2.getId(), armadura2);
+        Armadura armadura3 =  new Armadura("Armadura ardiente", 3, 1);
+        armaduras.put(armadura3.getId(),armadura3);
+        Armadura armadura4 =  new Armadura("Armadura siniestra", 2, 2);
+        armaduras.put(armadura4.getId(), armadura4);
+    }
+
+
+
+
 }
