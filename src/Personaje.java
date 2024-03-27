@@ -5,6 +5,20 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class Personaje implements Serializable {
+    private String nombre;
+    private transient TextTerminal terminal;
+    private Set<HabilidadEspecial> habilidad;
+    private Map< String, Arma> armas = null;
+    private Map< String, Armadura> armaduras = null;
+    private Set<Esbirro> esbirros;
+    private int salud;
+    private int poder;
+
+    private Map<String, Debilidad> debilidades;
+    private Map<String, Fortaleza> fortalezas;
+    private Arma armaIzq;
+    private Arma armaDer;
+    private Armadura armadura;
 
     public Personaje(String nombre, int salud, int poder) {
         this.terminal = new TextTerminal();
@@ -16,23 +30,7 @@ public abstract class Personaje implements Serializable {
         crearArmas();
         crearArmaduras();
     }
-    private String nombre;
-    private transient TextTerminal terminal;
 
-    private Set<HabilidadEspecial> habilidad;
-
-    private Map< String, Arma> armas = null;
-
-    private Map< String, Armadura> armaduras = null;
-    private Set<Esbirro> esbirros;
-
-    private int salud;
-
-    private int poder;
-
-    private Set<Debilidad> debilidades;
-
-    private Set<Fortaleza> fortalezas;
 
     public int sumarPotencialAtaque() {
         // TODO implement here
@@ -50,6 +48,14 @@ public abstract class Personaje implements Serializable {
 
     public String getNombre() {
         return this.nombre;
+    }
+
+    public Map<String, Debilidad> getDebilidades() {
+        return debilidades;
+    }
+
+    public Map<String, Fortaleza> getFortalezas() {
+        return fortalezas;
     }
 
     public void editar() {
