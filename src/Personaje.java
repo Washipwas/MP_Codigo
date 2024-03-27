@@ -110,7 +110,7 @@ public abstract class Personaje implements Serializable {
             String opcion = terminal.read();
             if (armas.get(opcion).getManos() == 1) {
                 arma1 = armas.get(opcion);
-                manosOcupadas +=1;
+                manosOcupadas += 1;
                 terminal.show("¿Quieres escoger otra Arma?: (si/no)");
                 String otro = terminal.read();
                 if (otro.equalsIgnoreCase("si")) {
@@ -119,33 +119,31 @@ public abstract class Personaje implements Serializable {
                     if (armas.get(opcion2).getManos() == 2) {
                         terminal.show("Solo puedes escoger armas de 1 mano");
                         escogerArmas();
-                    }
-                    else{
-                        manosOcupadas+=1;
+                    } else {
+                        manosOcupadas += 1;
                     }
                 }
 
-            }
-            else {
+            } else {
                 terminal.show("Arma elegida con exito");
-                manosOcupadas =2;
+                manosOcupadas = 2;
             }
-        //tiene ya 1 arma de 1 mano elegida
-        }else if(manosOcupadas==1){
+            //tiene ya 1 arma de 1 mano elegida
+        } else if (manosOcupadas == 1) {
             terminal.show("Escriba el nombre del arma a seleccionar:");
             String opcion = terminal.read();
             if (armas.get(opcion).getManos() == 2) {
                 terminal.show("Solo puedes escoger armas de 1 mano");
                 escogerArmas();
-            }else {
+            } else {
                 arma2 = armas.get(opcion);
-                manosOcupadas +=1;
+                manosOcupadas += 1;
                 terminal.show("Arma elegida con exito");
             }
-         //tiene las manos ocupadas
-        }else{
+            //tiene las manos ocupadas
+        } else {
             terminal.show("¿Tienes las manos ocupadas, quieres cambiar tus armas?: (si/no)");
-            String opcion= terminal.read();
+            String opcion = terminal.read();
             if (opcion.equalsIgnoreCase("si")) {
                 manosOcupadas = 0;
                 escogerArmas();
@@ -154,9 +152,64 @@ public abstract class Personaje implements Serializable {
 
 
     }
-    public int getValorAtaqueArmaActiva(){
-        int valor = 0;
-        //verfifica cuantas manos ocupada tiene etc etc
+
+    public void escogerArmaduras() {
+        terminal.show("Estas son tus armaduras disponibles:");
+        //mostrar las armadura disponibles
+        for (String nombre : armaduras.keySet()) {
+            terminal.show(nombre);
+        }
+
+        if (armadura == null) {
+            terminal.show("Escriba el nombre de la armadura a seleccionar: ");
+            String opcion = terminal.read();
+            armadura = armaduras.get(opcion);
+            terminal.show("Armadura elegida con éxito");
+
+        } else {
+
+            terminal.show("Tu armadura actual es " + armadura.getId() + ", ¿deseas cambiarla? (si/no)");
+            String opcion = terminal.read();
+            if (opcion.equalsIgnoreCase("si")) {
+                armadura = null;
+                escogerArmaduras();
+            }
+
+        }
+
+    }
+
+
+    public int getValorAtaqueArmaduraActiva(){
+        return armadura.getModificadorDeAtaque();
+    }
+
+
+    public int getValorDefensaArmaduraActiva(){
+        return armadura.getModificadorDeDefensa();
+    }
+
+    public int getValorAtaqueArmaActiva() {
+        int valor;
+        if (manosOcupadas == 0) {
+            valor = 0;
+        } else if (manosOcupadas == 1) {
+            valor = arma1.getModificadorDeAtaque();
+        } else {
+            valor = arma1.getModificadorDeAtaque() + arma2.getModificadorDeAtaque();
+        }
+        return valor;
+    }
+
+    public int getValorDefensaArmaActiva() {
+        int valor;
+        if (manosOcupadas == 0) {
+            valor = 0;
+        } else if (manosOcupadas == 1) {
+            valor = arma1.getModificadorDeDefensa();
+        } else {
+            valor = arma1.getModificadorDeDefensa() + arma2.getModificadorDeDefensa();
+        }
         return valor;
     }
 

@@ -18,7 +18,7 @@ public class Vampiro extends Personaje {
     public int sumarPotencialAtaque() {
         int potencial;
         int sangre = getPuntoSangre();
-        potencial = sangre + disciplina.getValorAtaque() + super.getPoder();
+        potencial = sangre + disciplina.getValorAtaque() + super.getPoder() + getValorAtaqueArmaActiva()+ getValorAtaqueArmaduraActiva() ;
         if (sangre > 5){
             potencial+= 2;
         }
