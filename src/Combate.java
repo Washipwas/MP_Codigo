@@ -22,7 +22,22 @@ public class Combate implements Serializable {
     private UsuarioEstandar personaje2;
     private int oroApostado;
 
+    private String ganador;
     private int rondas;
+
+    public String getGanador(){
+        return ganador;
+    }
+
+    public UsuarioEstandar getPersonaje1(){
+        return personaje1;
+    }
+    public UsuarioEstandar getPersonaje2(){
+        return personaje2;
+    }
+    public int getOroApostado(){
+        return oroApostado;
+    }
     public Boolean hayGanador() {
         // TODO implement here
         return null;

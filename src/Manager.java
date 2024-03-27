@@ -13,8 +13,12 @@ public class Manager implements Serializable {
         this.listaCombates = new HashMap<>();
         this.listaArmas = new HashMap<>();
         this.listaArmaduras = new HashMap<>();
+        this.Ranking= new String[10];
     }
+
+    //como he leido la info del fichero pues entonces los aributos ya tienen la información correspondiente
     private Map<String,Personaje> listaPersonajes;
+    private String[] Ranking; //ver la manera en la que metamos la
     private Map<String,Usuario> listaUsuarios;
     private Map<String,Combate> listaCombates;
     private Map<String,Arma> listaArmas;
@@ -132,11 +136,12 @@ public class Manager implements Serializable {
     }
 
     public boolean datosCorrectos(String nick, String password) {
-        Usuario user = listaUsuarios.get(nick);
-        return (password.equalsIgnoreCase(user.getPassword()));
+        Usuario user = listaUsuarios.get(nick); //se asocia a la clase "user" el elemento dentro de la lista de usuarios que tenga el mismo nick
+        return (password.equalsIgnoreCase(user.getPassword())); //compara las dos cadenas de texto, la que se le pasa y aquella que está guardada en la clase "user"
+        //retorna un verdadero o falso dependiendo de la comparativa
     }
 
-    public Usuario asociarUsuario(String nick) {
+    public Usuario asociarUsuario(String nick) { //busca en su lista de ususarios aquel que tenga el mismo nick y posteriormente se le retorna ese objeto de tipo usuario
         return listaUsuarios.get(nick);
     }
 
@@ -201,5 +206,27 @@ public class Manager implements Serializable {
     public void asociarDesafio(String opcion) {
         Combate combate = this.listaCombates.get(opcion);
         combate.asociarDesafio();
+    }
+
+    public void mostarRanking(){
+        terminal.show("Los mejores jugadores son:");
+        for(int i =0; i<Ranking.length;i++){
+            terminal.show(i+1+".-"+" "+this.Ranking[i]);
+        }
+    }
+
+    public void mostrarRegistro(String usuario){
+           for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
+               Combate combate=entrada.getValue();
+               UsuarioEstandar usuario1= combate.getPersonaje1();
+               UsuarioEstandar usuario2=combate.getPersonaje2();
+               if (usuario.equals(usuario1.getNombre()) && usuario.equals(combate.getGanador())){
+                   terminal.show("El jugador: "+usuario+" ha combatido con "+usuario2.getNombre()+" en el que se apostó "+combate.getOroApostado()+" y salió vencedor");
+               }
+               else if (usuario.equals(usuario2.getNombre()) && usuario.equals(combate.getGanador())) {
+                   terminal.show("El jugador: "+usuario+" ha combatido con "+usuario1.getNombre()+" en el que se apostó "+combate.getOroApostado()+" y salió vencedor");
+               }
+           }
+
     }
 }

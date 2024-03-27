@@ -7,9 +7,13 @@ public class MenuUsuarioEstandar extends MenuUsuario {
      * Default constructor
      */
     public MenuUsuarioEstandar(String nick, Manager manager) {
-        super(nick,manager);
-        this.personaje = usuarioActivo.getPersonajeUser();
+        super(nick,manager);//llama al constructor de la clase padre y se le pasan los parámetros nick y manager// a su vez este h
+        this.personaje = usuarioActivo.getPersonajeUser(); //usuario activo es el atributo heredado de la clase padre
     }
+    //ahora la clase menu-usuario-estandar tiene en sus atributos a un mánager,
+    //en su atributo usuario-activo tiene al usuario que cumpla con el nick pasado
+    //tiene un atrubuto terminal
+
 
     @Override
     public void seleccionarOpcion() {
@@ -115,15 +119,17 @@ public class MenuUsuarioEstandar extends MenuUsuario {
     /**
      * 
      */
-    public void consultarRegistro() {
-        // TODO implement here
+    public void consultarRegistro() { //consultaremos al hashmap con el key del nombre del usuario
+        String NombreUsuario=this.usuarioActivo.getNombre();
+        //con el nombre vamos a recorrer todo el mapa sacando el combate en cada ocasión
+        this.manager.mostrarRegistro(NombreUsuario);
     }
 
     /**
      * 
      */
-    public void consultarRanking() {
-        // TODO implement here
+    public void consultarRanking() { // en teoría cuando saquemos la información del fichero cada usuario tiene a
+        this.manager.mostarRanking();
     }
 
     /**
