@@ -3,11 +3,12 @@
  */
 public class Fortaleza extends Modificador {
 
-    /**
-     * Default constructor
-     */
-    public Fortaleza() {
+
+    public Fortaleza(String nombre, int valor) {
+        super(nombre,valor);
 
     }
+
+
 
 }

@@ -11,9 +11,7 @@ public class Disciplina extends HabilidadEspecial {
         this.coste = coste;
     }
 
-    /**
-     * 
-     */
+
     private int coste;
 
 }

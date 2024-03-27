@@ -3,25 +3,26 @@
  */
 public abstract class Modificador {
 
-    /**
-     * Default constructor
-     */
+
     public Modificador(String nombre, int valor) {
 
         this.nombre = nombre;
         this.valor = valor;
     }
 
+    public int getValor() {
+        return this.valor;
+    }
 
-    /**
-     * 
-     */
+
     private String nombre;
 
     /**
-     * 
+     *
      */
     private int valor;
+
+}
 
 
 
