@@ -78,6 +78,7 @@ public class MenuUsuarioEstandar extends MenuUsuario {
 
     public void elegirArmasYArmaduras() {
         // TODO implement here
+        //elegir las armas
     }
 
     /**

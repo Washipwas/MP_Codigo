@@ -13,11 +13,12 @@ public class Cazador extends Personaje {
         super(nombre,poder,salud);
         this.voluntad = 3;
         this.talento = talento;
+
     }
 
     @Override
     public int sumarPotencialAtaque() {
-        int valor = getPoder() + talento.getValorAtaque() + this.voluntad;
+        int valor = super.getPoder() + talento.getValorAtaque() + this.voluntad + getValorAtaqueArma();
         return super.sumarPotencialAtaque();
     }
 
