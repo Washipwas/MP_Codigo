@@ -9,19 +9,28 @@ public class Cazador extends Personaje {
     private int voluntad;
     private Talento talento;
 
-    public Cazador(String nombre, int salud, int poder,int puntoSangre,int edad, Talento talento) {
+    public Cazador(String nombre, int salud, int poder) {
         super(nombre,poder,salud);
         this.voluntad = 3;
-        this.talento = talento;
+        talento = new Talento("Talento", 4,2);
         crearDebilidades();
         crearFortalezas();
     }
 
     @Override
     public int sumarPotencialAtaque() {
-        int valor = super.getPoder() + talento.getValorAtaque() + this.voluntad + getValorAtaqueArmaActiva();
-        return valor;
+        int valor = super.getPoder() + talento.getValorAtaque() + voluntad + getValorAtaqueArmaActiva() + getValorAtaqueArmaduraActiva();
+        int valorModificador = getFortalezaActiva().getValor(); //Valor de la fortaleza presente
+        return valor + valorModificador;// se le fuma la fortaleza al potencial de ataque
     }
+
+    @Override
+    public int sumarPotencialDefensa() {
+        int valor =  super.getPoder() + talento.getValorDefensa() +  voluntad + getValorDefensaArmaActiva() +getValorDefensaArmaduraActiva();
+        int valorModificador =  getDebilidadActiva().getValor();
+        return valor - valorModificador;// se le resta la debilidad en el potencial defensa
+    }2
+
     private void crearDebilidades(){
         Debilidad debilidad1 = new Debilidad("Dependencia emocional", 3);
         getDebilidades().put(debilidad1.getNombre(), debilidad1);
@@ -32,9 +41,9 @@ public class Cazador extends Personaje {
 
     private void crearFortalezas(){
         Fortaleza fortaleza1 = new Fortaleza("Valentia", 5);
-        getDebilidades().put(fortaleza1.getNombre(), fortaleza1);
+        getFortalezas().put(fortaleza1.getNombre(), fortaleza1);
         Fortaleza fortaleza2 = new Fortaleza("Conocimiento", 3);
-        getDebilidades().put(fortaleza2.getNombre(), fortaleza2);
+        getFortalezas().put(fortaleza2.getNombre(), fortaleza2);
     }
 
 
