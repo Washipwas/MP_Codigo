@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 public abstract class Modificador {
 
@@ -11,7 +11,7 @@ public abstract class Modificador {
     }
 
 
-    public String getNombre(){
+    public String getNombre() {
         return this.nombre;
     }
 
@@ -20,31 +20,30 @@ public abstract class Modificador {
     }
 
 
-    private String nombre;
+    private final String nombre;
 
     /**
      *
      */
-    private int valor;
+    private final int valor;
 
 }
 
 
+// generar potencial ataque y defensa no deberian de ir aquí
+/**
+ * public int generarPotencialAtaque() {
+ * // TODO implement here
+ * return 0;
+ * }
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * public int generarPotencialDefensa() {
+ * // TODO implement here
+ * return 0;
+ * }
+ */
 
-    // generar potencial ataque y defensa no deberian de ir aquí
-    /**
-    public int generarPotencialAtaque() {
-        // TODO implement here
-        return 0;
-    }
 
-
-     *
-
-    public int generarPotencialDefensa() {
-        // TODO implement here
-        return 0;
-    }
-     */
-
-}
