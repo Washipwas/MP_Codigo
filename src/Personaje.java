@@ -11,6 +11,13 @@ public abstract class Personaje implements Serializable {
     private Map<String, Arma> armas = null;
     private Map<String, Armadura> armaduras = null;
     private Set<Esbirro> esbirros;
+    private Debilidad debilidadActiva;
+    private Fortaleza fortalezaActiva;
+
+    public int getSalud() {
+        return this.salud;
+    }
+
     private final int salud;
     private final int poder;
 
@@ -213,5 +220,14 @@ public abstract class Personaje implements Serializable {
         return valor;
     }
 
+    //se tiene que crear una funcion para escoger la debilidad y fortaleza activa(lo hace el operador)
+    //hacerlo todo en las clases que heredan de personaje porque cada personaje tiene distintas fortalezas y debilidades
+
+    public Debilidad getDebilidadActiva(){
+        return debilidadActiva;
+    }
+    public Fortaleza getFortalezaActiva(){
+        return fortalezaActiva;
+    }
 
 }
