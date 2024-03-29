@@ -15,4 +15,8 @@ public class Don extends HabilidadEspecial {
      */
     private int rabia;
 
+    public int getRabia(){
+        return this.rabia;
+    }
+
 }

@@ -29,7 +29,7 @@ public class Cazador extends Personaje {
         int valor =  super.getPoder() + talento.getValorDefensa() +  voluntad + getValorDefensaArmaActiva() +getValorDefensaArmaduraActiva();
         int valorModificador =  getDebilidadActiva().getValor();
         return valor - valorModificador;// se le resta la debilidad en el potencial defensa
-    }2
+    }
 
     private void crearDebilidades(){
         Debilidad debilidad1 = new Debilidad("Dependencia emocional", 3);

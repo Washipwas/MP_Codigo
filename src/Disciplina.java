@@ -11,6 +11,12 @@ public class Disciplina extends HabilidadEspecial {
         this.coste = coste;
     }
 
+    public int getCoste() {
+        return this.coste;
+    }
+
+
+
 
     private int coste;
 
