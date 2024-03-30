@@ -27,7 +27,7 @@ public class MenuUsuario {
             terminal.show("¿Aceptar? (Si/No)");
             String opcion = terminal.read();
             if ("Si".equalsIgnoreCase(opcion)){
-                terminal.show("Combate aceptado");
+                terminal.show(UtilConstants.ANSI_GREEN + "Combate aceptado" + UtilConstants.ANSI_RESET);
                 //FALTAN COMPROBACIONES DE ORO
                 //POSTERIORMENTE VIENE EL PROCESO DE ELECION DE ARMAS ANTES DE COMBATE
             } else {
@@ -71,7 +71,7 @@ public class MenuUsuario {
         String opcion = terminal.read();
         if ("Si".equalsIgnoreCase(opcion)){
             this.manager.eliminar(this.usuarioActivo,UtilConstants.FILE_USERS);
-            terminal.show("Baja completada");
+            terminal.show(UtilConstants.ANSI_GREEN + "Baja completada" + UtilConstants.ANSI_RESET);
         } else {
             eliminado = false;
         }

@@ -82,109 +82,28 @@ public abstract class Personaje implements Serializable {
     }
 
     public void crearArmas() {
-        Arma arma1 = new Arma("Pump", 1, 3, 0);
+        Arma arma1 = new Arma("Pump", 1,1, 3, 0);
         armas.put(arma1.getId(), arma1);
-        Arma arma2 = new Arma("Catana", 2, 2, 0);
+        Arma arma2 = new Arma("Catana",2, 2, 2, 0);
         armas.put(arma2.getId(), arma2);
-        Arma arma3 = new Arma("Cañon de mano", 1, 2, 0);
+        Arma arma3 = new Arma("Cañon de mano", 2,1, 2, 0);
         armas.put(arma3.getId(), arma3);
-        Arma arma4 = new Arma("Lanza Cohetes", 2, 3, 1);
+        Arma arma4 = new Arma("Lanza Cohetes", 2,2, 3, 1);
         armas.put(arma4.getId(), arma4);
     }
 
     public void crearArmaduras() {
-        Armadura armadura1 = new Armadura("Armadura de papel", 0, 1);
+        Armadura armadura1 = new Armadura("Armadura de papel",2,0, 1);
         armaduras.put(armadura1.getId(), armadura1);
-        Armadura armadura2 = new Armadura("Armadura de dioses", 1, 3);
+        Armadura armadura2 = new Armadura("Armadura de dioses",1, 1, 3);
         armaduras.put(armadura2.getId(), armadura2);
-        Armadura armadura3 = new Armadura("Armadura ardiente", 3, 1);
+        Armadura armadura3 = new Armadura("Armadura ardiente", 2,3, 1);
         armaduras.put(armadura3.getId(), armadura3);
-        Armadura armadura4 = new Armadura("Armadura siniestra", 2, 2);
+        Armadura armadura4 = new Armadura("Armadura siniestra",3, 2, 2);
         armaduras.put(armadura4.getId(), armadura4);
     }
 
-    public void escogerArmas() {
-        terminal.show("Estas son tus armas disponibles:");
-        //msotrar las armas disponibles
-        for (String nombre : armas.keySet()) {
-            Arma arma = armas.get(nombre);
-            terminal.show(nombre + ", manos:" + arma.getManos());
 
-        }
-        //no tiene ningun arma
-        if (manosOcupadas == 0) {
-            terminal.show("Escriba el nombre del arma a seleccionar:");
-            String opcion = terminal.read();
-            if (armas.get(opcion).getManos() == 1) {
-                arma1 = armas.get(opcion);
-                manosOcupadas += 1;
-                terminal.show("¿Quieres escoger otra Arma?: (si/no)");
-                String otro = terminal.read();
-                if (otro.equalsIgnoreCase("si")) {
-                    terminal.show("Escoja otra arma: ");
-                    String opcion2 = terminal.read();
-                    if (armas.get(opcion2).getManos() == 2) {
-                        terminal.show("Solo puedes escoger armas de 1 mano");
-                        escogerArmas();
-                    } else {
-                        manosOcupadas += 1;
-                    }
-                }
-
-            } else {
-                terminal.show("Arma elegida con exito");
-                manosOcupadas = 2;
-            }
-            //tiene ya 1 arma de 1 mano elegida
-        } else if (manosOcupadas == 1) {
-            terminal.show("Escriba el nombre del arma a seleccionar:");
-            String opcion = terminal.read();
-            if (armas.get(opcion).getManos() == 2) {
-                terminal.show("Solo puedes escoger armas de 1 mano");
-                escogerArmas();
-            } else {
-                arma2 = armas.get(opcion);
-                manosOcupadas += 1;
-                terminal.show("Arma elegida con exito");
-            }
-            //tiene las manos ocupadas
-        } else {
-            terminal.show("¿Tienes las manos ocupadas, quieres cambiar tus armas?: (si/no)");
-            String opcion = terminal.read();
-            if (opcion.equalsIgnoreCase("si")) {
-                manosOcupadas = 0;
-                escogerArmas();
-            }
-        }
-
-
-    }
-
-    public void escogerArmaduras() {
-        terminal.show("Estas son tus armaduras disponibles:");
-        //mostrar las armadura disponibles
-        for (String nombre : armaduras.keySet()) {
-            terminal.show(nombre);
-        }
-
-        if (armadura == null) {
-            terminal.show("Escriba el nombre de la armadura a seleccionar: ");
-            String opcion = terminal.read();
-            armadura = armaduras.get(opcion);
-            terminal.show("Armadura elegida con éxito");
-
-        } else {
-
-            terminal.show("Tu armadura actual es " + armadura.getId() + ", ¿deseas cambiarla? (si/no)");
-            String opcion = terminal.read();
-            if (opcion.equalsIgnoreCase("si")) {
-                armadura = null;
-                escogerArmaduras();
-            }
-
-        }
-
-    }
 
 
     public int getValorAtaqueArmaduraActiva(){
@@ -230,4 +149,9 @@ public abstract class Personaje implements Serializable {
         return fortalezaActiva;
     }
 
+    public void mostrarAtributos() {
+        System.out.print("Nombre: " + nombre + "    ");
+        System.out.print("Salud: " + String.valueOf(salud) + "    ");
+        System.out.print("poder: " + String.valueOf(poder) + "    ");
+    }
 }

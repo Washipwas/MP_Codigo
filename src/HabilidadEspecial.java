@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * 
  */
-public abstract class HabilidadEspecial {
+public abstract class HabilidadEspecial implements Serializable {
 
     /**
      * Default constructor

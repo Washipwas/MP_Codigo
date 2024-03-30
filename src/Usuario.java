@@ -3,7 +3,7 @@ import java.io.Serializable;
 /**
  * 
  */
-public class Usuario implements Serializable {
+public abstract class Usuario implements Serializable {
 
     public Usuario(String nombre, String nick, String password) {
         this.nombre = nombre;
@@ -31,8 +31,10 @@ public class Usuario implements Serializable {
         return  this.nombre;
     }
 
-    public void setPersonaje(PersonajeUser personaje) {
+    public void setPersonajeUser(PersonajeUser personaje) {
     }
+
+    public abstract void setPersonajeUser(Personaje personaje);
 
     public Personaje getPersonaje() {
         return null;
@@ -52,5 +54,15 @@ public class Usuario implements Serializable {
 
     public PersonajeUser getPersonajeUser() {
         return null;
+    }
+
+    public void setPersonaje(Object o) {
+        setPersonajeUser((PersonajeUser) o);
+    }
+
+    public void newPersonajeUser(Personaje personaje) {
+    }
+
+    public void setArma(Arma arma) {
     }
 }

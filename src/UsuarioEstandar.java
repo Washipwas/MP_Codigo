@@ -10,12 +10,12 @@ public class UsuarioEstandar extends Usuario {
         super(nombre, nick, password);
         this.numeroDeRegistro = generarNumeroDeRegistro();
         this.bloqueado = false;
-        this.personaje = new PersonajeUser();
+        this.personajeUser = null;
         this.desafiante = null;
     }
 
     private String numeroDeRegistro;
-    private PersonajeUser personaje;
+    private PersonajeUser personajeUser;
     private boolean bloqueado;
     private UsuarioEstandar desafiante;
 
@@ -67,18 +67,18 @@ public class UsuarioEstandar extends Usuario {
     }
 
     @Override
-    public void setPersonaje(PersonajeUser personaje) {//deberia ser personaje, no PersonajeUser
-        this.personaje = personaje;
+    public void setPersonajeUser(Personaje personaje) {//deberia ser personaje, no PersonajeUser
+        this.personajeUser.setPersonaje(personaje);
     }
 
     @Override
     public Personaje getPersonaje() {
-        return this.personaje.getPersonaje();
+        return this.personajeUser.getPersonaje();
     }
 
     @Override
     public boolean getPersonajeNull() {
-        return this.personaje == null;
+        return this.personajeUser == null;
     }
 
     public void setDesafiante(Usuario usuarioActivo) {
@@ -92,11 +92,20 @@ public class UsuarioEstandar extends Usuario {
 
     @Override
     public boolean oroValido(int dinero) {
-        return this.personaje.oroSufiencte(dinero);
+        return this.personajeUser.oroSufiencte(dinero);
     }
 
     @Override
     public PersonajeUser getPersonajeUser() {
-        return this.personaje;
+        return this.personajeUser;
+    }
+
+    @Override
+    public void newPersonajeUser(Personaje personaje) {
+        this.personajeUser = new PersonajeUser(personaje);
+    }
+    @Override
+    public void setArma(Arma arma) {
+        this.personajeUser.setArma(arma);
     }
 }

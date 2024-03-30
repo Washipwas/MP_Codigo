@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * 
  */
-public class Arma extends Equipo {
+public class Arma extends Equipo implements Serializable {
 
     public int getManos() {
         return this.manos;
@@ -12,9 +14,8 @@ public class Arma extends Equipo {
      */
     private int manos;
 
-    public Arma(String nombre , int manos, int modificadorAtaque, int modificadorDefensa) {
-
-        super(nombre, modificadorAtaque, modificadorDefensa);
+    public Arma(String nombre,int equipoClase,int manos, int modificadorAtaque, int modificadorDefensa) {
+        super(nombre,equipoClase,modificadorAtaque, modificadorDefensa);
         this.manos =  manos;
     }
 

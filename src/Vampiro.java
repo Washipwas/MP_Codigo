@@ -74,6 +74,11 @@ public class Vampiro extends Personaje {
     private int edad;
     private Disciplina disciplina;
 
+    public void mostrarAtributosExtras() {
+        System.out.print("Puntos de sangre: " + String.valueOf(puntoSangre) + "    ");
+        System.out.println("Edad: " + String.valueOf(edad));
+    }
+
 
 
 
