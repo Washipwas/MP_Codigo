@@ -4,8 +4,8 @@
 public class Vampiro extends Personaje {
 
 
-    public Vampiro(String nombre, int salud, int poder,int puntoSangre,int edad) {
-        super(nombre,poder,salud);
+    public Vampiro(String nombre, int salud, int poder,int puntoSangre,int edad,TextTerminal terminal) {
+        super(nombre,poder,salud,terminal);
         this.puntoSangre = puntoSangre;
         this.edad = edad;
         disciplina = new Disciplina("Disciplina",3,2,4);
@@ -80,6 +80,30 @@ public class Vampiro extends Personaje {
     }
 
 
-
-
+    public void editarAtributosExtras() {
+        TextTerminal terminal = new TextTerminal();
+        terminal.show("¿Cambiar Puntos de sangre? (Si/No)");
+        String opcion = terminal.read();
+        if ("Si".equalsIgnoreCase(opcion)) {
+            terminal.show(UtilConstants.ANSI_BLUE + "Puntos de sangre actual: " + this.puntoSangre + UtilConstants.ANSI_RESET);
+            terminal.show("Escribe el nuevo valor (entre 0 y 10)");
+            int opcionNum = Integer.parseInt(terminal.read());
+            while (opcionNum > 10 || opcionNum < 0 ){
+                terminal.show(UtilConstants.ANSI_RED + "Valor incorrecto" + UtilConstants.ANSI_RESET);
+                terminal.show("Escribe el nuevo valor (entre 0 y 10)");
+                opcionNum = Integer.parseInt(terminal.read());
+            }
+            this.puntoSangre = opcionNum;
+            terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de sangre nuevo: " + this.puntoSangre + UtilConstants.ANSI_RESET);
+        }
+        terminal.show("¿Cambiar Edad? (Si/No)");
+        opcion = terminal.read();
+        if ("Si".equalsIgnoreCase(opcion)) {
+            terminal.show(UtilConstants.ANSI_BLUE + "Edad actual: " + this.puntoSangre + UtilConstants.ANSI_RESET);
+            terminal.show("Escribe el nuevo valor)");
+            int opcionNum = Integer.parseInt(terminal.read());
+            this.edad = opcionNum;
+            terminal.show(UtilConstants.ANSI_YELLOW + "Edad nueva: " + this.edad + UtilConstants.ANSI_RESET);
+        }
+    }
 }

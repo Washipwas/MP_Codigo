@@ -40,7 +40,16 @@ public class MenuOperador extends MenuUsuario {
         String opcion = terminal.read();
         if (this.manager.existe(opcion,2)){
             Personaje personaje = (this.manager.asociarPersonaje(opcion));
+            String nombre = personaje.getNombre();
             personaje.editar();
+            if (personaje instanceof Vampiro){
+                ((Vampiro) personaje).editarAtributosExtras();
+            } else if (personaje instanceof Licantropo) {
+                ((Licantropo) personaje).editarAtributosExtras();
+            } else{
+                ((Cazador) personaje).editarAtributosExtras();
+            }
+            this.manager.actualizar(personaje,nombre);
             this.manager.guardar();
         } else {
             terminal.show("El nombre es incorrecto");

@@ -18,17 +18,17 @@ public class Manager implements Serializable {
     }
 
     private void aniadirPersonajes() {
-        Vampiro vamp = new Vampiro("Vampiro 1",1,2,3,30000);
+        Vampiro vamp = new Vampiro("Vampiro 1",1,2,3,30000,terminal);
         aniadir(vamp,UtilConstants.FILE_PERSONAJES);
-        vamp = new Vampiro("Vampiro 2",3,4,2,2311);
+        vamp = new Vampiro("Vampiro 2",3,4,2,2311,terminal);
         aniadir(vamp,UtilConstants.FILE_PERSONAJES);
-        Licantropo lic = new Licantropo("Licantropo 1",4,1,4);
+        Licantropo lic = new Licantropo("Licantropo 1",4,1,4,terminal);
         aniadir(lic,UtilConstants.FILE_PERSONAJES);
-        lic = new Licantropo("Licantropo 2",2,3,3);
+        lic = new Licantropo("Licantropo 2",2,3,3,terminal);
         aniadir(lic,UtilConstants.FILE_PERSONAJES);
-        Cazador caz = new Cazador("Cazador 1",1,2);
+        Cazador caz = new Cazador("Cazador 1",1,2,terminal);
         aniadir(caz,UtilConstants.FILE_PERSONAJES);
-        caz = new Cazador("Cazador 2",2,3);
+        caz = new Cazador("Cazador 2",2,3,terminal);
         aniadir(caz,UtilConstants.FILE_PERSONAJES);
 
         Arma arma1 = new Arma("Pump", 1,1, 3, 0);
@@ -97,6 +97,8 @@ public class Manager implements Serializable {
             listaArmas.remove(((Arma) obj).getId());
         } else if (obj instanceof Armadura){
             listaArmaduras.remove(((Armadura) obj).getId());
+        } else if (obj instanceof String) {
+            listaPersonajes.remove(((String) obj));
         }
         try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(fichero + "usuarios.ser"))) {
             objetoSalida.writeObject(this);
@@ -142,7 +144,7 @@ public class Manager implements Serializable {
                 } else if (personaje instanceof Licantropo) {
                     ((Licantropo) personaje).mostrarAtributosExtras();
                 } else{
-                    terminal.show("");
+                    ((Cazador) personaje).mostrarAtributosExtras();
                 }
             }
         } else if (num == 3) {
@@ -350,5 +352,11 @@ public class Manager implements Serializable {
             }
         }
         return false;
+    }
+
+    public void actualizar(Personaje personajeNew,String nombre) {
+        eliminar(nombre,UtilConstants.FILE_PERSONAJES);
+        eliminar(personajeNew,UtilConstants.FILE_PERSONAJES);
+        aniadir(personajeNew,UtilConstants.FILE_PERSONAJES);
     }
 }

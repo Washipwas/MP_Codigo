@@ -46,18 +46,23 @@ public class MenuUsuarioEstandar extends MenuUsuario {
         }
     }
     public void registrarPersonaje() {
-        this.manager.mostrar(2);
-        this.terminal.show("Escribe el nombre del personaje");
-        String nombre = terminal.read();
-        while (! this.manager.existe(nombre,2)) {
-            terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto" + UtilConstants.ANSI_RESET);
-            terminal.show("Escribe el nombre del personaje");
-            nombre = terminal.read();
+        if (usuarioActivo.getPersonaje() == null) {
+            this.manager.mostrar(2);
+            this.terminal.show("Escribe el nombre del personaje");
+            String nombre = terminal.read();
+            while (!this.manager.existe(nombre, 2)) {
+                terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto" + UtilConstants.ANSI_RESET);
+                terminal.show("Escribe el nombre del personaje");
+                nombre = terminal.read();
+            }
+            Personaje personaje = (Personaje) this.manager.getObject(nombre, 2);
+            this.usuarioActivo.newPersonajeUser(personaje);
+            terminal.show(UtilConstants.ANSI_GREEN + "Personaje " + personaje.getNombre() + " registrado correctamente en el usuario " + usuarioActivo.getNombre() + UtilConstants.ANSI_RESET);
+            this.manager.guardar();
+        } else{
+            terminal.show(UtilConstants.ANSI_RED +"Ya tiene un personaje asociado a su cuenta" + UtilConstants.ANSI_RESET);
+            terminal.show(UtilConstants.ANSI_BLUE + "Personaje actual: " + usuarioActivo.getPersonaje().getNombre() + UtilConstants.ANSI_RESET);
         }
-        Personaje personaje = (Personaje) this.manager.getObject(nombre,2);
-        this.usuarioActivo.newPersonajeUser(personaje);
-        terminal.show(UtilConstants.ANSI_GREEN + "Personaje " +  personaje.getNombre() + " registrado correctamente en el usuario " + usuarioActivo.getNombre() + UtilConstants.ANSI_RESET);
-        this.manager.guardar();
     }
 
     public void eliminarPersonaje() {
