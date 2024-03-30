@@ -6,7 +6,7 @@ import java.util.Set;
 
 public abstract class Personaje implements Serializable {
     private String nombre;
-    private final transient TextTerminal terminal;
+    private transient TextTerminal terminal;
     private Set<HabilidadEspecial> habilidad;
     private Map<String, Arma> armas = null;
     private Map<String, Armadura> armaduras = null;
@@ -18,8 +18,8 @@ public abstract class Personaje implements Serializable {
         return this.salud;
     }
 
-    private final int salud;
-    private final int poder;
+    private int salud;
+    private int poder;
 
     private final Map<String, Debilidad> debilidades;
     private final Map<String, Fortaleza> fortalezas;
@@ -28,8 +28,8 @@ public abstract class Personaje implements Serializable {
     private int manosOcupadas;
     private Armadura armadura;
 
-    public Personaje(String nombre, int salud, int poder) {
-        this.terminal = new TextTerminal();
+    public Personaje(String nombre, int salud, int poder,TextTerminal terminal) {
+        this.terminal = terminal;
         this.nombre = nombre;
         this.salud = salud;
         this.poder = poder;
@@ -69,16 +69,43 @@ public abstract class Personaje implements Serializable {
     }
 
     public void editar() {
-        terminal.show("¿Cambiar nombre?");
+        this.terminal = new TextTerminal();
+        this.terminal.show("¿Cambiar nombre? (Si/No)");
         String opcion = terminal.read();
         if ("Si".equalsIgnoreCase(opcion)) {
-            terminal.show("Nombre actual: " + this.nombre);
+            terminal.show(UtilConstants.ANSI_BLUE + "Nombre actual: " + this.nombre + UtilConstants.ANSI_RESET);
             terminal.show("Escribe el nuevo nombre");
             this.nombre = terminal.read();
-            terminal.show("Nombre nuevo: " + this.nombre);
+            terminal.show(UtilConstants.ANSI_YELLOW + "Nombre nuevo: " + this.nombre + UtilConstants.ANSI_RESET);
         }
-        terminal.show("¿Cambiar ...");
-        //Implementar resto de características
+        this.terminal.show("¿Cambiar puntos de Salud? (Si/No)");
+        opcion = terminal.read();
+        if ("Si".equalsIgnoreCase(opcion)) {
+            terminal.show(UtilConstants.ANSI_BLUE + "Puntos de salud actual: " + this.salud + UtilConstants.ANSI_RESET);
+            terminal.show("Escribe el nuevo valor (entre 0 y 5)");
+            int opcionNum = Integer.parseInt(terminal.read());
+            while (opcionNum > 5 || opcionNum < 0 ){
+                terminal.show(UtilConstants.ANSI_RED + "Valor incorrecto" + UtilConstants.ANSI_RESET);
+                terminal.show("Escribe el nuevo valor (entre 0 y 5)");
+                opcionNum = Integer.parseInt(terminal.read());
+            }
+            this.salud = opcionNum;
+            terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de salud nuevo: " + this.salud + UtilConstants.ANSI_RESET);
+        }
+        this.terminal.show("¿Cambiar puntos de Poder? (Si/No)");
+        opcion = terminal.read();
+        if ("Si".equalsIgnoreCase(opcion)) {
+            terminal.show(UtilConstants.ANSI_BLUE + "Puntos de poder actual: " + this.salud + UtilConstants.ANSI_RESET);
+            terminal.show("Escribe el nuevo valor (entre 1 y 5)");
+            int opcionNum = Integer.parseInt(terminal.read());
+            while (opcionNum > 5 || opcionNum < 1 ){
+                terminal.show(UtilConstants.ANSI_RED + "Valor incorrecto" + UtilConstants.ANSI_RESET);
+                terminal.show("Escribe el nuevo valor (entre 1 y 5)");
+                opcionNum = Integer.parseInt(terminal.read());
+            }
+            this.poder = opcionNum;
+            terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de poder nuevo: " + this.poder + UtilConstants.ANSI_RESET);
+        }
     }
 
     public void crearArmas() {
@@ -152,6 +179,6 @@ public abstract class Personaje implements Serializable {
     public void mostrarAtributos() {
         System.out.print("Nombre: " + nombre + "    ");
         System.out.print("Salud: " + String.valueOf(salud) + "    ");
-        System.out.print("poder: " + String.valueOf(poder) + "    ");
+        System.out.print("Poder: " + String.valueOf(poder) + "    ");
     }
 }

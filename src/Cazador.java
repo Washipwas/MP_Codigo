@@ -9,8 +9,8 @@ public class Cazador extends Personaje {
     private int voluntad;
     private Talento talento;
 
-    public Cazador(String nombre, int salud, int poder) {
-        super(nombre,poder,salud);
+    public Cazador(String nombre, int salud, int poder,TextTerminal terminal) {
+        super(nombre,poder,salud,terminal);
         this.voluntad = 3;
         talento = new Talento("Talento", 4,2);
         crearDebilidades();
@@ -47,6 +47,25 @@ public class Cazador extends Personaje {
     }
 
 
+    public void mostrarAtributosExtras() {
+        System.out.println("Voluntad: " + String.valueOf(voluntad));
+    }
 
-
+    public void editarAtributosExtras() {
+        TextTerminal terminal = new TextTerminal();
+        terminal.show("¿Cambiar Puntos de voluntad? (Si/No)");
+        String opcion = terminal.read();
+        if ("Si".equalsIgnoreCase(opcion)) {
+            terminal.show(UtilConstants.ANSI_BLUE + "Puntos de voluntad actual: " + this.voluntad + UtilConstants.ANSI_RESET);
+            terminal.show("Escribe el nuevo valor (entre 0 y 3)");
+            int opcionNum = Integer.parseInt(terminal.read());
+            while (opcionNum > 3 || opcionNum < 0 ){
+                terminal.show(UtilConstants.ANSI_RED + "Valor incorrecto" + UtilConstants.ANSI_RESET);
+                terminal.show("Escribe el nuevo valor (entre 0 y 3)");
+                opcionNum = Integer.parseInt(terminal.read());
+            }
+            this.voluntad = opcionNum;
+            terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de voluntad nuevo: " + this.voluntad + UtilConstants.ANSI_RESET);
+        }
+    }
 }

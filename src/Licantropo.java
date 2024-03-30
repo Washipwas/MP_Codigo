@@ -7,9 +7,9 @@ public class Licantropo extends Personaje {
     private Don don;
 
 
-    public Licantropo(String nombre, int salud, int poder, int rabia) {
-        super(nombre, poder , salud);
-        this.rabia = 10;
+    public Licantropo(String nombre, int salud, int poder, int rabia,TextTerminal terminal) {
+        super(nombre, poder , salud,terminal);
+        this.rabia = rabia;
         don = new Don("Don",3, 1);
         crearDebilidades();
         crearFortalezas();
@@ -61,5 +61,23 @@ public class Licantropo extends Personaje {
 
     public void mostrarAtributosExtras() {
         System.out.println("Rabia: " + String.valueOf(rabia));
+    }
+
+    public void editarAtributosExtras() {
+        TextTerminal terminal = new TextTerminal();
+        terminal.show("¿Cambiar Puntos de rabia? (Si/No)");
+        String opcion = terminal.read();
+        if ("Si".equalsIgnoreCase(opcion)) {
+            terminal.show(UtilConstants.ANSI_BLUE + "Puntos de rabia actual: " + this.rabia + UtilConstants.ANSI_RESET);
+            terminal.show("Escribe el nuevo valor (entre 0 y 3)");
+            int opcionNum = Integer.parseInt(terminal.read());
+            while (opcionNum > 3 || opcionNum < 0 ){
+                terminal.show(UtilConstants.ANSI_RED + "Valor incorrecto" + UtilConstants.ANSI_RESET);
+                terminal.show("Escribe el nuevo valor (entre 0 y 3)");
+                opcionNum = Integer.parseInt(terminal.read());
+            }
+            this.rabia = opcionNum;
+            terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de rabia nuevo: " + this.rabia + UtilConstants.ANSI_RESET);
+        }
     }
 }
