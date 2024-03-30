@@ -63,6 +63,26 @@ public abstract class Usuario implements Serializable {
     public void newPersonajeUser(Personaje personaje) {
     }
 
-    public void setArma(Arma arma) {
+    public void setArmaIzq(Arma arma) {
+    }
+
+    public void setArmaDer(Arma arma2) {
+    }
+
+    public int getManosLibres() {
+        return 0;
+    }
+
+    public void mostrarArmas() {
+    }
+
+    public void mostrarArmadura() {
+    }
+
+    public boolean notieneArmadura() {
+        return false;
+    }
+
+    public void setArmadura(Armadura armadura) {
     }
 }

@@ -41,6 +41,14 @@ public class Manager implements Serializable {
         aniadir(arma4,UtilConstants.FILE_ARMAS);
         guardar();
 
+        Armadura armadura1 = new Armadura("Armadura de papel",2,0, 1);
+        aniadir(armadura1,UtilConstants.FILE_ARMADURAS);
+        Armadura armadura2 = new Armadura("Armadura de dioses",1, 1, 3);
+        aniadir(armadura2,UtilConstants.FILE_ARMADURAS);
+        Armadura armadura3 = new Armadura("Armadura ardiente", 1,3, 1);
+        aniadir(armadura3,UtilConstants.FILE_ARMADURAS);
+        Armadura armadura4 = new Armadura("Armadura siniestra",3, 2, 2);
+        aniadir(armadura4,UtilConstants.FILE_ARMADURAS);
     }
 
     //como he leido la info del fichero pues entonces los aributos ya tienen la información correspondiente
@@ -295,10 +303,10 @@ public class Manager implements Serializable {
             Arma arma = listaArmas.get(key);
             if (arma.getNum() == num) {
                 System.out.print( "* ");
-                System.out.print("Nombre: " + key);
-                System.out.print("Manos: " + String.valueOf(arma.getManos()));
-                System.out.print("" + arma.getModificadorDeAtaque());
-                System.out.println("" + arma.getModificadorDeDefensa());
+                System.out.print("Nombre: " + key + "    ");
+                System.out.print("Manos: " + String.valueOf(arma.getManos()) + "    ");
+                System.out.print("Modificador de Ataque: " + arma.getModificadorDeAtaque() + "    ");
+                System.out.println("Modificador de Defensa: " + arma.getModificadorDeDefensa());
             }
         }
     }
@@ -307,6 +315,37 @@ public class Manager implements Serializable {
         if (listaArmas.containsKey(opcion)){
             Arma arma = listaArmas.get(opcion);
             if (arma.getNum() == num){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int manosSuficientes(String opcion) {
+        if (existe(opcion,4)){
+            Arma arma = listaArmas.get(opcion);
+            return arma.getManos();
+        }
+        return 0;
+    }
+
+    public void mostrarEquipoArmadura(int num) {
+        for (Map.Entry<String, Armadura> entry : listaArmaduras.entrySet()) {
+            String key = entry.getKey();
+            Armadura armadura = listaArmaduras.get(key);
+            if (armadura.getNum() == num) {
+                System.out.print( "* ");
+                System.out.print("Nombre: " + key + "    ");
+                System.out.print("Modificador de Ataque: " + armadura.getModificadorDeAtaque() + "    ");
+                System.out.println("Modificador de Defensa: " + armadura.getModificadorDeDefensa());
+            }
+        }
+    }
+
+    public boolean existeEquipoArmadura(String opcion, int num) {
+        if (listaArmaduras.containsKey(opcion)){
+            Armadura armadura = listaArmaduras.get(opcion);
+            if (armadura.getNum() == num){
                 return true;
             }
         }
