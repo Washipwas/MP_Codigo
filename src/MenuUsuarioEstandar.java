@@ -24,6 +24,8 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                     eliminarPersonaje();
                 } else if (opcion == 3) {
                     elegirArmasYArmaduras();
+                    this.usuarioActivo.mostrarArmas();
+                    this.usuarioActivo.mostrarArmadura();
                 } else if (opcion == 4) {
                     desafiarUsuarios();
                 } else if (opcion == 5) {
@@ -37,6 +39,8 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                 } else {
                     terminal.show(UtilConstants.ANSI_RED + "La opcion no es valida" + UtilConstants.ANSI_RESET);
                 }
+                terminal.show(UtilConstants.ANSI_YELLOW+ "Pulse cualquier tecla para continuar" + UtilConstants.ANSI_RESET);
+                terminal.read();
                 mostrarMenu();
                 opcion = Integer.parseInt(this.terminal.read());
         }
@@ -74,12 +78,25 @@ public class MenuUsuarioEstandar extends MenuUsuario {
     }
 
     public void elegirArmasYArmaduras() {
-        escogerArmas();
-        //escogerArmaduras();
+        if (usuarioActivo.getPersonaje() == null){
+            terminal.show(UtilConstants.ANSI_RED +"No tiene ningún personaje asociado a su cuenta" + UtilConstants.ANSI_RESET);
+        } else {
+            terminal.show("Escoge una opción (1/2)");
+            terminal.show("Escoger Armas");
+            terminal.show("Escoger Armaduras");
+            String opcion = terminal.read();
+            if ("1".equalsIgnoreCase(opcion)) {
+                escogerArmas();
+            } else{
+                escogerArmadura();
+            }
+        }
     }
 
     public void escogerArmas() {
-        terminal.show("Estas son tus armas disponibles, elija una escribiendo el nombre:");
+        terminal.show(UtilConstants.ANSI_BLUE + "Armas actuales" + UtilConstants.ANSI_RESET);
+        this.usuarioActivo.mostrarArmas();
+        int manosLibres = usuarioActivo.getManosLibres();
         int num = 0;
         if (usuarioActivo.getPersonaje() instanceof Vampiro){
             num = 1;
@@ -88,99 +105,98 @@ public class MenuUsuarioEstandar extends MenuUsuario {
         } else if (usuarioActivo.getPersonaje() instanceof Cazador){
             num = 3;
         }
-        manager.mostrarEquipo(num);
-        String opcion = terminal.read();
-
-        while (!this.manager.existeEquipo(opcion,num)){
-            terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto" + UtilConstants.ANSI_RESET);
+        if (manosLibres == 2){
             terminal.show("Estas son tus armas disponibles, elija una escribiendo el nombre:");
             manager.mostrarEquipo(num);
-            opcion = terminal.read();
-        }
-        Arma arma = (Arma) manager.getObject(opcion,4);
-        this.usuarioActivo.setArma(arma);
-        terminal.show(UtilConstants.ANSI_GREEN + "Arma seleccionada correctamente" + UtilConstants.ANSI_RESET);
-        this.manager.guardar();
-
-        /*
-        //no tiene ningun arma
-        if (manosOcupadas == 0) {
-            terminal.show("Escriba el nombre del arma a seleccionar:");
             String opcion = terminal.read();
-            if (armas.get(opcion).getManos() == 1) {
-                arma1 = armas.get(opcion);
-                manosOcupadas += 1;
-                terminal.show("¿Quieres escoger otra Arma?: (si/no)");
-                String otro = terminal.read();
-                if (otro.equalsIgnoreCase("si")) {
-                    terminal.show("Escoja otra arma: ");
-                    String opcion2 = terminal.read();
-                    if (armas.get(opcion2).getManos() == 2) {
-                        terminal.show("Solo puedes escoger armas de 1 mano");
-                        escogerArmas();
-                    } else {
-                        manosOcupadas += 1;
-                    }
+
+            while (!this.manager.existeEquipo(opcion,num)){
+                terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto" + UtilConstants.ANSI_RESET);
+                terminal.show("Estas son tus armas disponibles, elija una escribiendo el nombre:");
+                manager.mostrarEquipo(num);
+                opcion = terminal.read();
+            }
+            Arma arma = (Arma) manager.getObject(opcion,4);
+            this.usuarioActivo.setArmaIzq(arma);
+            terminal.show(UtilConstants.ANSI_GREEN + "Arma elegida con éxito" + UtilConstants.ANSI_RESET);
+            manosLibres = 2 - arma.getManos();
+            if (manosLibres == 1){
+                escogerArmas();
+            }
+        } else if (manosLibres == 1){
+            terminal.show("¿Quieres escoger otra Arma (Si) o hacer una nueva seleccion? (No):");
+            String opcion = terminal.read();
+            if (opcion.equalsIgnoreCase("Si")) {
+                terminal.show("Escoja otra arma (Solo puede escoger armas de 1 mano): ");
+                manager.mostrarEquipo(num);
+                opcion = terminal.read();
+                while (!this.manager.existeEquipo(opcion,num) || (this.manager.manosSuficientes(opcion) != 1)) {
+                    terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto/ No hay manos libres para ese arma" + UtilConstants.ANSI_RESET);
+                    terminal.show("Estas son tus armas disponibles, elija una escribiendo el nombre:");
+                    manager.mostrarEquipo(num);
+                    opcion = terminal.read();
                 }
+                Arma arma2 = (Arma) manager.getObject(opcion,4);
+                this.usuarioActivo.setArmaDer(arma2);
+                terminal.show(UtilConstants.ANSI_GREEN + "Arma elegida con éxito" + UtilConstants.ANSI_RESET);
+            } else{
+                usuarioActivo.setArmaIzq(null);
+                escogerArmas();
+            }
 
-            } else {
-                terminal.show("Arma elegida con exito");
-                manosOcupadas = 2;
-            }
-            //tiene ya 1 arma de 1 mano elegida
-        } else if (manosOcupadas == 1) {
-            terminal.show("Escriba el nombre del arma a seleccionar:");
+        } else if (manosLibres == 0){
+            terminal.show("Tienes las manos ocupadas, ¿quieres cambiar tus armas?: (Si/No)");
             String opcion = terminal.read();
-            if (armas.get(opcion).getManos() == 2) {
-                terminal.show("Solo puedes escoger armas de 1 mano");
+            if ("Si".equalsIgnoreCase(opcion)) {
+                usuarioActivo.setArmaDer(null);
+                usuarioActivo.setArmaIzq(null);
                 escogerArmas();
-            } else {
-                arma2 = armas.get(opcion);
-                manosOcupadas += 1;
-                terminal.show("Arma elegida con exito");
-            }
-            //tiene las manos ocupadas
-        } else {
-            terminal.show("¿Tienes las manos ocupadas, quieres cambiar tus armas?: (si/no)");
-            String opcion = terminal.read();
-            if (opcion.equalsIgnoreCase("si")) {
-                manosOcupadas = 0;
-                escogerArmas();
+            } else{
+                terminal.show(UtilConstants.ANSI_RED + "Elección cancelada" + UtilConstants.ANSI_RESET);
             }
         }
-        */
+        this.manager.guardar();
     }
 
-    /*
-    public void escogerArmaduras() {
-        terminal.show("Estas son tus armaduras disponibles:");
-        //mostrar las armadura disponibles
-        for (String nombre : armaduras.keySet()) {
-            terminal.show(nombre);
+    public void escogerArmadura(){
+        terminal.show(UtilConstants.ANSI_BLUE + "Armadura actual" + UtilConstants.ANSI_RESET);
+        this.usuarioActivo.mostrarArmadura();
+        int num = 0;
+        if (usuarioActivo.getPersonaje() instanceof Vampiro){
+            num = 1;
+        } else if (usuarioActivo.getPersonaje() instanceof Licantropo){
+            num = 2;
+        } else if (usuarioActivo.getPersonaje() instanceof Cazador){
+            num = 3;
         }
-
-        if (armadura == null) {
-            terminal.show("Escriba el nombre de la armadura a seleccionar: ");
+        if (usuarioActivo.notieneArmadura()){
+            terminal.show("Estas son tus armaduras disponibles, elija una escribiendo el nombre:");
+            manager.mostrarEquipoArmadura(num);
             String opcion = terminal.read();
-            armadura = armaduras.get(opcion);
-            terminal.show("Armadura elegida con éxito");
-
-        } else {
-
-            terminal.show("Tu armadura actual es " + armadura.getId() + ", ¿deseas cambiarla? (si/no)");
-            String opcion = terminal.read();
-            if (opcion.equalsIgnoreCase("si")) {
-                armadura = null;
-                escogerArmaduras();
+            while (!this.manager.existeEquipoArmadura(opcion,num)){
+                terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto" + UtilConstants.ANSI_RESET);
+                terminal.show("Estas son tus armaduras disponibles, elija una escribiendo el nombre:");
+                manager.mostrarEquipo(num);
+                opcion = terminal.read();
             }
-
+            Armadura armadura = (Armadura) manager.getObject(opcion,5);
+            this.usuarioActivo.setArmadura(armadura);
+            terminal.show(UtilConstants.ANSI_GREEN + "Armadura elegida con éxito" + UtilConstants.ANSI_RESET);
+        } else {
+            terminal.show("Ya tiene una armadura seleccionada, ¿desea camiarla? (Si/No)");
+            String opcion = terminal.read();
+            if ("Si".equalsIgnoreCase(opcion)) {
+                usuarioActivo.setArmadura(null);
+                escogerArmadura();
+            } else{
+                terminal.show(UtilConstants.ANSI_RED + "Elección cancelada" + UtilConstants.ANSI_RESET);
+            }
         }
+        terminal.show(UtilConstants.ANSI_BLUE + "Armadura actual" + UtilConstants.ANSI_RESET);
+        this.usuarioActivo.mostrarArmadura();
+        this.manager.guardar();
+    }
 
-    }*/
-
-    /**
-     * @return
-     */
     public void desafiarUsuarios() {
         if (usuarioActivo.getPersonaje() == null){
             terminal.show(UtilConstants.ANSI_RED + "No tiene ningún personaje asociado a su cuenta para desafiar a otros jugadores" + UtilConstants.ANSI_RESET);

@@ -8,12 +8,17 @@ public class PersonajeUser implements Serializable {
     private Personaje personaje;
     private int oro;
     private int salud;
-    private Arma arma;
+    private Arma armaIzq;
+    private Arma armaDer;
+    private Armadura armadura;
 
     private boolean cuentaAtras;
     public PersonajeUser(Personaje personaje) {
         this.personaje = personaje;
         this.oro = 500;
+        this.armaDer = null;
+        this.armaIzq = null;
+        this.armadura = null;
     }
 
     public int sumarPotencialAtaque() {
@@ -43,7 +48,59 @@ public class PersonajeUser implements Serializable {
     }
 
 
-    public void setArma(Arma arma) {
-        this.arma = arma;
+    public void setArmaIzq(Arma arma) {
+        this.armaIzq = arma;
+    }
+
+    public void setArmaDer(Arma arma) {
+        this.armaDer = arma;
+    }
+
+    public int getManosLibres() {
+        if (armaIzq == null){
+            return 2;
+        } else if (armaDer == null){
+            return 2 - armaIzq.getManos();
+        } else{
+            return 0;
+        }
+    }
+
+    public void mostrarArmas() {
+        boolean bool = false;
+        if (armaIzq != null){
+            if (armaIzq.getManos() == 1){
+                System.out.println("Mano izquierda: " + armaIzq.getId());
+            } else{
+                System.out.println("Ambas manos: " + armaIzq.getId());
+                bool = true;
+            }
+        } else {
+            System.out.println("Mano izquierda: Vacía");
+        }
+        if (!bool){
+            if (armaDer != null){
+                System.out.println("Mano derecha: " + armaIzq.getId());
+            } else {
+                System.out.println("Mano derecha: Vacía");
+            }
+        }
+
+    }
+
+    public void mostrarArmadura() {
+        if (armadura == null){
+            System.out.println("Armadura: Vacía");
+        } else {
+            System.out.println("Armadura: " + armadura.getId());
+        }
+    }
+
+    public boolean notieneArmadura() {
+        return this.armadura == null;
+    }
+
+    public void setArmadura(Armadura armadura) {
+        this.armadura = armadura;
     }
 }

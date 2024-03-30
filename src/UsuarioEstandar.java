@@ -105,7 +105,31 @@ public class UsuarioEstandar extends Usuario {
         this.personajeUser = new PersonajeUser(personaje);
     }
     @Override
-    public void setArma(Arma arma) {
-        this.personajeUser.setArma(arma);
+    public void setArmaIzq(Arma arma) {
+        this.personajeUser.setArmaIzq(arma);
+    }
+    @Override
+    public void setArmaDer(Arma arma) {
+        this.personajeUser.setArmaDer(arma);
+    }
+    @Override
+    public int getManosLibres() {
+        return personajeUser.getManosLibres();
+    }
+    @Override
+    public void mostrarArmas() {
+        this.personajeUser.mostrarArmas();
+    }
+    @Override
+    public void mostrarArmadura() {
+        this.personajeUser.mostrarArmadura();
+    }
+    @Override
+    public boolean notieneArmadura() {
+        return this.personajeUser.notieneArmadura();
+    }
+    @Override
+    public void setArmadura(Armadura armadura) {
+        this.personajeUser.setArmadura(armadura);
     }
 }
