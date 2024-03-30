@@ -10,4 +10,9 @@ public class Operador extends Usuario {
         super(nombre,nick,password);
     }
 
+    @Override
+    public void setPersonajeUser(Personaje personaje) {
+
+    }
+
 }

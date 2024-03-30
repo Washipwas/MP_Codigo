@@ -14,6 +14,33 @@ public class Manager implements Serializable {
         this.listaArmas = new HashMap<>();
         this.listaArmaduras = new HashMap<>();
         this.Ranking= new String[10];
+        aniadirPersonajes();
+    }
+
+    private void aniadirPersonajes() {
+        Vampiro vamp = new Vampiro("Vampiro 1",1,2,3,30000);
+        aniadir(vamp,UtilConstants.FILE_PERSONAJES);
+        vamp = new Vampiro("Vampiro 2",3,4,2,2311);
+        aniadir(vamp,UtilConstants.FILE_PERSONAJES);
+        Licantropo lic = new Licantropo("Licantropo 1",4,1,4);
+        aniadir(lic,UtilConstants.FILE_PERSONAJES);
+        lic = new Licantropo("Licantropo 2",2,3,3);
+        aniadir(lic,UtilConstants.FILE_PERSONAJES);
+        Cazador caz = new Cazador("Cazador 1",1,2);
+        aniadir(caz,UtilConstants.FILE_PERSONAJES);
+        caz = new Cazador("Cazador 2",2,3);
+        aniadir(caz,UtilConstants.FILE_PERSONAJES);
+
+        Arma arma1 = new Arma("Pump", 1,1, 3, 0);
+        aniadir(arma1,UtilConstants.FILE_ARMAS);
+        Arma arma2 = new Arma("Catana",2,2, 2, 0);
+        aniadir(arma2,UtilConstants.FILE_ARMAS);
+        Arma arma3 = new Arma("Cañon de mano", 3, 1, 2, 0);
+        aniadir(arma3,UtilConstants.FILE_ARMAS);
+        Arma arma4 = new Arma("Lanza Cohetes", 1,2, 3, 1);
+        aniadir(arma4,UtilConstants.FILE_ARMAS);
+        guardar();
+
     }
 
     //como he leido la info del fichero pues entonces los aributos ya tienen la información correspondiente
@@ -93,7 +120,22 @@ public class Manager implements Serializable {
         } else if (num == 2) {
             for (Map.Entry<String, Personaje> entry : listaPersonajes.entrySet()) {
                 String key = entry.getKey();
-                terminal.show("Clave: " + key);
+                Personaje personaje = listaPersonajes.get(key);
+                if (personaje instanceof Vampiro){
+                    terminal.show(UtilConstants.ANSI_RED + "Clase: Vampiro" + UtilConstants.ANSI_RESET);
+                } else if (personaje instanceof Licantropo) {
+                    terminal.show(UtilConstants.ANSI_BLUE + "Clase: Licántropo" + UtilConstants.ANSI_RESET);
+                }  else if (personaje instanceof Cazador) {
+                    terminal.show(UtilConstants.ANSI_GREEN + "Clase: Cazador" + UtilConstants.ANSI_RESET);
+                }
+                personaje.mostrarAtributos();
+                if (personaje instanceof Vampiro){
+                    ((Vampiro) personaje).mostrarAtributosExtras();
+                } else if (personaje instanceof Licantropo) {
+                    ((Licantropo) personaje).mostrarAtributosExtras();
+                } else{
+                    terminal.show("");
+                }
             }
         } else if (num == 3) {
             for (Map.Entry<String, Combate> entry : listaCombates.entrySet()) {
@@ -103,7 +145,9 @@ public class Manager implements Serializable {
         } else if (num == 4) {
             for (Map.Entry<String, Arma> entry : listaArmas.entrySet()) {
                 String key = entry.getKey();
-                terminal.show("Clave: " + key);
+                terminal.show("Nombre: " + key);
+                Arma arma = listaArmas.get(key);
+                terminal.show(String.valueOf(arma.getManos()));
             }
         } else if (num == 5) {
             for (Map.Entry<String, Armadura> entry : listaArmaduras.entrySet()) {
@@ -228,5 +272,44 @@ public class Manager implements Serializable {
                }
            }
 
+    }
+
+    public Object getObject(String nombre, int num) {
+        if (num == 1){
+            return this.listaUsuarios.get(nombre);
+        } else if (num == 2){
+            return this.listaPersonajes.get(nombre);
+        } else if (num == 3){
+            return this.listaCombates.get(nombre);
+        } else if (num == 4){
+            return this.listaArmas.get(nombre);
+        } else if (num == 5) {
+            return this.listaArmaduras.get(nombre);
+        }
+        return null;
+    }
+
+    public void mostrarEquipo(int num) {
+        for (Map.Entry<String, Arma> entry : listaArmas.entrySet()) {
+            String key = entry.getKey();
+            Arma arma = listaArmas.get(key);
+            if (arma.getNum() == num) {
+                System.out.print( "* ");
+                System.out.print("Nombre: " + key);
+                System.out.print("Manos: " + String.valueOf(arma.getManos()));
+                System.out.print("" + arma.getModificadorDeAtaque());
+                System.out.println("" + arma.getModificadorDeDefensa());
+            }
+        }
+    }
+
+    public boolean existeEquipo(String opcion, int num) {
+        if (listaArmas.containsKey(opcion)){
+            Arma arma = listaArmas.get(opcion);
+            if (arma.getNum() == num){
+                return true;
+            }
+        }
+        return false;
     }
 }

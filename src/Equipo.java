@@ -1,20 +1,24 @@
+import java.io.Serializable;
+
 /**
  * 
  */
-public abstract class Equipo{
+public abstract class Equipo implements Serializable {
 
     /**
      * Default constructor
      */
 
 
-    public Equipo(String nombre, int modificadorAtaque, int modificadorDefensa) {
+    public Equipo(String nombre, int equipoClase,int modificadorAtaque, int modificadorDefensa) {
         this.nombre = nombre;
+        this.equipoClase = equipoClase;
         this.modificadorDeAtaque =  modificadorAtaque;
         this.modificadorDeDefensa =  modificadorDefensa;
     }
 
     private String nombre;
+    private int equipoClase;
 
 
     public int getModificadorDeAtaque() {
@@ -44,5 +48,9 @@ public abstract class Equipo{
 
     public String getId() {
         return this.nombre;
+    }
+
+    public int getNum() {
+        return this.equipoClase;
     }
 }

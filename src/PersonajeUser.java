@@ -6,16 +6,14 @@ import java.io.Serializable;
 public class PersonajeUser implements Serializable {
 
     private Personaje personaje;
-
-
     private int oro;
     private int salud;
+    private Arma arma;
 
     private boolean cuentaAtras;
-    public PersonajeUser() {
-        this.personaje = null;
+    public PersonajeUser(Personaje personaje) {
+        this.personaje = personaje;
         this.oro = 500;
-
     }
 
     public int sumarPotencialAtaque() {
@@ -45,5 +43,7 @@ public class PersonajeUser implements Serializable {
     }
 
 
-
+    public void setArma(Arma arma) {
+        this.arma = arma;
+    }
 }

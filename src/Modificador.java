@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  *
  */
-public abstract class Modificador {
+public abstract class Modificador implements Serializable {
 
 
     public Modificador(String nombre, int valor) {

@@ -59,5 +59,7 @@ public class Licantropo extends Personaje {
     }
 
 
-
+    public void mostrarAtributosExtras() {
+        System.out.println("Rabia: " + String.valueOf(rabia));
+    }
 }
