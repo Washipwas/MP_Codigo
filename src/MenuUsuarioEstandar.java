@@ -34,6 +34,9 @@ public class MenuUsuarioEstandar extends MenuUsuario {
 
                 } else if (opcion == 4) {
                     desafiarUsuarios();
+                    terminal.show(UtilConstants.ANSI_RED + "Su cuenta esta bloqueada, no puede realizar ninguna accion" + UtilConstants.ANSI_RESET);
+                    terminal.show("Se le redirigirá automáticamente a la pantalla de inicio");
+                    break;
                 } else if (opcion == 5) {
                     consultarRegistro();
                 } else if (opcion == 6) {
@@ -228,9 +231,9 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                     usuario2.getPersonajeUser().sumarOro(-dinero);
                     Combate combate = new Combate((UsuarioEstandar) usuarioActivo,usuario2,dinero,this.usuarioActivo.getNick()+usuario2.getNick());
                     this.manager.aniadir(combate,UtilConstants.FILE_COMBATS);
+                    this.usuarioActivo.setBloqueado();
                     this.manager.guardar();
                     terminal.show(UtilConstants.ANSI_GREEN + "Solicitud de desafio enviada" + UtilConstants.ANSI_RESET);
-                    this.usuarioActivo.setBloqueado();
                 } else{
                     terminal.show(UtilConstants.ANSI_RED + "La cantidad de oro apostada no es válida" + UtilConstants.ANSI_RESET);
                     terminal.show(UtilConstants.ANSI_RED + "Combate cancelado" + UtilConstants.ANSI_RESET);
@@ -321,6 +324,8 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                 terminal.show("Combate cancelado");
             }
             ((UsuarioEstandar) usuarioActivo).setDesafiante(null);
+            ((UsuarioEstandar) usuarioActivo).setBloqueado(false);
+            this.manager.guardar();
             return false;
         }
         return false;

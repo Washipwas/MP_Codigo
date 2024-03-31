@@ -28,7 +28,7 @@ public class MenuInicial {
 
 
     public void mostrarMenu() {
-        terminal.show("Seleccione una opción escribiendo el número correspondiente");
+        terminal.show(UtilConstants.ANSI_BLUE + "Seleccione una opción escribiendo el número correspondiente" + UtilConstants.ANSI_RESET);
         terminal.show("1.Iniciar sesion");
         terminal.show("2.Registrarse como Usuario");
         terminal.show("3.Registrarse como Operador");
@@ -53,9 +53,9 @@ public class MenuInicial {
                 }
 
                 Boolean bloqueado = userMenu.mostrarMenu();
-                //if (!bloqueado){
+                if (!bloqueado){
                     userMenu.seleccionarOpcion();
-                //}
+                }
             } else {
                 terminal.show(UtilConstants.ANSI_RED+ "La contraseña es incorrecta" + UtilConstants.ANSI_RESET);
             }

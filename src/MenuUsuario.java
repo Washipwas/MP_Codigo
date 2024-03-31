@@ -21,12 +21,12 @@ public abstract class MenuUsuario {
             return false;
         }
         if (usuarioActivo instanceof UsuarioEstandar && ((UsuarioEstandar) usuarioActivo).getBloqueado()) {//si el usuario pasado es un Usuario-estandar  y si no está bloqueado
-            terminal.show("Su cuenta esta bloqueada, no puede realizar ninguna accion");
+            terminal.show(UtilConstants.ANSI_RED + "Su cuenta esta bloqueada, no puede realizar ninguna accion" + UtilConstants.ANSI_RESET);
             terminal.show("Se le redirigirá automáticamente a la pantalla de inicio");
-            return false;
+            return true;
         }
         else {
-            terminal.show("Seleccione una opción escribiendo el numero correspondiente");
+            terminal.show(UtilConstants.ANSI_BLUE +"Seleccione una opción escribiendo el numero correspondiente" + UtilConstants.ANSI_RESET);
             if (this.usuarioActivo instanceof UsuarioEstandar) { //si es un usuario-estandar
                 terminal.show("1.Registrar personaje");
                 terminal.show("2.Dar de baja mi personaje");

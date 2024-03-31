@@ -464,9 +464,11 @@ public class Manager implements Serializable {
         for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
             Combate combate=entrada.getValue();
             if (combate.getPersonaje1().getNombre().equals(usuario2.getNombre())||combate.getPersonaje2().getNombre().equals(usuario2.getNombre())){
-                if (!combate.getGanador().equalsIgnoreCase(usuario2.getNombre())){
-                    if(LocalDate.now().equals(combate.getFecha())){
-                        bool = true;
+                if (combate.getGanador() != null) {
+                    if (!combate.getGanador().equalsIgnoreCase(usuario2.getNombre())) {
+                        if (LocalDate.now().equals(combate.getFecha())) {
+                            bool = true;
+                        }
                     }
                 }
             }
