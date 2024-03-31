@@ -218,6 +218,9 @@ public class MenuUsuarioEstandar extends MenuUsuario {
             String opcion = terminal.read();
             if (this.manager.existeDesafiar(opcion)){
                 UsuarioEstandar usuario2 = (UsuarioEstandar) this.manager.asociarUsuario(opcion);
+                if (this.manager.perdidoMenosHoras(usuario2)){
+                    usuarioActivo.setPosibleBloqueado(true);
+                }
                 terminal.show("Que cantidad de dinero desea apostar?");
                 int dinero = Integer.parseInt(terminal.read());
                 if (usuarioActivo.oroValido(dinero)&&usuario2.oroValido(dinero)){

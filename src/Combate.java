@@ -166,4 +166,8 @@ public class Combate implements Serializable {
         System.out.println("Oro apostado: "+ this.oroApostado);
 
     }
+
+    public LocalDate getFecha() {
+        return this.Fecha;
+    }
 }
