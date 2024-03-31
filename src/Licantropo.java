@@ -10,10 +10,9 @@ public class Licantropo extends Personaje {
     public Licantropo(String nombre, int salud, int poder, int rabia,TextTerminal terminal) {
         super(nombre, poder , salud,terminal);
         this.rabia = rabia;
-        don = new Don("Don",3, 1);
         crearDebilidades();
         crearFortalezas();
-
+        crearHabilidadEspecial();
     }
 
 
@@ -74,6 +73,10 @@ public class Licantropo extends Personaje {
         getArmaduras().put(armadura4.getId(), armadura4);
     }
 
+    private void crearHabilidadEspecial() {
+        Don don =  new Don("Aullido", 2,1,2);
+        setHabilidad(don);
+    }
 
     public void mostrarAtributosExtras() {
         System.out.println("Rabia: " + String.valueOf(rabia));

@@ -36,6 +36,11 @@ public class MenuOperador extends MenuUsuario {
 
     }
 
+    @Override
+    public Boolean comprobarDesafio() {
+        return null;
+    }
+
     public void editarPersonaje() {
         terminal.show("Elige un personaje");
         manager.mostrar(2);
@@ -54,6 +59,7 @@ public class MenuOperador extends MenuUsuario {
             personaje.editarEquipo();
             personaje.editarModificadores();
             personaje.editarEsbirros();
+            personaje.editarHabilidad();
             this.manager.actualizar(personaje,nombre);
             this.manager.guardar();
         } else {

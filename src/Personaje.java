@@ -7,7 +7,7 @@ import java.util.Set;
 public abstract class Personaje implements Serializable {
     private String nombre;
     private transient TextTerminal terminal;
-    private Set<HabilidadEspecial> habilidad;
+    private HabilidadEspecial habilidad;
     private Map<String, Arma> armas = null;
     private Map<String, Armadura> armaduras = null;
     private Map<String,Esbirro> esbirros;
@@ -563,6 +563,10 @@ public abstract class Personaje implements Serializable {
         return this.armaduras;
     }
 
+    void setHabilidad(HabilidadEspecial habilidadEspecial){
+        this.habilidad = habilidadEspecial;
+    }
+
     public boolean existeEquipoArmadura(String opcion) {
         return armaduras.containsKey(opcion);
     }
@@ -679,5 +683,22 @@ public abstract class Personaje implements Serializable {
     private void actualizarEsbirro(Esbirro esbirro, String nombreOld) {
         esbirros.remove(nombreOld);
         esbirros.put(esbirro.getNombre(),esbirro);
+    }
+
+    public void mostrarHabilidadEspecial() {
+        System.out.print("Habilidad Especial:     ");
+        System.out.print("Nombre: " + habilidad.getNombre() + "    ");
+        System.out.print("Valor de ataque: " + habilidad.getValorAtaque() + "    ");
+        System.out.print("Valor de defensa: " + habilidad.getValorDefensa() + "    ");
+        habilidad.mostrarHabilidadExtra();
+    }
+
+    public void editarHabilidad() {
+        TextTerminal terminal = new TextTerminal();
+        terminal.show("¿Cambiar Habilidad Especial? (Si/No)");
+        String opcion = terminal.read();
+        if ("Si".equalsIgnoreCase(opcion)) {
+            habilidad.editar();
+        }
     }
 }

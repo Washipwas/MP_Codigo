@@ -111,4 +111,7 @@ public abstract class Usuario implements Serializable {
     public Object getArmadura(String opcion) {
         return null;
     }
+
+    public void setBloqueado() {
+    }
 }

@@ -41,8 +41,10 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                 }
                 terminal.show(UtilConstants.ANSI_YELLOW+ "Pulse cualquier tecla para continuar" + UtilConstants.ANSI_RESET);
                 terminal.read();
-                mostrarMenu();
-                opcion = Integer.parseInt(this.terminal.read());
+
+                //if (!estaBloqueado()) {
+                    opcion = Integer.parseInt(this.terminal.read());
+                //}
         }
     }
     public void registrarPersonaje() {
@@ -212,6 +214,7 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                     this.manager.aniadir(combate,UtilConstants.FILE_COMBATS);
                     this.manager.guardar();
                     terminal.show(UtilConstants.ANSI_GREEN + "Solicitud de desafio enviada" + UtilConstants.ANSI_RESET);
+                    this.usuarioActivo.setBloqueado();
                 } else{
                     terminal.show(UtilConstants.ANSI_RED + "La cantidad de oro apostada no es válida" + UtilConstants.ANSI_RESET);
                     terminal.show(UtilConstants.ANSI_RED + "Combate cancelado" + UtilConstants.ANSI_RESET);
@@ -257,7 +260,28 @@ public class MenuUsuarioEstandar extends MenuUsuario {
      * @return
      */
     public boolean estaBloqueado() {
-        // TODO implement here
+
+        return false;
+    }
+
+    @Override
+    public Boolean comprobarDesafio() {
+        if (usuarioActivo instanceof UsuarioEstandar && usuarioActivo.getDesafiante() != null) {//si es un usuario estandar y tiene algun desafio pendiente
+            UsuarioEstandar desafiante = (UsuarioEstandar) usuarioActivo.getDesafiante();
+            terminal.show(desafiante.getNick());
+            terminal.show("Tiene una solicitud de combate de " + desafiante.getNombre());
+            terminal.show("¿Aceptar? (Si/No)");
+            String opcion = terminal.read();
+            if ("Si".equalsIgnoreCase(opcion)) {
+                terminal.show(UtilConstants.ANSI_GREEN + "Combate aceptado" + UtilConstants.ANSI_RESET);
+                //FALTAN COMPROBACIONES DE ORO
+                elegirArmasYArmaduras();
+            } else {
+                terminal.show("Combate cancelado");
+            }
+            ((UsuarioEstandar) usuarioActivo).setDesafiante(null);
+            return false;
+        }
         return false;
     }
 

@@ -156,6 +156,10 @@ public class UsuarioEstandar extends Usuario {
         this.personajeUser.mostrarArmadura();
     }
     @Override
+    public void setBloqueado() {
+        this.bloqueado = true;
+    }
+    @Override
     public boolean notieneArmadura() {
         return this.personajeUser.notieneArmadura();
     }
