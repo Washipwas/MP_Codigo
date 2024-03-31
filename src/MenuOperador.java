@@ -81,23 +81,28 @@ public class MenuOperador extends MenuUsuario {
     }
 
     public void validarDesafios() {
-        terminal.show("Desafios pendientes de validar");
-        this.manager.mostrar(3);
-        terminal.show("¿Qué desafio quiere escoger?");
-        String opcion = terminal.read();
-        if (this.manager.existe(opcion,3)){
-            terminal.show("Validar (Si/No)");
-            String opcion2 = terminal.read();
-            if ("Si".equalsIgnoreCase(opcion2)) {
-                this.manager.asociarDesafio(opcion);
+        if(this.manager.hayDesafios()){
+            terminal.show("Desafios pendientes de validar");
+            this.manager.mostrar(3);
+            terminal.show("¿Qué desafio quiere escoger?");
+            String opcion = terminal.read();
+            if (this.manager.existe(opcion,3)){
+                terminal.show("Validar (Si/No)");
+                String opcion2 = terminal.read();
+                if ("Si".equalsIgnoreCase(opcion2)) {
+                    this.manager.asociarDesafio(opcion);
+                } else {
+                    this.manager.eliminar(opcion,UtilConstants.FILE_COMBATS);
+                    this.manager.guardar();
+                    terminal.show("Desafio rechazado");
+                }
             } else {
-                this.manager.eliminar(opcion,UtilConstants.FILE_COMBATS);
-                this.manager.guardar();
-                terminal.show("Desafio rechazado");
+                terminal.show("Opción no válida");
             }
-        } else {
-            terminal.show("Opción no válida");
+        }else {
+            terminal.show(UtilConstants.ANSI_RED+"No existen desafios pendientes"+UtilConstants.ANSI_RESET);
         }
+
     }
 
     public void bloquearUsuarios() {

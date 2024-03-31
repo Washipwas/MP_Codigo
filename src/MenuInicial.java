@@ -53,9 +53,9 @@ public class MenuInicial {
                 }
 
                 Boolean bloqueado = userMenu.mostrarMenu();
-                if (!bloqueado){
+                //if (!bloqueado){
                     userMenu.seleccionarOpcion();
-                }
+                //}
             } else {
                 terminal.show(UtilConstants.ANSI_RED+ "La contraseña es incorrecta" + UtilConstants.ANSI_RESET);
             }

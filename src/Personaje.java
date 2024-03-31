@@ -44,13 +44,32 @@ public abstract class Personaje implements Serializable {
 
 
     public int sumarPotencialAtaque() {
-        // TODO implement here
-        return 0;
+        int auxpoder=this.getPoder();
+        int auxhabilidad=this.habilidad.getValorAtaque();
+        int auxmfortalezaactiva=this.fortalezaActiva.getValor();
+        int auxdebilidadactiva=this.debilidadActiva.getValor();
+        return auxpoder+auxhabilidad+auxmfortalezaactiva-auxdebilidadactiva;
     }
 
     public int sumarPotencialDefensa() {
-        // TODO implement here
-        return 0;
+        int auxpoder=this.getPoder();
+        int auxhabilidad=this.habilidad.getValorDefensa();
+        int auxmfortalezaactiva=this.fortalezaActiva.getValor();
+        int auxdebilidadactiva=this.debilidadActiva.getValor();
+        return auxpoder+auxhabilidad+auxmfortalezaactiva-auxdebilidadactiva;
+    }
+
+
+    public int setVida(){
+        int esbirrovidas=0;
+        for (Map.Entry<String, Esbirro> entry : esbirros.entrySet()) {
+            String key = entry.getKey();
+            Esbirro esbirro = esbirros.get(key);
+            esbirrovidas+=esbirro.getVida();
+
+        }
+        this.salud=this.salud+esbirrovidas;
+        return salud;
     }
 
     public int getPoder() {
@@ -130,8 +149,6 @@ public abstract class Personaje implements Serializable {
         Armadura armadura4 = new Armadura("Armadura siniestra",3, 2, 2);
         armaduras.put(armadura4.getId(), armadura4);
     }
-
-
 
 
     public int getValorAtaqueArmaduraActiva(){

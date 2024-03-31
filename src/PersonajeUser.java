@@ -21,18 +21,39 @@ public class PersonajeUser implements Serializable {
     }
 
     public int sumarPotencialAtaque() {
-        // TODO implement here
-        return 0;
+        int auxpotencialpersonaje=this.personaje.sumarPotencialAtaque();
+        int suma_armas=0;
+        int suma_armadura=0;
+        if (this.armaDer!=null){
+                suma_armas+=this.armaDer.getModificadorDeAtaque();
+        }
+        else if(this.armaIzq!=null){
+            suma_armas+=this.armaIzq.getModificadorDeAtaque();
+        }
+        if(this.armadura!=null){
+            suma_armadura+=this.armadura.getModificadorDeAtaque();
+        }
+        return auxpotencialpersonaje+suma_armas+suma_armadura; /*retorna este valor a combate */
     }
 
     public int sumarPotencialDefensa() {
-        // TODO implement here
-        return 0;
+        int auxpotencialpersonaje=this.personaje.sumarPotencialDefensa();
+        int suma_armas=0;
+        int suma_armadura=0;
+        if (this.armaDer!=null){
+            suma_armas+=this.armaDer.generarPotencialDefensa();
+        }
+        else if(this.armaIzq!=null){
+            suma_armas+=this.armaIzq.getModificadorDeDefensa();
+        }
+        if(this.armadura!=null){
+            suma_armadura+=this.armadura.getModificadorDeDefensa();
+        }
+        return auxpotencialpersonaje+suma_armas+suma_armadura; /*retorna este valor a combate */
     }
 
     public boolean estaVivo() {
-        // TODO implement here
-        return false;
+        return this.salud>0;
     }
     public boolean oroSufiencte(int dinero) {
         return dinero <= this.oro;
@@ -129,5 +150,33 @@ public class PersonajeUser implements Serializable {
 
     public Object getArmadura(String opcion) {
         return this.personaje.getAmadura(opcion);
+    }
+
+    public void restarVida() {
+        this.salud=this.salud-1;
+    }
+
+    public Object getArmaduraActiva() {
+        return this.armadura;
+    }
+
+    public Object getArmaActiva() {
+        return this.armaIzq;
+    }
+
+    public void setVida(int valorvida) {
+        this.salud=valorvida;
+    }
+
+    public int getVida() {
+        return salud;
+    }
+
+    public void sumarOro(int oroApostado) {
+        this.oro+=oroApostado;
+    }
+
+    public int getOro() {
+        return this.oro;
     }
 }
