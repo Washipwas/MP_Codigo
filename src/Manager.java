@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Manager implements Serializable {
 
@@ -113,7 +110,16 @@ public class Manager implements Serializable {
         } else if (num == 2){
             return this.listaPersonajes.containsKey(id);
         } else if (num == 3){
-            return this.listaCombates.containsKey(id);
+            if(this.listaCombates.containsKey(id)){
+                Combate combate=listaCombates.get(id);
+                if(combate.getGanador()==null){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+
         } else if (num == 4){
             return this.listaArmas.containsKey(id);
         } else if (num == 5) {
@@ -152,8 +158,13 @@ public class Manager implements Serializable {
             terminal.show(UtilConstants.ANSI_BLUE + "Escribe el nombre de un personaje" + UtilConstants.ANSI_RESET);
         } else if (num == 3) {
             for (Map.Entry<String, Combate> entry : listaCombates.entrySet()) {
+
                 String key = entry.getKey();
-                terminal.show("Clave: " + key);
+                Combate combate = listaCombates.get(key);
+
+                if (combate.getGanador()==null){
+                    terminal.show("Clave: " + key);
+                }
             }
         } else if (num == 4) {
             for (Map.Entry<String, Arma> entry : listaArmas.entrySet()) {
@@ -238,7 +249,9 @@ public class Manager implements Serializable {
             if (user instanceof UsuarioEstandar){
                 if (!(((UsuarioEstandar) user).getBloqueado())){
                     if (user.getNick() != nick) {
-                        terminal.show(user.getNick());
+                        if(user.getPersonaje()!=null){
+                            terminal.show(user.getNick());
+                        }
                     }
                 }
             }
@@ -252,7 +265,10 @@ public class Manager implements Serializable {
             if (user instanceof UsuarioEstandar){
                 if (!(((UsuarioEstandar) user).getBloqueado())){
                     if (user.getNick().equalsIgnoreCase(opcion)) {
-                        encontrado = true;
+                        if(user.getPersonaje()!=null){
+                            encontrado = true;
+                        }
+
                     }
                 }
             }
@@ -267,23 +283,48 @@ public class Manager implements Serializable {
 
     public void mostarRanking(){
         terminal.show("Los mejores jugadores son:");
-        for(int i =0; i<Ranking.length;i++){
-            terminal.show(i+1+".-"+" "+this.Ranking[i]);
+
+        List<Map.Entry<String, Usuario>> lista = new ArrayList<>(listaUsuarios.entrySet());
+        Iterator<Map.Entry<String, Usuario>> iterator = lista.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, Usuario> entry = iterator.next();
+            if (entry.getValue() instanceof Operador) {
+                iterator.remove(); // Eliminar la entrada utilizando el Iterator
+            }
+        }
+
+        // Ordenar la lista según la cantidad de oro de los usuarios restantes
+        Collections.sort(lista, (entry1, entry2) -> Integer.compare(entry2.getValue().getPersonajeUser().getOro(), entry1.getValue().getPersonajeUser().getOro()));
+
+        // Mostrar los 10 primeros usuarios
+        int count = 0;
+        for (Map.Entry<String, Usuario> entry : lista) {
+            System.out.println((count + 1) + ".- " + entry.getKey() + ": " + entry.getValue().getPersonajeUser().getOro() + " de oro");
+            count++;
+            if (count == 10) {
+                break;
+            }
         }
     }
 
     public void mostrarRegistro(String usuario){
+            terminal.show("Combates de: "+usuario);
            for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
                Combate combate=entrada.getValue();
-               UsuarioEstandar usuario1= combate.getPersonaje1();
+               if (combate.getPersonaje1().getNombre().equals(usuario)||combate.getPersonaje2().getNombre().equals(usuario)){
+                   terminal.show(combate.getId());
+               }
+
+               /*UsuarioEstandar usuario1= combate.getPersonaje1();
                UsuarioEstandar usuario2=combate.getPersonaje2();
                if (usuario.equals(usuario1.getNombre()) && usuario.equals(combate.getGanador())){
                    terminal.show("El jugador: "+usuario+" ha combatido con "+usuario2.getNombre()+" en el que se apostó "+combate.getOroApostado()+" y salió vencedor");
                }
                else if (usuario.equals(usuario2.getNombre()) && usuario.equals(combate.getGanador())) {
                    terminal.show("El jugador: "+usuario+" ha combatido con "+usuario1.getNombre()+" en el que se apostó "+combate.getOroApostado()+" y salió vencedor");
-               }
+               }*/
            }
+
 
     }
 
@@ -361,5 +402,54 @@ public class Manager implements Serializable {
         eliminar(nombre,UtilConstants.FILE_PERSONAJES);
         eliminar(personajeNew,UtilConstants.FILE_PERSONAJES);
         aniadir(personajeNew,UtilConstants.FILE_PERSONAJES);
+    }
+
+
+    public boolean existeCombate(String combateseleccionado, String nombreUsuario) {
+            boolean comfirmacion=false;
+            comfirmacion=listaCombates.containsKey(combateseleccionado);
+            if(comfirmacion){
+                Combate combate=listaCombates.get(combateseleccionado);
+                if (combate.getPersonaje1().getNombre().equals(nombreUsuario)||combate.getPersonaje2().getNombre().equals(nombreUsuario)){
+                    comfirmacion=true;
+
+                }else{
+                    comfirmacion=false;
+                }
+            }
+            return comfirmacion;
+
+        }
+
+    public Combate getCombate(String combateseleccionado) {
+        return this.listaCombates.get(combateseleccionado);
+    }
+
+    public boolean desafioVacio(String nombreUsuario) {
+        boolean desafiovacio=true;
+        for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
+            Combate combate=entrada.getValue();
+            if (combate.getPersonaje1().getNombre().equals(nombreUsuario)||combate.getPersonaje2().getNombre().equals(nombreUsuario)){
+                desafiovacio=false;
+            }
+        }
+        return desafiovacio;
+    }
+
+    public Combate getCombatePendiente(String nick) {
+
+        for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
+            Combate combate=entrada.getValue();
+            if (combate.getPersonaje1().getNombre().equals(nick)||combate.getPersonaje2().getNombre().equals(nick)){
+                 if(combate.getGanador()==null){
+                    return combate;
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean hayDesafios() {
+        return !this.listaCombates.isEmpty();
     }
 }

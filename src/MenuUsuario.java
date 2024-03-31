@@ -17,6 +17,7 @@ public abstract class MenuUsuario {
         terminal.show("Bienvenido " + this.usuarioActivo.getNombre());
         if (usuarioActivo instanceof UsuarioEstandar && usuarioActivo.getDesafiante() != null) {
             comprobarDesafio();
+            mostrarMenu();
             return false;
         }
         if (usuarioActivo instanceof UsuarioEstandar && ((UsuarioEstandar) usuarioActivo).getBloqueado()) {//si el usuario pasado es un Usuario-estandar  y si no está bloqueado

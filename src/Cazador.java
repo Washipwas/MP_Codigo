@@ -19,16 +19,24 @@ public class Cazador extends Personaje {
 
     @Override
     public int sumarPotencialAtaque() {
-        int valor = super.getPoder() + talento.getValorAtaque() + voluntad + getValorAtaqueArmaActiva() + getValorAtaqueArmaduraActiva();
-        int valorModificador = getFortalezaActiva().getValor(); //Valor de la fortaleza presente
-        return valor + valorModificador;// se le fuma la fortaleza al potencial de ataque
+        if(talento==null){
+            return 0;
+        }else{
+            int valor = super.getPoder() + talento.getValorAtaque() + voluntad ;
+            int valorModificador = getFortalezaActiva().getValor(); //Valor de la fortaleza presente
+            return valor + valorModificador;// se le fuma la fortaleza al potencial de ataque
+        }
     }
 
     @Override
     public int sumarPotencialDefensa() {
-        int valor =  super.getPoder() + talento.getValorDefensa() +  voluntad + getValorDefensaArmaActiva() +getValorDefensaArmaduraActiva();
-        int valorModificador =  getDebilidadActiva().getValor();
-        return valor - valorModificador;// se le resta la debilidad en el potencial defensa
+        if(talento==null){
+            return 0;
+        }else{
+            int valor = super.getPoder() + talento.getValorDefensa() + voluntad ;
+            int valorModificador = getFortalezaActiva().getValor(); //Valor de la fortaleza presente
+            return valor - valorModificador;// se le fuma la fortaleza al potencial de ataque
+        }
     }
 
     private void crearDebilidades(){

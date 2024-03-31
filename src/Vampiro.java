@@ -26,36 +26,49 @@ public class Vampiro extends Personaje {
 
     public int sumarPotencialAtaque() {
         int sangre = getPuntoSangre();
-        int valorDisciplina = disciplina.getCoste();
-        int potencial = getPuntoSangre() + super.getPoder() + getValorAtaqueArmaActiva()+ getValorAtaqueArmaduraActiva() + getFortalezaActiva().getValor() ;
-        if (sangre > 5){
-            potencial+= 2;
-        }
-        if (sangre > valorDisciplina){
-            sangre -= valorDisciplina;
-            potencial += sangre;
+        int valorDisciplina;
+        if(this.disciplina==null){
+
+            return sangre;
+        }else{
+             valorDisciplina = disciplina.getCoste();
+            int potencial = getPuntoSangre() + super.getPoder()  + getFortalezaActiva().getValor() ;
+            if (sangre > 5){
+                potencial+= 2;
+            }
+            if (sangre > valorDisciplina){
+                sangre -= valorDisciplina;
+                potencial += sangre;
+            }
+            return potencial;
         }
 
-        return potencial;
+
+
     }
 
     @Override
     public int sumarPotencialDefensa() {
         int sangre = getPuntoSangre();
-        int valorDisciplina = disciplina.getCoste();
-        int potencial = getPuntoSangre() + super.getPoder() + getValorDefensaArmaActiva()+ getValorDefensaArmaduraActiva() - getDebilidadActiva().getValor() ;
-        if (sangre > 5){
-            potencial+= 2;
+
+        if(this.disciplina==null){
+
+            return sangre;
+        }else{
+            int valorDisciplina = disciplina.getCoste();
+            int potencial = getPuntoSangre() + super.getPoder() - getDebilidadActiva().getValor() ;
+            if (sangre > 5){
+                potencial+= 2;
+            }
+            if (sangre > valorDisciplina){
+                sangre -= valorDisciplina;
+                potencial += sangre;
+            }
+
+            // aqui queda un if de sumar 4 si el ataque tiene exito
+            return potencial;
         }
-        if (sangre > valorDisciplina){
-            sangre -= valorDisciplina;
-            potencial += sangre;
-        }
 
-
-        // aqui queda un if de sumar 4 si el ataque tiene exito
-
-        return potencial;
     }
 
 

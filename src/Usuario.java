@@ -114,4 +114,12 @@ public abstract class Usuario implements Serializable {
 
     public void setBloqueado() {
     }
+
+    public Object getArmaduraActiva() {
+        return null;
+    }
+
+    public Object getArmaActiva() {
+        return null;
+    }
 }

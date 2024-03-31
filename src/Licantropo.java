@@ -18,26 +18,41 @@ public class Licantropo extends Personaje {
 
     @Override
     public int sumarPotencialAtaque() {
-        int valor = super.getPoder() + rabia + getValorAtaqueArmaActiva() + getValorAtaqueArmaduraActiva() + getFortalezaActiva().getValor();
-        if (don.getRabia() < rabia){
-            rabia -= don.getRabia();
-            return valor + don.getValorAtaque();
+
+
+        if(this.don==null){
+            return 0;
+
+        }else{
+            int valor = super.getPoder() + rabia  + getFortalezaActiva().getValor();
+            if (don.getRabia() < rabia){
+                rabia -= don.getRabia();
+                return valor + don.getValorAtaque();
+            }
+            else {
+                return valor;
+            }
         }
-        else {
-            return valor;
-        }
+
 
     }
 
     @Override
     public int sumarPotencialDefensa() {
-        int valor = super.getPoder() + rabia + getValorDefensaArmaActiva() + getValorDefensaArmaduraActiva() - getDebilidadActiva().getValor();
-        if (don.getRabia() < rabia){
-            rabia -= don.getRabia();
-            return valor + don.getValorDefensa();
-        }
-        else {
-            return valor;
+
+        if(this.don==null){
+            return 0;
+
+        }else{
+                int valor = super.getPoder() + rabia - getDebilidadActiva().getValor();
+                if (don.getRabia() < rabia){
+                    rabia -= don.getRabia();
+                    return valor + don.getValorDefensa();
+                }
+                else {
+
+                    return valor;
+                }
         }
 
     }

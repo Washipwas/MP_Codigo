@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Random;
 
 /**
  * 
@@ -14,6 +16,7 @@ public class Combate implements Serializable {
         this.oroApostado = dinero;
         this.id = id;
         this.rondas = 0;
+        this.ganador=null;
     }
 
     private String id;
@@ -22,8 +25,11 @@ public class Combate implements Serializable {
     private UsuarioEstandar personaje2;
     private int oroApostado;
 
+    private LocalDate Fecha;
     private String ganador;
     private int rondas;
+    private int valorvidainicial1;
+    private int valorvidainicial2;
 
     public String getGanador(){
         return ganador;
@@ -38,8 +44,24 @@ public class Combate implements Serializable {
     public int getOroApostado(){
         return oroApostado;
     }
-    public Boolean hayGanador() {
-        // TODO implement here
+
+
+    public String hayGanador() {
+        if(personaje1.getPersonajeUser().estaVivo() && !personaje2.getPersonajeUser().estaVivo()){
+            this.ganador=personaje1.getNombre();
+            System.out.println("Gana el ususario: "+ this.ganador);
+            return "Gana el personaje 1";
+        }
+        else if(!personaje1.getPersonajeUser().estaVivo() && personaje2.getPersonajeUser().estaVivo()){
+            this.ganador=personaje2.getNombre();
+            System.out.println("Gana el ususario: "+ this.ganador);
+            return "Gana el personaje 2";
+        }
+        else if(!personaje1.getPersonajeUser().estaVivo() && !personaje2.getPersonajeUser().estaVivo()){
+            this.ganador="Empate";
+            System.out.println("Empate");
+            return "Empate";
+        }
         return null;
     }
 
@@ -54,20 +76,28 @@ public class Combate implements Serializable {
     /**
      * @return
      */
-    public PersonajeUser calcularPotencial() {
-        // TODO implement here
-        return null;
+    public int calcularPotencialAtaque(PersonajeUser auxpersonaje) {
+        int sumPontenciales=auxpersonaje.sumarPotencialAtaque();
+        return sumPontenciales;
     }
 
-    public int generPotencialAtaque() {
-        // TODO implement here
-        return 0;
+    public int generPotencial(int numero) {/*numero aleatorio*/
+        int valor=0;
+        for (int i =0; i <=numero;i++){
+            Random random = new Random();
+            int randomNumber = random.nextInt(7);
+            if (randomNumber==5 || randomNumber==6){
+                valor+=1;
+            }
+        }
+        return valor;
     }
 
-    public int generarPotencialDefensa() {
-        // TODO implement here
-        return 0;
+    public int calcularPotencialDef(PersonajeUser auxpersonaje) {
+        int sumPontenciales=auxpersonaje.sumarPotencialDefensa();
+        return sumPontenciales;
     }
+
 
     public String getId() {
         return this.id;
@@ -75,5 +105,65 @@ public class Combate implements Serializable {
 
     public void asociarDesafio() {
         this.personaje2.setDesafiante(this.personaje1);
+    }
+
+    public void empezar() {
+        this.Fecha=LocalDate.now();
+        TextTerminal terminal=new TextTerminal();
+        terminal.show("Ha empezado el combate");
+        valorvidainicial1=this.personaje1.getPersonaje().getSalud();
+        valorvidainicial2=this.personaje2.getPersonaje().getSalud();
+        int valorvida =this.personaje1.getPersonaje().setVida();
+        this.personaje1.getPersonajeUser().setVida(valorvida);
+        int valorvida2=this.personaje2.getPersonaje().setVida();
+        this.personaje2.getPersonajeUser().setVida(valorvida2);
+        terminal.show("Usuario1: "+this.personaje1.getNombre()+"    personaje: "+this.personaje1.getPersonaje().getNombre());
+        terminal.show("Usuario2: "+this.personaje2.getNombre()+"    personaje: "+this.personaje2.getPersonaje().getNombre());
+        int peleador1ataque=calcularPotencialAtaque(this.personaje1.getPersonajeUser());
+        int peleador2ataque=calcularPotencialAtaque(this.personaje2.getPersonajeUser());
+        int peleador1defensa=calcularPotencialDef(this.personaje1.getPersonajeUser());
+        int peleador2defensa=calcularPotencialDef(this.personaje2.getPersonajeUser());
+    while (this.hayGanador()==null){
+        this.rondas+=1;
+        int peleador1ataque_combate=generPotencial(peleador1ataque);
+        int peleador2ataque_combate=generPotencial(peleador2ataque);
+        int peleador1defensa_combate=generPotencial(peleador1defensa);
+        int peleador2defensa_combate=generPotencial(peleador2defensa);
+        if (peleador1ataque_combate>peleador2defensa_combate){
+            this.personaje2.getPersonajeUser().restarVida();
+            terminal.show("Personaje: "+this.personaje2.getPersonaje().getNombre()+" del ususario "+this.personaje2.getNombre() +" pierde 1 de vida");
+        }
+        if (peleador2ataque_combate>peleador1defensa_combate){
+            this.personaje1.getPersonajeUser().restarVida();
+            terminal.show("Personaje: "+this.personaje1.getPersonaje().getNombre()+ " del ususario "+this.personaje1.getNombre()+" pierde 1 de vida");
+        }
+    }
+      mostrarResumen();
+      if (this.ganador.equals(this.personaje1.getNombre())){
+          this.personaje1.getPersonajeUser().sumarOro(this.oroApostado*2);
+      }else if(this.ganador.equals(this.personaje2.getNombre())){
+            this.personaje2.getPersonajeUser().sumarOro(this.oroApostado*2);
+        }
+      else{
+          this.personaje1.getPersonajeUser().sumarOro(this.oroApostado);
+          this.personaje2.getPersonajeUser().sumarOro(this.oroApostado);
+      }
+    }
+
+    public void mostrarResumen() {
+        System.out.println("Resumen del combate");
+        System.out.println("Usuario desafiante:"+this.personaje1.getNombre());
+        System.out.println("Usuario desafiado: "+this.personaje2.getNombre());
+        System.out.println("Rondas empleadas: "+ this.rondas);
+        System.out.println("Fecha:"+this.Fecha );
+        System.out.println("Ganador: "+ this.ganador);
+        System.out.println("Usuario que mantuvo esbirros: ");
+        if (this.valorvidainicial1<this.personaje1.getPersonajeUser().getVida()){
+            System.out.println(this.personaje1.getNombre());
+        }else if (this.valorvidainicial2<this.personaje2.getPersonajeUser().getVida()){
+            System.out.println(this.personaje2.getNombre());
+        }
+        System.out.println("Oro apostado: "+ this.oroApostado);
+
     }
 }

@@ -57,6 +57,14 @@ public class UsuarioEstandar extends Usuario {
         }
         return null;
     }
+    @Override
+    public Object getArmaduraActiva() {
+        return this.personajeUser.getArmaduraActiva();
+    }
+@Override
+    public Object getArmaActiva() {
+        return this.personajeUser.getArmaActiva();
+    }
 
     public boolean getBloqueado(){
         return this.bloqueado;
