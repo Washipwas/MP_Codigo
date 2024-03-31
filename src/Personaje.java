@@ -647,4 +647,37 @@ public abstract class Personaje implements Serializable {
         armas.remove(nombreOld);
         armas.put(armaNew.getId(),armaNew);
     }
+
+    public void editarEsbirros() {
+        TextTerminal terminal = new TextTerminal();
+        terminal.show("¿Cambiar Esbirros? (Si/No)");
+        String opcion = terminal.read();
+        if ("Si".equalsIgnoreCase(opcion)) {
+            if (esbirros.isEmpty()) {
+                terminal.show("El personaje " + this.nombre + " no tiene esbirros");
+            } else {
+                mostrarEsbirros();
+                terminal.show("Escribe el nombre del Esbirro");
+                String opcionDeb = terminal.read();
+                while (!existeEsbirro(opcionDeb)) {
+                    terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto" + UtilConstants.ANSI_RESET);
+                    terminal.show("Escribe el nombre del Esbirro");
+                    opcionDeb = terminal.read();
+                }
+
+                Esbirro esbirro = esbirros.get(opcionDeb);
+                String nombreOld = esbirro.getNombre();
+                esbirro.editar();
+                terminal.show(UtilConstants.ANSI_YELLOW + "Esbirro actualizado:" + UtilConstants.ANSI_RESET);
+                esbirro.mostrar();
+                actualizarEsbirro(esbirro, nombreOld);
+
+            }
+        }
+    }
+
+    private void actualizarEsbirro(Esbirro esbirro, String nombreOld) {
+        esbirros.remove(nombreOld);
+        esbirros.put(esbirro.getNombre(),esbirro);
+    }
 }

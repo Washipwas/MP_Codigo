@@ -53,6 +53,7 @@ public class MenuOperador extends MenuUsuario {
             }
             personaje.editarEquipo();
             personaje.editarModificadores();
+            personaje.editarEsbirros();
             this.manager.actualizar(personaje,nombre);
             this.manager.guardar();
         } else {
