@@ -13,35 +13,22 @@ public abstract class Esbirro implements Serializable {
         this.vida = vida;
     }
 
-    /**
-     * 
-     */
     private String nombre;
-
-    /**
-     * 
-     */
     private int vida;
 
-    /**
-     * @return
-     */
+    public int getVida() {  // este metodo servira para sumar la vida de todos los esbirros de un personaje
+       return this.vida;
+    }
+
     public int generarPotencialAtaque() {
         // TODO implement here
         return 0;
     }
-
-    /**
-     * @return
-     */
     public int generarPotencialDefensa() {
         // TODO implement here
         return 0;
     }
 
-    /**
-     * 
-     */
     public void Operation1() {
         // TODO implement here
     }
