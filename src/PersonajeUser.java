@@ -103,4 +103,32 @@ public class PersonajeUser implements Serializable {
     public void setArmadura(Armadura armadura) {
         this.armadura = armadura;
     }
+
+    public void mostrarTodasArmas() {
+        this.personaje.mostrarTodasArmas();
+    }
+
+    public Object getArma(String opcion) {
+        return this.personaje.getArma(opcion);
+    }
+
+    public boolean existeEquipo(String opcion) {
+        return this.personaje.existeEquipo(opcion);
+    }
+
+    public int manosSuficientes(String opcion) {
+        return  personaje.manosSuficientes(opcion);
+    }
+
+    public void mostrarTodasArmaduras() {
+        this.personaje.mostrarTodasArmaduras();
+    }
+
+    public boolean existeEquipoArmadura(String opcion) {
+        return this.personaje.existeEquipoArmadura(opcion);
+    }
+
+    public Object getArmadura(String opcion) {
+        return this.personaje.getAmadura(opcion);
+    }
 }

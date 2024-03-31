@@ -46,6 +46,22 @@ public class Cazador extends Personaje {
         getFortalezas().put(fortaleza2.getNombre(), fortaleza2);
     }
 
+    public void crearArmas(){
+        Arma arma1 = new Arma("Pump", 1,1, 3, 0);
+        getArmas().put(arma1.getId(), arma1);
+        Arma arma3 = new Arma("Cañon de mano", 3, 1, 2, 0);
+        getArmas().put(arma3.getId(), arma3);
+    }
+
+    public void crearArmaduras(){
+        Armadura armadura2 = new Armadura("Armadura de dioses",1, 1, 3);
+        getArmaduras().put(armadura2.getId(), armadura2);
+        Armadura armadura3 = new Armadura("Armadura ardiente", 1,3, 1);
+        getArmaduras().put(armadura3.getId(), armadura3);
+        Armadura armadura4 = new Armadura("Armadura siniestra",3, 2, 2);
+        getArmaduras().put(armadura4.getId(), armadura4);
+    }
+
 
     public void mostrarAtributosExtras() {
         System.out.println("Voluntad: " + String.valueOf(voluntad));

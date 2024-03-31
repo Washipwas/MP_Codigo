@@ -53,4 +53,16 @@ public abstract class Equipo implements Serializable {
     public int getNum() {
         return this.equipoClase;
     }
+
+    protected void setId(String nombre) {
+        this.nombre = nombre;
+    }
+
+    protected void setModificadorDeAtaque(int valor) {
+        this.modificadorDeAtaque = valor;
+    }
+
+    protected void setModificadorDeDefensa(int valor) {
+        this.modificadorDeDefensa = valor;
+    }
 }

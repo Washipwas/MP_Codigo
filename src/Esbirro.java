@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * 
  */
-public abstract class Esbirro {
+public abstract class Esbirro implements Serializable {
 
     /**
      * Default constructor
@@ -44,4 +46,18 @@ public abstract class Esbirro {
         // TODO implement here
     }
 
+    public void mostrar() {
+        if (this instanceof Humano){
+            System.out.print("Clase: Humano     ");
+        } else if (this instanceof Ghoul){
+            System.out.print("Clase: Ghoul     ");
+        } else if (this instanceof Demonio){
+            System.out.print("Clase: Demonio     ");
+        }
+        System.out.print("Nombre: " + this.nombre + "    ");
+        System.out.print("Salud: " + this.vida + "     ");
+        mostrarExtra();
+    }
+
+    protected abstract void mostrarExtra();
 }

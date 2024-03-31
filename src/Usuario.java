@@ -85,4 +85,30 @@ public abstract class Usuario implements Serializable {
 
     public void setArmadura(Armadura armadura) {
     }
+
+    public void mostrarTodasArmas() {
+    }
+
+    public Object getArma(String opcion) {
+        return null;
+    }
+
+    public boolean existeEquipo(String opcion) {
+        return false;
+    }
+
+    public int manosSuficientes(String opcion) {
+        return 0;
+    }
+
+    public void mostrarTodasArmaduras() {
+    }
+
+    public boolean existeEquipoArmadura(String opcion) {
+        return false;
+    }
+
+    public Object getArmadura(String opcion) {
+        return null;
+    }
 }

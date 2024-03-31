@@ -28,6 +28,8 @@ public class MenuOperador extends MenuUsuario {
             } else {
                 terminal.show("La opción no es válida");
             }
+            terminal.show(UtilConstants.ANSI_YELLOW+ "Pulse cualquier tecla para continuar" + UtilConstants.ANSI_RESET);
+            terminal.read();
             mostrarMenu();
             opcion = Integer.parseInt(this.terminal.read());
         }
@@ -49,6 +51,8 @@ public class MenuOperador extends MenuUsuario {
             } else{
                 ((Cazador) personaje).editarAtributosExtras();
             }
+            personaje.editarEquipo();
+            personaje.editarModificadores();
             this.manager.actualizar(personaje,nombre);
             this.manager.guardar();
         } else {
@@ -57,7 +61,16 @@ public class MenuOperador extends MenuUsuario {
     }
 
     public void aniadirAlPersonaje() {
-        // TODO implement here
+        terminal.show("Elige un personaje");
+        manager.mostrar(2);
+        String opcion = terminal.read();
+        if (this.manager.existe(opcion,2)) {
+            Personaje personaje = (this.manager.asociarPersonaje(opcion));
+            personaje.aniadir();
+        } else {
+        terminal.show("El nombre es incorrecto");
+        }
+        this.manager.guardar();
     }
 
     public void validarDesafios() {
@@ -82,7 +95,7 @@ public class MenuOperador extends MenuUsuario {
 
     public void bloquearUsuarios() {
         this.manager.mostrarUsuariosNoNormas();
-        terminal.show("Escribe le nick del usuario que quiere bloquear");
+        terminal.show("Escribe el nick del usuario que quiere bloquear");
         String nick = terminal.read();
         if (manager.existe(nick,1)){
             this.manager.bloquear_desbloquear(nick,true);
@@ -93,7 +106,7 @@ public class MenuOperador extends MenuUsuario {
 
     public void desbloquearusuarios() {
         this.manager.mostrarUsuariosBloqueados();
-        terminal.show("Escribe le nick del usuario que quiere desbloquear");
+        terminal.show("Escribe el nick del usuario que quiere desbloquear");
         String nick = terminal.read();
         if (manager.existe(nick,1)){
             this.manager.bloquear_desbloquear(nick,false);

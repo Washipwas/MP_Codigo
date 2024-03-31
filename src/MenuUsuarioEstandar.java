@@ -87,8 +87,8 @@ public class MenuUsuarioEstandar extends MenuUsuario {
             terminal.show(UtilConstants.ANSI_RED +"No tiene ningún personaje asociado a su cuenta" + UtilConstants.ANSI_RESET);
         } else {
             terminal.show("Escoge una opción (1/2)");
-            terminal.show("Escoger Armas");
-            terminal.show("Escoger Armaduras");
+            terminal.show("1. Escoger Armas");
+            terminal.show("2. Escoger Armaduras");
             String opcion = terminal.read();
             if ("1".equalsIgnoreCase(opcion)) {
                 escogerArmas();
@@ -100,7 +100,7 @@ public class MenuUsuarioEstandar extends MenuUsuario {
 
     public void escogerArmas() {
         terminal.show(UtilConstants.ANSI_BLUE + "Armas actuales" + UtilConstants.ANSI_RESET);
-        this.usuarioActivo.mostrarArmas();
+        usuarioActivo.mostrarArmas();
         int manosLibres = usuarioActivo.getManosLibres();
         int num = 0;
         if (usuarioActivo.getPersonaje() instanceof Vampiro){
@@ -112,36 +112,32 @@ public class MenuUsuarioEstandar extends MenuUsuario {
         }
         if (manosLibres == 2){
             terminal.show("Estas son tus armas disponibles, elija una escribiendo el nombre:");
-            manager.mostrarEquipo(num);
+            this.usuarioActivo.mostrarTodasArmas();
             String opcion = terminal.read();
 
-            while (!this.manager.existeEquipo(opcion,num)){
+            while (!this.usuarioActivo.existeEquipo(opcion)){
                 terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto" + UtilConstants.ANSI_RESET);
                 terminal.show("Estas son tus armas disponibles, elija una escribiendo el nombre:");
-                manager.mostrarEquipo(num);
+                this.usuarioActivo.mostrarTodasArmas();
                 opcion = terminal.read();
             }
-            Arma arma = (Arma) manager.getObject(opcion,4);
+            Arma arma = (Arma) usuarioActivo.getArma(opcion);
             this.usuarioActivo.setArmaIzq(arma);
             terminal.show(UtilConstants.ANSI_GREEN + "Arma elegida con éxito" + UtilConstants.ANSI_RESET);
-            manosLibres = 2 - arma.getManos();
-            if (manosLibres == 1){
-                escogerArmas();
-            }
         } else if (manosLibres == 1){
             terminal.show("¿Quieres escoger otra Arma (Si) o hacer una nueva seleccion? (No):");
             String opcion = terminal.read();
             if (opcion.equalsIgnoreCase("Si")) {
                 terminal.show("Escoja otra arma (Solo puede escoger armas de 1 mano): ");
-                manager.mostrarEquipo(num);
+                this.usuarioActivo.mostrarTodasArmas();
                 opcion = terminal.read();
-                while (!this.manager.existeEquipo(opcion,num) || (this.manager.manosSuficientes(opcion) != 1)) {
+                while (!this.usuarioActivo.existeEquipo(opcion) || (this.usuarioActivo.manosSuficientes(opcion) != 1)) {
                     terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto/ No hay manos libres para ese arma" + UtilConstants.ANSI_RESET);
                     terminal.show("Estas son tus armas disponibles, elija una escribiendo el nombre:");
-                    manager.mostrarEquipo(num);
+                    this.usuarioActivo.mostrarTodasArmas();
                     opcion = terminal.read();
                 }
-                Arma arma2 = (Arma) manager.getObject(opcion,4);
+                Arma arma2 = (Arma) usuarioActivo.getArma(opcion);
                 this.usuarioActivo.setArmaDer(arma2);
                 terminal.show(UtilConstants.ANSI_GREEN + "Arma elegida con éxito" + UtilConstants.ANSI_RESET);
             } else{
@@ -165,7 +161,7 @@ public class MenuUsuarioEstandar extends MenuUsuario {
 
     public void escogerArmadura(){
         terminal.show(UtilConstants.ANSI_BLUE + "Armadura actual" + UtilConstants.ANSI_RESET);
-        this.usuarioActivo.mostrarArmadura();
+        usuarioActivo.mostrarArmadura();
         int num = 0;
         if (usuarioActivo.getPersonaje() instanceof Vampiro){
             num = 1;
@@ -176,19 +172,19 @@ public class MenuUsuarioEstandar extends MenuUsuario {
         }
         if (usuarioActivo.notieneArmadura()){
             terminal.show("Estas son tus armaduras disponibles, elija una escribiendo el nombre:");
-            manager.mostrarEquipoArmadura(num);
+            this.usuarioActivo.mostrarTodasArmaduras();
             String opcion = terminal.read();
-            while (!this.manager.existeEquipoArmadura(opcion,num)){
+            while (!this.usuarioActivo.existeEquipoArmadura(opcion)){
                 terminal.show(UtilConstants.ANSI_RED + "El nombre no es correcto" + UtilConstants.ANSI_RESET);
                 terminal.show("Estas son tus armaduras disponibles, elija una escribiendo el nombre:");
-                manager.mostrarEquipo(num);
+                this.usuarioActivo.mostrarTodasArmaduras();
                 opcion = terminal.read();
             }
-            Armadura armadura = (Armadura) manager.getObject(opcion,5);
+            Armadura armadura = (Armadura) usuarioActivo.getArmadura(opcion);
             this.usuarioActivo.setArmadura(armadura);
             terminal.show(UtilConstants.ANSI_GREEN + "Armadura elegida con éxito" + UtilConstants.ANSI_RESET);
         } else {
-            terminal.show("Ya tiene una armadura seleccionada, ¿desea camiarla? (Si/No)");
+            terminal.show("Ya tiene una armadura seleccionada, ¿desea cambiarla? (Si/No)");
             String opcion = terminal.read();
             if ("Si".equalsIgnoreCase(opcion)) {
                 usuarioActivo.setArmadura(null);
@@ -197,8 +193,6 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                 terminal.show(UtilConstants.ANSI_RED + "Elección cancelada" + UtilConstants.ANSI_RESET);
             }
         }
-        terminal.show(UtilConstants.ANSI_BLUE + "Armadura actual" + UtilConstants.ANSI_RESET);
-        this.usuarioActivo.mostrarArmadura();
         this.manager.guardar();
     }
 
