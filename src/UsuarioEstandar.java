@@ -12,11 +12,13 @@ public class UsuarioEstandar extends Usuario {
         this.bloqueado = false;
         this.personajeUser = null;
         this.desafiante = null;
+        this.posiblebloqueado = false;
     }
 
     private String numeroDeRegistro;
     private PersonajeUser personajeUser;
     private boolean bloqueado;
+    private boolean posiblebloqueado;
     private UsuarioEstandar desafiante;
 
     public String generarNumeroDeRegistro() {
@@ -174,5 +176,13 @@ public class UsuarioEstandar extends Usuario {
     @Override
     public void setArmadura(Armadura armadura) {
         this.personajeUser.setArmadura(armadura);
+    }
+    @Override
+    public void setPosibleBloqueado(boolean b) {
+        this.posiblebloqueado = b;
+    }
+    @Override
+    public boolean getPosibleBloqueado() {
+        return this.posiblebloqueado;
     }
 }

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Manager implements Serializable {
@@ -198,7 +199,9 @@ public class Manager implements Serializable {
         for (Map.Entry<String, Usuario> entry : listaUsuarios.entrySet()) {
             Usuario user = entry.getValue();
             if (user instanceof UsuarioEstandar){
-                terminal.show(user.getNick());
+                if (user.getPosibleBloqueado()) {
+                    terminal.show(user.getNick());
+                }
             }
         }
     }
@@ -227,6 +230,7 @@ public class Manager implements Serializable {
         if (user instanceof UsuarioEstandar){
             ((UsuarioEstandar) user).setBloqueado(valor);
             terminal.show("Usuario bloqueado con éxito");
+            user.setPosibleBloqueado(false);
             try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(UtilConstants.FILE_USERS + "usuarios.ser"))) {
                 objetoSalida.writeObject(this);
             } catch (IOException e) {
@@ -289,6 +293,8 @@ public class Manager implements Serializable {
         while (iterator.hasNext()) {
             Map.Entry<String, Usuario> entry = iterator.next();
             if (entry.getValue() instanceof Operador) {
+                iterator.remove(); // Eliminar la entrada utilizando el Iterator
+            } else if (entry.getValue().getPersonajeUser() == null) {
                 iterator.remove(); // Eliminar la entrada utilizando el Iterator
             }
         }
@@ -451,5 +457,20 @@ public class Manager implements Serializable {
 
     public boolean hayDesafios() {
         return !this.listaCombates.isEmpty();
+    }
+
+    public boolean perdidoMenosHoras(UsuarioEstandar usuario2) {
+        boolean bool = false;
+        for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
+            Combate combate=entrada.getValue();
+            if (combate.getPersonaje1().getNombre().equals(usuario2.getNombre())||combate.getPersonaje2().getNombre().equals(usuario2.getNombre())){
+                if (!combate.getGanador().equalsIgnoreCase(usuario2.getNombre())){
+                    if(LocalDate.now().equals(combate.getFecha())){
+                        bool = true;
+                    }
+                }
+            }
+        }
+        return bool;
     }
 }
