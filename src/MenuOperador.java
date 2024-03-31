@@ -91,6 +91,8 @@ public class MenuOperador extends MenuUsuario {
                 String opcion2 = terminal.read();
                 if ("Si".equalsIgnoreCase(opcion2)) {
                     this.manager.asociarDesafio(opcion);
+                    this.manager.eliminar(opcion,UtilConstants.FILE_COMBATS);
+                    this.manager.guardar();
                 } else {
                     this.manager.eliminar(opcion,UtilConstants.FILE_COMBATS);
                     this.manager.guardar();
