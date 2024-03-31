@@ -58,6 +58,22 @@ public class Licantropo extends Personaje {
         getFortalezas().put(fortaleza2.getNombre(), fortaleza2);
     }
 
+    public void crearArmas(){
+        Arma arma3 = new Arma("Cañon de mano", 3, 1, 2, 0);
+        getArmas().put(arma3.getId(), arma3);
+        Arma arma2 = new Arma("Catana",2,2, 2, 0);
+        getArmas().put(arma2.getId(), arma2);
+    }
+
+    public void crearArmaduras(){
+        Armadura armadura1 = new Armadura("Armadura de papel",2,0, 1);
+        getArmaduras().put(armadura1.getId(), armadura1);
+        Armadura armadura3 = new Armadura("Armadura ardiente", 1,3, 1);
+        getArmaduras().put(armadura3.getId(), armadura3);
+        Armadura armadura4 = new Armadura("Armadura siniestra",3, 2, 2);
+        getArmaduras().put(armadura4.getId(), armadura4);
+    }
+
 
     public void mostrarAtributosExtras() {
         System.out.println("Rabia: " + String.valueOf(rabia));

@@ -73,6 +73,9 @@ public class UsuarioEstandar extends Usuario {
 
     @Override
     public Personaje getPersonaje() {
+        if (personajeUser == null){
+            return null;
+        }
         return this.personajeUser.getPersonaje();
     }
 
@@ -119,6 +122,34 @@ public class UsuarioEstandar extends Usuario {
     @Override
     public void mostrarArmas() {
         this.personajeUser.mostrarArmas();
+    }
+    @Override
+    public boolean existeEquipo(String opcion) {
+        return this.personajeUser.existeEquipo(opcion);
+    }
+    @Override
+    public boolean existeEquipoArmadura(String opcion) {
+        return this.personajeUser.existeEquipoArmadura(opcion);
+    }
+    @Override
+    public int manosSuficientes(String opcion) {
+        return this.personajeUser.manosSuficientes(opcion);
+    }
+    @Override
+    public void mostrarTodasArmas() {
+        this.personajeUser.mostrarTodasArmas();
+    }
+    @Override
+    public void mostrarTodasArmaduras() {
+        this.personajeUser.mostrarTodasArmaduras();
+    }
+    @Override
+    public Object getArma(String opcion) {
+        return this.personajeUser.getArma(opcion);
+    }
+    @Override
+    public Object getArmadura(String opcion) {
+        return this.personajeUser.getArmadura(opcion);
     }
     @Override
     public void mostrarArmadura() {

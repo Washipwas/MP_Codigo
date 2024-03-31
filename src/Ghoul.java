@@ -5,8 +5,10 @@ public class Ghoul extends Esbirro {
         super(nombre,vida);
         this.dependencia = dependencia;
     }
-
-
+    @Override
+    public void mostrarExtra() {
+        System.out.println("Dependencia: " + this.dependencia);
+    }
     private int dependencia;
 
 }
