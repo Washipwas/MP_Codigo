@@ -147,8 +147,9 @@ public class Manager implements Serializable {
                     ((Cazador) personaje).mostrarAtributosExtras();
                 }
                 personaje.mostrarEsbirros();
+                personaje.mostrarHabilidadEspecial();
             }
-            terminal.show("Escribe el nombre de un personaje");
+            terminal.show(UtilConstants.ANSI_BLUE + "Escribe el nombre de un personaje" + UtilConstants.ANSI_RESET);
         } else if (num == 3) {
             for (Map.Entry<String, Combate> entry : listaCombates.entrySet()) {
                 String key = entry.getKey();

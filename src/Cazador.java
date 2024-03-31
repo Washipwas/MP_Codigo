@@ -12,9 +12,9 @@ public class Cazador extends Personaje {
     public Cazador(String nombre, int salud, int poder,TextTerminal terminal) {
         super(nombre,poder,salud,terminal);
         this.voluntad = 3;
-        talento = new Talento("Talento", 4,2);
         crearDebilidades();
         crearFortalezas();
+        crearHabilidadEspecial();
     }
 
     @Override
@@ -60,6 +60,11 @@ public class Cazador extends Personaje {
         getArmaduras().put(armadura3.getId(), armadura3);
         Armadura armadura4 = new Armadura("Armadura siniestra",3, 2, 2);
         getArmaduras().put(armadura4.getId(), armadura4);
+    }
+
+    private void crearHabilidadEspecial() {
+        Talento talento =  new Talento("Precisión", 3,1);
+        setHabilidad(talento);
     }
 
 

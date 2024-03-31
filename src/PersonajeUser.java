@@ -11,7 +11,6 @@ public class PersonajeUser implements Serializable {
     private Arma armaIzq;
     private Arma armaDer;
     private Armadura armadura;
-
     private boolean cuentaAtras;
     public PersonajeUser(Personaje personaje) {
         this.personaje = personaje;

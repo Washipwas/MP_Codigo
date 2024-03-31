@@ -11,11 +11,16 @@ public class Vampiro extends Personaje {
         super(nombre,poder,salud,terminal);
         this.puntoSangre = puntoSangre;
         this.edad = edad;
-        disciplina = new Disciplina("Disciplina",3,2,4);
         crearDebilidades();
         crearFortalezas();
         crearArmas();
         crearArmaduras();
+        crearHabilidadEspecial();
+    }
+
+    private void crearHabilidadEspecial() {
+        Disciplina disciplina =  new Disciplina("Oscuridad total", 1,3,2);
+        setHabilidad(disciplina);
     }
 
 

@@ -1,4 +1,4 @@
-public class MenuUsuario {
+public abstract class MenuUsuario {
     public MenuUsuario(String nick, Manager manager) { //constructor llamado por el hijo
         this.terminal = new TextTerminal();
         this.manager = manager; //se le pasa el manager extraido en menu principal
@@ -15,26 +15,13 @@ public class MenuUsuario {
 
     public Boolean mostrarMenu() {
         terminal.show("Bienvenido " + this.usuarioActivo.getNombre());
+        if (usuarioActivo instanceof UsuarioEstandar && usuarioActivo.getDesafiante() != null) {
+            comprobarDesafio();
+            return false;
+        }
         if (usuarioActivo instanceof UsuarioEstandar && ((UsuarioEstandar) usuarioActivo).getBloqueado()) {//si el usuario pasado es un Usuario-estandar  y si no está bloqueado
             terminal.show("Su cuenta esta bloqueada, no puede realizar ninguna accion");
             terminal.show("Se le redirigirá automáticamente a la pantalla de inicio");
-            return true;
-        }
-        else if (usuarioActivo instanceof UsuarioEstandar && usuarioActivo.getDesafiante() != null){//si es un usuario estandar y tiene algun desafio pendiente
-            UsuarioEstandar desafiante = (UsuarioEstandar) usuarioActivo.getDesafiante();
-            terminal.show(desafiante.getNick());
-            terminal.show("Tiene una solicitud de combate de " + desafiante.getNombre());
-            terminal.show("¿Aceptar? (Si/No)");
-            String opcion = terminal.read();
-            if ("Si".equalsIgnoreCase(opcion)){
-                terminal.show(UtilConstants.ANSI_GREEN + "Combate aceptado" + UtilConstants.ANSI_RESET);
-                //FALTAN COMPROBACIONES DE ORO
-                //POSTERIORMENTE VIENE EL PROCESO DE ELECION DE ARMAS ANTES DE COMBATE
-            } else {
-                terminal.show("Combate cancelado");
-            }
-            ((UsuarioEstandar) usuarioActivo).setDesafiante(null);
-            mostrarMenu();
             return false;
         }
         else {
@@ -77,6 +64,8 @@ public class MenuUsuario {
         }
         return eliminado;
     }
+
+    public abstract Boolean comprobarDesafio();
 
 
     //public void actualizarFichero(Object bj , fichero Fichero) {
