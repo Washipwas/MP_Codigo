@@ -9,7 +9,7 @@ public class MenuInicial {
         this.terminal = new TextTerminal();
         File archivo = new File(UtilConstants.FILE_USERS + "usuarios.ser"); // se lee el fichero con la direccion que te da utilconstanst.fileusers
         if (!archivo.exists()) {
-            manager = new Manager(UtilConstants.FILE_USERS);
+            manager = new Manager();
             try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(UtilConstants.FILE_USERS + "usuarios.ser"))) {
                 objetoSalida.writeObject(manager);
             } catch (IOException e) {
@@ -28,7 +28,7 @@ public class MenuInicial {
 
 
     public void mostrarMenu() {
-        terminal.show("Seleccione una opción escribiendo el número correspondiente");
+        terminal.show(UtilConstants.ANSI_BLUE + "Seleccione una opción escribiendo el número correspondiente" + UtilConstants.ANSI_RESET);
         terminal.show("1.Iniciar sesion");
         terminal.show("2.Registrarse como Usuario");
         terminal.show("3.Registrarse como Operador");
@@ -43,7 +43,7 @@ public class MenuInicial {
         String password = terminal.read();
         if (manager.existe(nick,1)){
             if (manager.datosCorrectos(nick,password)){
-                terminal.show("Acceso correcto");
+                terminal.show(UtilConstants.ANSI_GREEN + "Acceso correcto" +  UtilConstants.ANSI_RESET);
                 MenuUsuario userMenu = null; //se instancia a nulo el menu-usuario
                 if (manager.datosUsuarioEstandar(nick)){
                     userMenu = new MenuUsuarioEstandar(nick,this.manager); //se crea el menu del usuario_estandar pasándole el nick y el manager  de este
@@ -57,10 +57,10 @@ public class MenuInicial {
                     userMenu.seleccionarOpcion();
                 }
             } else {
-                terminal.show("La contraseña es incorrecta");
+                terminal.show(UtilConstants.ANSI_RED+ "La contraseña es incorrecta" + UtilConstants.ANSI_RESET);
             }
         } else {
-            terminal.show("El nick no es correcto");
+            terminal.show(UtilConstants.ANSI_RED + "El nick no es correcto" + UtilConstants.ANSI_RESET);
         }
     }
 
@@ -82,7 +82,7 @@ public class MenuInicial {
             if (!manager.existe(nick,1)){
                 correcto = true;
             } else {
-                terminal.show("Ya existe ese nick, elija otro");
+                terminal.show(UtilConstants.ANSI_RED + "Ya existe ese nick, elija otro" + UtilConstants.ANSI_RESET);
             }
         }
         correcto = false;
@@ -93,7 +93,7 @@ public class MenuInicial {
             if (8 <= password.length() && password.length() <= 12) {
                 correcto = true;
             } else {
-                terminal.show("Contraseña no válida");
+                terminal.show(UtilConstants.ANSI_RED + "Contraseña inválida" + UtilConstants.ANSI_RESET);
             }
         }
         terminal.show("Se va a crear un " + palabra + " de nombre " + nombre);
@@ -108,9 +108,9 @@ public class MenuInicial {
             }
             manager.aniadir(user,UtilConstants.FILE_USERS);
 
-            terminal.show("Se ha completado el registro de " + palabra);
+            terminal.show(UtilConstants.ANSI_GREEN + "Se ha completado el registro de " + palabra + UtilConstants.ANSI_RESET);
         } else {
-            terminal.show("Se ha cancelado el registro de " + palabra);
+            terminal.show(UtilConstants.ANSI_RED +"Se ha cancelado el registro de " + palabra + UtilConstants.ANSI_RESET);
         }
 
     }
@@ -122,7 +122,7 @@ public class MenuInicial {
             } else if (num == 2 || num == 3) {
                 registrar(num);
             } else{
-                terminal.show("La opción no es válida");
+                terminal.show(UtilConstants.ANSI_RED +"La opción no es válida" + UtilConstants.ANSI_RESET);
             }
             mostrarMenu();
             num = Integer.parseInt(terminal.read());

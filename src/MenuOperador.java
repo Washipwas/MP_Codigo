@@ -28,10 +28,17 @@ public class MenuOperador extends MenuUsuario {
             } else {
                 terminal.show("La opción no es válida");
             }
+            terminal.show(UtilConstants.ANSI_YELLOW+ "Pulse cualquier tecla para continuar" + UtilConstants.ANSI_RESET);
+            terminal.read();
             mostrarMenu();
             opcion = Integer.parseInt(this.terminal.read());
         }
 
+    }
+
+    @Override
+    public Boolean comprobarDesafio() {
+        return null;
     }
 
     public void editarPersonaje() {
@@ -40,7 +47,20 @@ public class MenuOperador extends MenuUsuario {
         String opcion = terminal.read();
         if (this.manager.existe(opcion,2)){
             Personaje personaje = (this.manager.asociarPersonaje(opcion));
+            String nombre = personaje.getNombre();
             personaje.editar();
+            if (personaje instanceof Vampiro){
+                ((Vampiro) personaje).editarAtributosExtras();
+            } else if (personaje instanceof Licantropo) {
+                ((Licantropo) personaje).editarAtributosExtras();
+            } else{
+                ((Cazador) personaje).editarAtributosExtras();
+            }
+            personaje.editarEquipo();
+            personaje.editarModificadores();
+            personaje.editarEsbirros();
+            personaje.editarHabilidad();
+            this.manager.actualizar(personaje,nombre);
             this.manager.guardar();
         } else {
             terminal.show("El nombre es incorrecto");
@@ -48,48 +68,75 @@ public class MenuOperador extends MenuUsuario {
     }
 
     public void aniadirAlPersonaje() {
-        // TODO implement here
+        terminal.show("Elige un personaje");
+        manager.mostrar(2);
+        String opcion = terminal.read();
+        if (this.manager.existe(opcion,2)) {
+            Personaje personaje = (this.manager.asociarPersonaje(opcion));
+            personaje.aniadir();
+        } else {
+        terminal.show("El nombre es incorrecto");
+        }
+        this.manager.guardar();
     }
 
     public void validarDesafios() {
-        terminal.show("Desafios pendientes de validar");
-        this.manager.mostrar(3);
-        terminal.show("¿Qué desafio quiere escoger?");
-        String opcion = terminal.read();
-        if (this.manager.existe(opcion,3)){
-            terminal.show("Validar (Si/No)");
-            String opcion2 = terminal.read();
-            if ("Si".equalsIgnoreCase(opcion2)) {
-                this.manager.asociarDesafio(opcion);
+        if(this.manager.hayDesafios()){
+            terminal.show("Desafios pendientes de validar");
+            this.manager.mostrar(3);
+            terminal.show("¿Qué desafio quiere escoger?");
+            String opcion = terminal.read();
+            if (this.manager.existe(opcion,3)){
+                terminal.show("Validar (Si/No)");
+                String opcion2 = terminal.read();
+                Combate combate = this.manager.getCombate(opcion);
+                if ("Si".equalsIgnoreCase(opcion2)) {
+                    combate.asociarHabilidades();
+                    this.manager.asociarDesafio(opcion);
+                    this.manager.guardar();
+                } else {
+                    this.manager.eliminar(combate,UtilConstants.FILE_COMBATS);
+                    this.manager.bloquear_desbloquear(usuarioActivo.getNick(),false);
+                    combate.combateCancelar();
+                    this.manager.guardar();
+                    terminal.show("Desafio rechazado");
+                }
             } else {
-                this.manager.eliminar(opcion,UtilConstants.FILE_COMBATS);
-                this.manager.guardar();
-                terminal.show("Desafio rechazado");
+                terminal.show("Opción no válida");
             }
-        } else {
-            terminal.show("Opción no válida");
+        }else {
+            terminal.show(UtilConstants.ANSI_RED+"No existen desafios pendientes"+UtilConstants.ANSI_RESET);
         }
+
     }
 
     public void bloquearUsuarios() {
-        this.manager.mostrarUsuariosNoNormas();
-        terminal.show("Escribe le nick del usuario que quiere bloquear");
-        String nick = terminal.read();
-        if (manager.existe(nick,1)){
-            this.manager.bloquear_desbloquear(nick,true);
+        if (this.manager.hayUsuariosNoNormas()) {
+            this.manager.mostrarUsuariosNoNormas();
+            terminal.show("Escribe el nick del usuario que quiere bloquear");
+            String nick = terminal.read();
+            if (manager.existe(nick, 1)) {
+                this.manager.bloquear_desbloquear(nick, true);
+            } else {
+                terminal.show("El nick no es válido");
+            }
         } else {
-            terminal.show("El nick no es válido");
+            terminal.show(UtilConstants.ANSI_RED+"No hay usuarios que incumplan las normas"+UtilConstants.ANSI_RESET);
         }
     }
 
     public void desbloquearusuarios() {
-        this.manager.mostrarUsuariosBloqueados();
-        terminal.show("Escribe le nick del usuario que quiere desbloquear");
-        String nick = terminal.read();
-        if (manager.existe(nick,1)){
-            this.manager.bloquear_desbloquear(nick,false);
+        if (this.manager.hayUsuariosBloqueados()) {
+            this.manager.mostrarUsuariosBloqueados();
+            terminal.show("Escribe el nick del usuario que quiere desbloquear");
+            String nick = terminal.read();
+            if (manager.existe(nick, 1)) {
+                this.manager.bloquear_desbloquear(nick, false);
+            } else {
+                terminal.show("El nick no es válido");
+            }
         } else {
-            terminal.show("El nick no es válido");
+            terminal.show(UtilConstants.ANSI_RED+"No hay usuarios bloqueados"+UtilConstants.ANSI_RESET);
         }
     }
 

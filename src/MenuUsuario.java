@@ -1,4 +1,4 @@
-public class MenuUsuario {
+public abstract class MenuUsuario {
     public MenuUsuario(String nick, Manager manager) { //constructor llamado por el hijo
         this.terminal = new TextTerminal();
         this.manager = manager; //se le pasa el manager extraido en menu principal
@@ -15,30 +15,18 @@ public class MenuUsuario {
 
     public Boolean mostrarMenu() {
         terminal.show("Bienvenido " + this.usuarioActivo.getNombre());
-        if (usuarioActivo instanceof UsuarioEstandar && ((UsuarioEstandar) usuarioActivo).getBloqueado()) {//si el usuario pasado es un Usuario-estandar  y si no está bloqueado
-            terminal.show("Su cuenta esta bloqueada, no puede realizar ninguna accion");
-            terminal.show("Se le redirigirá automáticamente a la pantalla de inicio");
-            return true;
-        }
-        else if (usuarioActivo instanceof UsuarioEstandar && usuarioActivo.getDesafiante() != null){//si es un usuario estandar y tiene algun desafio pendiente
-            UsuarioEstandar desafiante = (UsuarioEstandar) usuarioActivo.getDesafiante();
-            terminal.show(desafiante.getNick());
-            terminal.show("Tiene una solicitud de combate de " + desafiante.getNombre());
-            terminal.show("¿Aceptar? (Si/No)");
-            String opcion = terminal.read();
-            if ("Si".equalsIgnoreCase(opcion)){
-                terminal.show("Combate aceptado");
-                //FALTAN COMPROBACIONES DE ORO
-                //POSTERIORMENTE VIENE EL PROCESO DE ELECION DE ARMAS ANTES DE COMBATE
-            } else {
-                terminal.show("Combate cancelado");
-            }
-            ((UsuarioEstandar) usuarioActivo).setDesafiante(null);
+        if (usuarioActivo instanceof UsuarioEstandar && usuarioActivo.getDesafiante() != null) {
+            comprobarDesafio();
             mostrarMenu();
             return false;
         }
+        if (usuarioActivo instanceof UsuarioEstandar && ((UsuarioEstandar) usuarioActivo).getBloqueado()) {//si el usuario pasado es un Usuario-estandar  y si no está bloqueado
+            terminal.show(UtilConstants.ANSI_RED + "Su cuenta esta bloqueada, no puede realizar ninguna accion" + UtilConstants.ANSI_RESET);
+            terminal.show("Se le redirigirá automáticamente a la pantalla de inicio");
+            return true;
+        }
         else {
-            terminal.show("Seleccione una opción escribiendo el numero correspondiente");
+            terminal.show(UtilConstants.ANSI_BLUE +"Seleccione una opción escribiendo el numero correspondiente" + UtilConstants.ANSI_RESET);
             if (this.usuarioActivo instanceof UsuarioEstandar) { //si es un usuario-estandar
                 terminal.show("1.Registrar personaje");
                 terminal.show("2.Dar de baja mi personaje");
@@ -71,12 +59,14 @@ public class MenuUsuario {
         String opcion = terminal.read();
         if ("Si".equalsIgnoreCase(opcion)){
             this.manager.eliminar(this.usuarioActivo,UtilConstants.FILE_USERS);
-            terminal.show("Baja completada");
+            terminal.show(UtilConstants.ANSI_GREEN + "Baja completada" + UtilConstants.ANSI_RESET);
         } else {
             eliminado = false;
         }
         return eliminado;
     }
+
+    public abstract Boolean comprobarDesafio();
 
 
     //public void actualizarFichero(Object bj , fichero Fichero) {
