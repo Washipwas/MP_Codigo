@@ -15,4 +15,9 @@ public class Operador extends Usuario {
 
     }
 
+    @Override
+    public void setDesafiante(Usuario usuarioActivo) {
+
+    }
+
 }

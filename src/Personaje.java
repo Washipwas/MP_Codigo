@@ -718,4 +718,8 @@ public abstract class Personaje implements Serializable {
             habilidad.editar();
         }
     }
+
+    public boolean hayHabilidad() {
+        return this.habilidad != null;
+    }
 }

@@ -89,12 +89,15 @@ public class MenuOperador extends MenuUsuario {
             if (this.manager.existe(opcion,3)){
                 terminal.show("Validar (Si/No)");
                 String opcion2 = terminal.read();
+                Combate combate = this.manager.getCombate(opcion);
                 if ("Si".equalsIgnoreCase(opcion2)) {
+                    combate.asociarHabilidades();
                     this.manager.asociarDesafio(opcion);
-                    this.manager.eliminar(opcion,UtilConstants.FILE_COMBATS);
                     this.manager.guardar();
                 } else {
-                    this.manager.eliminar(opcion,UtilConstants.FILE_COMBATS);
+                    this.manager.eliminar(combate,UtilConstants.FILE_COMBATS);
+                    this.manager.bloquear_desbloquear(usuarioActivo.getNick(),false);
+                    combate.combateCancelar();
                     this.manager.guardar();
                     terminal.show("Desafio rechazado");
                 }
@@ -108,24 +111,32 @@ public class MenuOperador extends MenuUsuario {
     }
 
     public void bloquearUsuarios() {
-        this.manager.mostrarUsuariosNoNormas();
-        terminal.show("Escribe el nick del usuario que quiere bloquear");
-        String nick = terminal.read();
-        if (manager.existe(nick,1)){
-            this.manager.bloquear_desbloquear(nick,true);
+        if (this.manager.hayUsuariosNoNormas()) {
+            this.manager.mostrarUsuariosNoNormas();
+            terminal.show("Escribe el nick del usuario que quiere bloquear");
+            String nick = terminal.read();
+            if (manager.existe(nick, 1)) {
+                this.manager.bloquear_desbloquear(nick, true);
+            } else {
+                terminal.show("El nick no es válido");
+            }
         } else {
-            terminal.show("El nick no es válido");
+            terminal.show(UtilConstants.ANSI_RED+"No hay usuarios que incumplan las normas"+UtilConstants.ANSI_RESET);
         }
     }
 
     public void desbloquearusuarios() {
-        this.manager.mostrarUsuariosBloqueados();
-        terminal.show("Escribe el nick del usuario que quiere desbloquear");
-        String nick = terminal.read();
-        if (manager.existe(nick,1)){
-            this.manager.bloquear_desbloquear(nick,false);
+        if (this.manager.hayUsuariosBloqueados()) {
+            this.manager.mostrarUsuariosBloqueados();
+            terminal.show("Escribe el nick del usuario que quiere desbloquear");
+            String nick = terminal.read();
+            if (manager.existe(nick, 1)) {
+                this.manager.bloquear_desbloquear(nick, false);
+            } else {
+                terminal.show("El nick no es válido");
+            }
         } else {
-            terminal.show("El nick no es válido");
+            terminal.show(UtilConstants.ANSI_RED+"No hay usuarios bloqueados"+UtilConstants.ANSI_RESET);
         }
     }
 

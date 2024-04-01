@@ -44,6 +44,8 @@ public abstract class Usuario implements Serializable {
         return true;
     }
 
+    public abstract void setDesafiante(Usuario usuarioActivo);
+
     public Object getDesafiante() {
         return null;
     }
@@ -127,6 +129,13 @@ public abstract class Usuario implements Serializable {
     }
 
     public boolean getPosibleBloqueado() {
+        return false;
+    }
+
+    public void setDesafiante(Object o) {
+    }
+
+    public boolean getBloqueado() {
         return false;
     }
 }
