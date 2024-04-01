@@ -116,14 +116,6 @@ public class MenuUsuarioEstandar extends MenuUsuario {
         terminal.show(UtilConstants.ANSI_BLUE + "Armas actuales" + UtilConstants.ANSI_RESET);
         usuarioActivo.mostrarArmas();
         int manosLibres = usuarioActivo.getManosLibres();
-        int num = 0;
-        if (usuarioActivo.getPersonaje() instanceof Vampiro){
-            num = 1;
-        } else if (usuarioActivo.getPersonaje() instanceof Licantropo){
-            num = 2;
-        } else if (usuarioActivo.getPersonaje() instanceof Cazador){
-            num = 3;
-        }
         if (manosLibres == 2){
             terminal.show("Estas son tus armas disponibles, elija una escribiendo el nombre:");
             this.usuarioActivo.mostrarTodasArmas();
@@ -176,14 +168,6 @@ public class MenuUsuarioEstandar extends MenuUsuario {
     public void escogerArmadura(){
         terminal.show(UtilConstants.ANSI_BLUE + "Armadura actual" + UtilConstants.ANSI_RESET);
         usuarioActivo.mostrarArmadura();
-        int num = 0;
-        if (usuarioActivo.getPersonaje() instanceof Vampiro){
-            num = 1;
-        } else if (usuarioActivo.getPersonaje() instanceof Licantropo){
-            num = 2;
-        } else if (usuarioActivo.getPersonaje() instanceof Cazador){
-            num = 3;
-        }
         if (usuarioActivo.notieneArmadura()){
             terminal.show("Estas son tus armaduras disponibles, elija una escribiendo el nombre:");
             this.usuarioActivo.mostrarTodasArmaduras();
@@ -251,17 +235,10 @@ public class MenuUsuarioEstandar extends MenuUsuario {
 
 
     }
-
-    /**
-     * 
-     */
     public void gestionarInvitacionDesafio() {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
     public void consultarRegistro() { //consultaremos al hashmap con el key del nombre del usuario
         String NombreUsuario=this.usuarioActivo.getNombre();
         if (this.manager.desafioVacio(NombreUsuario)){
@@ -282,27 +259,17 @@ public class MenuUsuarioEstandar extends MenuUsuario {
     }
 
 
-    /**
-     * 
-     */
     public void consultarRanking() { // en teoría cuando saquemos la información del fichero cada usuario tiene a
         this.manager.mostarRanking();
     }
 
-    /**
-     * @return
-     */
     public boolean combatePendiente() {
         // TODO implement here
         return false;
     }
 
-    /**
-     * @return
-     */
     public boolean estaBloqueado() {
-
-        return false;
+        return this.usuarioActivo.getBloqueado();
     }
 
     @Override
@@ -328,7 +295,7 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                 this.manager.guardar();
             } else {
                 Combate combate=this.manager.getCombatePendiente(this.usuarioActivo.getNombre());
-                combate.combateCancelarPociento();
+                combate.combateCancelarPorciento();
                 terminal.show("Combate cancelado");
             }
             ((UsuarioEstandar) usuarioActivo).setDesafiante(null);

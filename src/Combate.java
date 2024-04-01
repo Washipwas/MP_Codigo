@@ -222,7 +222,7 @@ public class Combate implements Serializable {
         }
     }
 
-    public void combateCancelarPociento() {
+    public void combateCancelarPorciento() {
         this.personaje1.setDesafiante(null);
         this.personaje1.setBloqueado(false);
         this.personaje1.getPersonajeUser().sumarOro(this.oroApostado);

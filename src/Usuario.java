@@ -14,11 +14,6 @@ public abstract class Usuario implements Serializable {
     private String nick;
     private String contrasenia;
 
-    public boolean datosCorrectos(String n, String c) {
-        // TODO implement here
-        return false;
-    }
-
     public String getNick(){
         return this.nick;
     }
@@ -130,9 +125,6 @@ public abstract class Usuario implements Serializable {
 
     public boolean getPosibleBloqueado() {
         return false;
-    }
-
-    public void setDesafiante(Object o) {
     }
 
     public boolean getBloqueado() {
