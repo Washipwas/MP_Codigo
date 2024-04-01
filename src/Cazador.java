@@ -9,9 +9,9 @@ public class Cazador extends Personaje {
     private int voluntad;
     private Talento talento;
 
-    public Cazador(String nombre, int salud, int poder,TextTerminal terminal) {
+    public Cazador(String nombre, int salud, int poder,int voluntad,TextTerminal terminal) {
         super(nombre,poder,salud,terminal);
-        this.voluntad = 3;
+        this.voluntad = voluntad;
         crearDebilidades();
         crearFortalezas();
         crearHabilidadEspecial();
@@ -35,7 +35,7 @@ public class Cazador extends Personaje {
         }else{
             int valor = super.getPoder() + talento.getValorDefensa() + voluntad ;
             int valorModificador = getFortalezaActiva().getValor(); //Valor de la fortaleza presente
-            return valor - valorModificador;// se le fuma la fortaleza al potencial de ataque
+            return valor - valorModificador;// se le suma la fortaleza al potencial de ataque
         }
     }
 
