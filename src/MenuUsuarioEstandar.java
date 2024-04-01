@@ -34,9 +34,11 @@ public class MenuUsuarioEstandar extends MenuUsuario {
 
                 } else if (opcion == 4) {
                     desafiarUsuarios();
-                    terminal.show(UtilConstants.ANSI_RED + "Su cuenta esta bloqueada, no puede realizar ninguna accion" + UtilConstants.ANSI_RESET);
-                    terminal.show("Se le redirigirá automáticamente a la pantalla de inicio");
-                    break;
+                    if (this.usuarioActivo.getBloqueado()) {
+                        terminal.show(UtilConstants.ANSI_RED + "Su cuenta esta bloqueada, no puede realizar ninguna accion" + UtilConstants.ANSI_RESET);
+                        terminal.show("Se le redirigirá automáticamente a la pantalla de inicio");
+                        break;
+                    }
                 } else if (opcion == 5) {
                     consultarRegistro();
                 } else if (opcion == 6) {
@@ -209,39 +211,45 @@ public class MenuUsuarioEstandar extends MenuUsuario {
     }
 
     public void desafiarUsuarios() {
-        if (usuarioActivo.getPersonaje() == null){
-            terminal.show(UtilConstants.ANSI_RED + "No tiene ningún personaje asociado a su cuenta para desafiar a otros jugadores" + UtilConstants.ANSI_RESET);
-        }
-        else if(usuarioActivo.getArmaduraActiva()==null||usuarioActivo.getArmaActiva()==null){
-            terminal.show(UtilConstants.ANSI_RED + "No tiene el equipamiento completo para desafiar a otros jugadores" + UtilConstants.ANSI_RESET);
-        }
-        else{
-            terminal.show("A que usuario quiere desafiar");
-            this.manager.mostrarUsuariosParaDesafiar(usuarioActivo.getNick());
-            String opcion = terminal.read();
-            if (this.manager.existeDesafiar(opcion)){
-                UsuarioEstandar usuario2 = (UsuarioEstandar) this.manager.asociarUsuario(opcion);
-                if (this.manager.perdidoMenosHoras(usuario2)){
-                    usuarioActivo.setPosibleBloqueado(true);
-                }
-                terminal.show("Que cantidad de dinero desea apostar?");
-                int dinero = Integer.parseInt(terminal.read());
-                if (usuarioActivo.oroValido(dinero)&&usuario2.oroValido(dinero)){
-                    this.usuarioActivo.getPersonajeUser().sumarOro(-dinero);
-                    usuario2.getPersonajeUser().sumarOro(-dinero);
-                    Combate combate = new Combate((UsuarioEstandar) usuarioActivo,usuario2,dinero,this.usuarioActivo.getNick()+usuario2.getNick());
-                    this.manager.aniadir(combate,UtilConstants.FILE_COMBATS);
-                    this.usuarioActivo.setBloqueado();
-                    this.manager.guardar();
-                    terminal.show(UtilConstants.ANSI_GREEN + "Solicitud de desafio enviada" + UtilConstants.ANSI_RESET);
-                } else{
-                    terminal.show(UtilConstants.ANSI_RED + "La cantidad de oro apostada no es válida" + UtilConstants.ANSI_RESET);
-                    terminal.show(UtilConstants.ANSI_RED + "Combate cancelado" + UtilConstants.ANSI_RESET);
-                }
-            } else {
-                terminal.show(UtilConstants.ANSI_RED + "El nick no es correcto" + UtilConstants.ANSI_RESET);
+        if (this.manager.hayUsuariosParaDesafiar(usuarioActivo.getNick())){
+            if (usuarioActivo.getPersonaje() == null){
+                terminal.show(UtilConstants.ANSI_RED + "No tiene ningún personaje asociado a su cuenta para desafiar a otros jugadores" + UtilConstants.ANSI_RESET);
             }
+            else if(usuarioActivo.getArmaduraActiva()==null||usuarioActivo.getArmaActiva()==null){
+                terminal.show(UtilConstants.ANSI_RED + "No tiene el equipamiento completo para desafiar a otros jugadores" + UtilConstants.ANSI_RESET);
+            }
+            else{
+                terminal.show("A que usuario quiere desafiar");
+                this.manager.mostrarUsuariosParaDesafiar(usuarioActivo.getNick());
+                String opcion = terminal.read();
+                if (this.manager.existeDesafiar(opcion)){
+                    UsuarioEstandar usuario2 = (UsuarioEstandar) this.manager.asociarUsuario(opcion);
+                    if (this.manager.perdidoMenosHoras(usuario2)){
+                        usuarioActivo.setPosibleBloqueado(true);
+                    }
+                    terminal.show("Que cantidad de dinero desea apostar?");
+                    int dinero = Integer.parseInt(terminal.read());
+                    if (usuarioActivo.oroValido(dinero)&&usuario2.oroValido(dinero)){
+                        this.usuarioActivo.getPersonajeUser().sumarOro(-dinero);
+                        usuario2.getPersonajeUser().sumarOro(-dinero);
+                        Combate combate = new Combate((UsuarioEstandar) usuarioActivo,usuario2,dinero,this.usuarioActivo.getNick()+usuario2.getNick());
+                        this.manager.aniadir(combate,UtilConstants.FILE_COMBATS);
+                        this.usuarioActivo.setBloqueado();
+                        this.manager.guardar();
+                        terminal.show(UtilConstants.ANSI_GREEN + "Solicitud de desafio enviada" + UtilConstants.ANSI_RESET);
+                    } else{
+                        terminal.show(UtilConstants.ANSI_RED + "La cantidad de oro apostada no es válida" + UtilConstants.ANSI_RESET);
+                        terminal.show(UtilConstants.ANSI_RED + "Combate cancelado" + UtilConstants.ANSI_RESET);
+                    }
+                } else {
+                    terminal.show(UtilConstants.ANSI_RED + "El nick no es correcto" + UtilConstants.ANSI_RESET);
+                }
+            }
+        } else{
+            terminal.show(UtilConstants.ANSI_RED + "No hay usuarios para desafiar" + UtilConstants.ANSI_RESET);
         }
+
+
     }
 
     /**
@@ -259,8 +267,6 @@ public class MenuUsuarioEstandar extends MenuUsuario {
         if (this.manager.desafioVacio(NombreUsuario)){
             terminal.show("No tiene registro de desafíos");
         }else {
-
-            //con el nombre vamos a recorrer todo el mapa sacando el combate en cada ocasión
             this.manager.mostrarRegistro(NombreUsuario);
             terminal.show("Seleccione el id del combate:");
             String combateseleccionado = terminal.read();
@@ -321,6 +327,8 @@ public class MenuUsuarioEstandar extends MenuUsuario {
                 ((UsuarioEstandar) usuarioActivo).setDesafiante(null);
                 this.manager.guardar();
             } else {
+                Combate combate=this.manager.getCombatePendiente(this.usuarioActivo.getNombre());
+                combate.combateCancelarPociento();
                 terminal.show("Combate cancelado");
             }
             ((UsuarioEstandar) usuarioActivo).setDesafiante(null);

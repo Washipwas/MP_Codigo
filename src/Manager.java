@@ -164,7 +164,9 @@ public class Manager implements Serializable {
                 Combate combate = listaCombates.get(key);
 
                 if (combate.getGanador()==null){
-                    terminal.show("Clave: " + key);
+                    if (!combate.getValidado()) {
+                        terminal.show("Clave: " + key);
+                    }
                 }
             }
         } else if (num == 4) {
@@ -252,7 +254,7 @@ public class Manager implements Serializable {
             Usuario user = entry.getValue();
             if (user instanceof UsuarioEstandar){
                 if (!(((UsuarioEstandar) user).getBloqueado())){
-                    if (user.getNick() != nick) {
+                    if (!user.getNick().equalsIgnoreCase(nick)) {
                         if(user.getPersonaje()!=null){
                             terminal.show(user.getNick());
                         }
@@ -282,6 +284,7 @@ public class Manager implements Serializable {
 
     public void asociarDesafio(String opcion) {
         Combate combate = this.listaCombates.get(opcion);
+        combate.setValidado(true);
         combate.asociarDesafio();
     }
 
@@ -456,7 +459,14 @@ public class Manager implements Serializable {
     }
 
     public boolean hayDesafios() {
-        return !this.listaCombates.isEmpty();
+        boolean bool = false;
+        for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()) { //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
+            Combate combate = entrada.getValue();
+            if (combate.getGanador() == null){
+                bool = true;
+            }
+        }
+        return bool;
     }
 
     public boolean perdidoMenosHoras(UsuarioEstandar usuario2) {
@@ -474,5 +484,45 @@ public class Manager implements Serializable {
             }
         }
         return bool;
+    }
+
+    public boolean hayUsuariosParaDesafiar(String nick) {
+        for (Map.Entry<String, Usuario> entry : listaUsuarios.entrySet()) {
+            Usuario user = entry.getValue();
+            if (user instanceof UsuarioEstandar){
+                if (!(((UsuarioEstandar) user).getBloqueado())){
+                    if (!user.getNick().equalsIgnoreCase(nick)) {
+                        if(user.getPersonaje()!=null){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean hayUsuariosNoNormas() {
+        for (Map.Entry<String, Usuario> entry : listaUsuarios.entrySet()) {
+            Usuario user = entry.getValue();
+            if (user instanceof UsuarioEstandar){
+                if (user.getPosibleBloqueado()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean hayUsuariosBloqueados() {
+        for (Map.Entry<String, Usuario> entry : listaUsuarios.entrySet()) {
+            Usuario user = entry.getValue();
+            if (user instanceof UsuarioEstandar){
+                if (((UsuarioEstandar) user).getBloqueado()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

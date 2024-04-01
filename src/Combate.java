@@ -17,6 +17,7 @@ public class Combate implements Serializable {
         this.id = id;
         this.rondas = 0;
         this.ganador=null;
+        this.validado = false;
     }
 
     private String id;
@@ -24,7 +25,7 @@ public class Combate implements Serializable {
 
     private UsuarioEstandar personaje2;
     private int oroApostado;
-
+    private Boolean validado;
     private LocalDate Fecha;
     private String ganador;
     private int rondas;
@@ -33,6 +34,12 @@ public class Combate implements Serializable {
 
     public String getGanador(){
         return ganador;
+    }
+    public boolean getValidado(){
+        return this.validado;
+    }
+    public void setValidado(boolean bool){
+        this.validado = bool;
     }
 
     public UsuarioEstandar getPersonaje1(){
@@ -137,16 +144,18 @@ public class Combate implements Serializable {
             this.personaje1.getPersonajeUser().restarVida();
             terminal.show("Personaje: "+this.personaje1.getPersonaje().getNombre()+ " del ususario "+this.personaje1.getNombre()+" pierde 1 de vida");
         }
+
     }
-      mostrarResumen();
-      if (this.ganador.equals(this.personaje1.getNombre())){
-          this.personaje1.getPersonajeUser().sumarOro(this.oroApostado*2);
-      }else if(this.ganador.equals(this.personaje2.getNombre())){
-            this.personaje2.getPersonajeUser().sumarOro(this.oroApostado*2);
-        }
-      else{
-          this.personaje1.getPersonajeUser().sumarOro(this.oroApostado);
-          this.personaje2.getPersonajeUser().sumarOro(this.oroApostado);
+    this.personaje1.setBloqueado(false);
+    this.personaje1.setDesafiante(null);
+    mostrarResumen();
+    if (this.ganador.equals(this.personaje1.getNombre())){
+        this.personaje1.getPersonajeUser().sumarOro(this.oroApostado*2);
+    } else if(this.ganador.equals(this.personaje2.getNombre())){
+        this.personaje2.getPersonajeUser().sumarOro(this.oroApostado*2);
+    } else{
+        this.personaje1.getPersonajeUser().sumarOro(this.oroApostado);
+        this.personaje2.getPersonajeUser().sumarOro(this.oroApostado);
       }
     }
 
@@ -169,5 +178,54 @@ public class Combate implements Serializable {
 
     public LocalDate getFecha() {
         return this.Fecha;
+    }
+
+    public void combateCancelar() {
+        this.personaje1.setDesafiante(null);
+        this.personaje1.setBloqueado(false);
+        this.personaje1.getPersonajeUser().sumarOro(this.oroApostado);
+        this.personaje2.getPersonajeUser().sumarOro(this.oroApostado);
+    }
+
+    public void asociarHabilidades() {
+        TextTerminal terminal = new TextTerminal();
+        if (this.personaje1.getPersonajeUser().getPersonaje().hayHabilidad()){
+            terminal.show("Habilidad especial del personaje " + personaje1.getPersonajeUser().getPersonaje().getNombre() + " del usuario " + personaje1.getNombre());
+            this.personaje1.getPersonajeUser().getPersonaje().mostrarHabilidadEspecial();
+            terminal.show("¿Añadir habilidad especial? (Si/No)");
+            String opcion = terminal.read();
+            if ("No".equalsIgnoreCase(opcion)){
+                this.personaje1.getPersonajeUser().getPersonaje().setHabilidad(null);
+                terminal.show(UtilConstants.ANSI_RED + "Habilidad especial no añadida" + UtilConstants.ANSI_RESET);
+
+            } else{
+                terminal.show(UtilConstants.ANSI_GREEN + "Habilidad especial añadida" + UtilConstants.ANSI_RESET);
+            }
+        } else{
+            terminal.show(UtilConstants.ANSI_RED + "El personaje " + personaje1.getPersonajeUser().getPersonaje().getNombre() + " no tiene habilidad especial" + UtilConstants.ANSI_RESET);
+        }
+
+        if (this.personaje1.getPersonajeUser().getPersonaje().hayHabilidad()) {
+            terminal.show("Habilidad especial del personaje " + personaje2.getPersonajeUser().getPersonaje().getNombre() + " del usuario " + personaje2.getNombre());
+            this.personaje2.getPersonajeUser().getPersonaje().mostrarHabilidadEspecial();
+            terminal.show("¿Añadir habilidad especial? (Si/No)");
+            String opcion = terminal.read();
+            if ("No".equalsIgnoreCase(opcion)) {
+                this.personaje2.getPersonajeUser().getPersonaje().setHabilidad(null);
+                terminal.show(UtilConstants.ANSI_RED + "Habilidad especial no añadida" + UtilConstants.ANSI_RESET);
+
+            } else {
+                terminal.show(UtilConstants.ANSI_GREEN + "Habilidad especial añadida" + UtilConstants.ANSI_RESET);
+            }
+        } else {
+            terminal.show(UtilConstants.ANSI_RED + "El personaje " + personaje2.getPersonajeUser().getPersonaje().getNombre() + " no tiene habilidad especial" + UtilConstants.ANSI_RESET);
+        }
+    }
+
+    public void combateCancelarPociento() {
+        this.personaje1.setDesafiante(null);
+        this.personaje1.setBloqueado(false);
+        this.personaje1.getPersonajeUser().sumarOro(this.oroApostado);
+        this.personaje2.getPersonajeUser().sumarOro((int) (this.oroApostado*0.9));
     }
 }
