@@ -9,7 +9,7 @@ public class MenuInicial {
         this.terminal = new TextTerminal();
         File archivo = new File(UtilConstants.FILE_USERS + "usuarios.ser"); // se lee el fichero con la direccion que te da utilconstanst.fileusers
         if (!archivo.exists()) {
-            manager = new Manager(UtilConstants.FILE_USERS);
+            manager = new Manager();
             try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(UtilConstants.FILE_USERS + "usuarios.ser"))) {
                 objetoSalida.writeObject(manager);
             } catch (IOException e) {

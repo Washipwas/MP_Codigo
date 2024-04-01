@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Manager implements Serializable {
 
-    public Manager(String fichero) {
+    public Manager() {
         this.terminal = new TextTerminal();
         this.listaUsuarios = new HashMap<>();
         this.listaPersonajes = new HashMap<>();
@@ -16,20 +16,20 @@ public class Manager implements Serializable {
     }
 
     private void aniadirPersonajes() {
-        Vampiro vamp = new Vampiro("Vampiro 1",1,2,3,30000,terminal);
+        Vampiro vamp = new Vampiro("Drácula",4,2,6,1000,terminal);
         aniadir(vamp,UtilConstants.FILE_PERSONAJES);
-        vamp = new Vampiro("Vampiro 2",3,4,2,2311,terminal);
+        vamp = new Vampiro("Rey de la noche",3,4,2,30000,terminal);
         aniadir(vamp,UtilConstants.FILE_PERSONAJES);
-        Licantropo lic = new Licantropo("Licantropo 1",4,1,4,terminal);
+        Licantropo lic = new Licantropo("Lobo feroz",2,5,0,terminal);
         aniadir(lic,UtilConstants.FILE_PERSONAJES);
-        lic = new Licantropo("Licantropo 2",2,3,3,terminal);
+        lic = new Licantropo("Sierbo de la luna",2,3,3,terminal);
         aniadir(lic,UtilConstants.FILE_PERSONAJES);
-        Cazador caz = new Cazador("Cazador 1",1,2,terminal);
+        Cazador caz = new Cazador("Mortis",3,3,3,terminal);
         aniadir(caz,UtilConstants.FILE_PERSONAJES);
-        caz = new Cazador("Cazador 2",2,3,terminal);
+        caz = new Cazador("Vaquero errante",2,3,1,terminal);
         aniadir(caz,UtilConstants.FILE_PERSONAJES);
 
-        Arma arma1 = new Arma("Pump", 1,1, 3, 0);
+        /*Arma arma1 = new Arma("Pump", 1,1, 3, 0);
         aniadir(arma1,UtilConstants.FILE_ARMAS);
         Arma arma2 = new Arma("Catana",2,2, 2, 0);
         aniadir(arma2,UtilConstants.FILE_ARMAS);
@@ -47,6 +47,7 @@ public class Manager implements Serializable {
         aniadir(armadura3,UtilConstants.FILE_ARMADURAS);
         Armadura armadura4 = new Armadura("Armadura siniestra",3, 2, 2);
         aniadir(armadura4,UtilConstants.FILE_ARMADURAS);
+         */
     }
 
     //como he leido la info del fichero pues entonces los aributos ya tienen la información correspondiente
