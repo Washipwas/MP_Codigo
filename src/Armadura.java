@@ -10,7 +10,6 @@ public class Armadura extends Equipo implements Serializable {
 
     }
 
-
     public void mostrar() {
         System.out.print( "* ");
         System.out.print("Nombre: " + this.getId() + "    ");

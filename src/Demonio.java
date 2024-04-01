@@ -5,7 +5,6 @@ public class Demonio extends Esbirro {
         super(nombre, vida);
         this.pacto = pacto;
     }
-
     @Override
     public void mostrarExtra() {
         System.out.println("Pacto: " + this.pacto);
@@ -25,11 +24,5 @@ public class Demonio extends Esbirro {
     }
 
     private String pacto;
-
-
-    public Set<Esbirro> esbirros() {
-        // TODO implement here
-        return null;
-    }
 
 }

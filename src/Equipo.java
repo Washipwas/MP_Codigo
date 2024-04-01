@@ -35,15 +35,9 @@ public abstract class Equipo implements Serializable {
     private int modificadorDeDefensa;
 
 
-    public int generarPotencialAtaque() {
-        // TODO implement here
-        return 0;
-    }
-
 
     public int generarPotencialDefensa() {
-        // TODO implement here
-        return 0;
+        return this.modificadorDeDefensa;
     }
 
     public String getId() {

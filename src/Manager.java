@@ -11,7 +11,6 @@ public class Manager implements Serializable {
         this.listaCombates = new HashMap<>();
         this.listaArmas = new HashMap<>();
         this.listaArmaduras = new HashMap<>();
-        this.Ranking= new String[10];
         aniadirPersonajes();
     }
 

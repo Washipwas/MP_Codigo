@@ -7,7 +7,6 @@ public abstract class Modificador implements Serializable {
 
 
     public Modificador(String nombre, int valor) {
-
         this.nombre = nombre;
         this.valor = valor;
     }
@@ -57,22 +56,5 @@ public abstract class Modificador implements Serializable {
         System.out.println("Puntos de modificador: " + this.valor);
     }
 }
-
-
-// generar potencial ataque y defensa no deberian de ir aquí
-/**
- * public int generarPotencialAtaque() {
- * // TODO implement here
- * return 0;
- * }
- * <p>
- * <p>
- * <p>
- * <p>
- * public int generarPotencialDefensa() {
- * // TODO implement here
- * return 0;
- * }
- */
 
 
