@@ -235,9 +235,6 @@ public class MenuUsuarioEstandar extends MenuUsuario {
 
 
     }
-    public void gestionarInvitacionDesafio() {
-        // TODO implement here
-    }
 
     public void consultarRegistro() { //consultaremos al hashmap con el key del nombre del usuario
         String NombreUsuario=this.usuarioActivo.getNombre();
@@ -261,11 +258,6 @@ public class MenuUsuarioEstandar extends MenuUsuario {
 
     public void consultarRanking() { // en teoría cuando saquemos la información del fichero cada usuario tiene a
         this.manager.mostarRanking();
-    }
-
-    public boolean combatePendiente() {
-        // TODO implement here
-        return false;
     }
 
     public boolean estaBloqueado() {

@@ -77,6 +77,10 @@ public class Vampiro extends Personaje {
         return this.puntoSangre;
     }
 
+    public void sumarPuntosSangre(){
+        this.puntoSangre += 4;
+    }
+
     private void crearDebilidades(){
         Debilidad debilidad1 =  new Debilidad("Luz solar", 4);
         getDebilidades().put(debilidad1.getNombre(),debilidad1);
