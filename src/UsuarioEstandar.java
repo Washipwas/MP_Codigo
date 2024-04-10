@@ -90,11 +90,6 @@ public class UsuarioEstandar extends Usuario {
     }
 
     @Override
-    public boolean getPersonajeNull() {
-        return this.personajeUser == null;
-    }
-
-    @Override
     public void setDesafiante(Usuario usuarioActivo) {
         this.desafiante = (UsuarioEstandar) usuarioActivo;
     }

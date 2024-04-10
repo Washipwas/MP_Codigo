@@ -151,39 +151,6 @@ public abstract class Personaje implements Serializable {
     }
 
 
-    public int getValorAtaqueArmaduraActiva(){
-        return armadura.getModificadorDeAtaque();
-    }
-
-
-    public int getValorDefensaArmaduraActiva(){
-        return armadura.getModificadorDeDefensa();
-    }
-
-    public int getValorAtaqueArmaActiva() {
-        int valor;
-        if (manosOcupadas == 0) {
-            valor = 0;
-        } else if (manosOcupadas == 1) {
-            valor = arma1.getModificadorDeAtaque();
-        } else {
-            valor = arma1.getModificadorDeAtaque() + arma2.getModificadorDeAtaque();
-        }
-        return valor;
-    }
-
-    public int getValorDefensaArmaActiva() {
-        int valor;
-        if (manosOcupadas == 0) {
-            valor = 0;
-        } else if (manosOcupadas == 1) {
-            valor = arma1.getModificadorDeDefensa();
-        } else {
-            valor = arma1.getModificadorDeDefensa() + arma2.getModificadorDeDefensa();
-        }
-        return valor;
-    }
-
     //se tiene que crear una funcion para escoger la debilidad y fortaleza activa(lo hace el operador)
     //hacerlo todo en las clases que heredan de personaje porque cada personaje tiene distintas fortalezas y debilidades
 
@@ -704,10 +671,14 @@ public abstract class Personaje implements Serializable {
 
     public void mostrarHabilidadEspecial() {
         System.out.print("Habilidad Especial:     ");
-        System.out.print("Nombre: " + habilidad.getNombre() + "    ");
-        System.out.print("Valor de ataque: " + habilidad.getValorAtaque() + "    ");
-        System.out.print("Valor de defensa: " + habilidad.getValorDefensa() + "    ");
-        habilidad.mostrarHabilidadExtra();
+        if (this.habilidad != null) {
+            System.out.print("Nombre: " + habilidad.getNombre() + "    ");
+            System.out.print("Valor de ataque: " + habilidad.getValorAtaque() + "    ");
+            System.out.print("Valor de defensa: " + habilidad.getValorDefensa() + "    ");
+            habilidad.mostrarHabilidadExtra();
+        } else {
+            System.out.println("Vacía:");
+        }
     }
 
     public void editarHabilidad() {
