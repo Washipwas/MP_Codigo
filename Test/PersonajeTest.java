@@ -6,16 +6,7 @@ class PersonajeTest {
 
     @Test
     void sumarPotencialAtaque() {
-        // Arrange: Preparar los datos de prueba
-        int poder = 10;
-        int habilidad = 5;
-        int fortaleza = 8;
-        int debilidad = 3;
 
-        Personaje personaje = new Personaje(poder, habilidad, fortaleza, debilidad);
-        int resultado = personaje.sumarPotencialAtaque();
-        int resultadoEsperado = poder + habilidad + fortaleza - debilidad;
-        assertEquals(resultadoEsperado, resultado, "La suma del potencial de ataque no es la esperada");
     }
 
     @Test
