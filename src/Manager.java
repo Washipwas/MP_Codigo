@@ -21,32 +21,12 @@ public class Manager implements Serializable {
         aniadir(vamp,UtilConstants.FILE_PERSONAJES);
         Licantropo lic = new Licantropo("Lobo feroz",2,5,0,terminal);
         aniadir(lic,UtilConstants.FILE_PERSONAJES);
-        lic = new Licantropo("Sierbo de la luna",2,3,3,terminal);
+        lic = new Licantropo("Siervo de la luna",2,3,3,terminal);
         aniadir(lic,UtilConstants.FILE_PERSONAJES);
         Cazador caz = new Cazador("Mortis",3,3,3,terminal);
         aniadir(caz,UtilConstants.FILE_PERSONAJES);
         caz = new Cazador("Vaquero errante",2,3,1,terminal);
         aniadir(caz,UtilConstants.FILE_PERSONAJES);
-
-        /*Arma arma1 = new Arma("Pump", 1,1, 3, 0);
-        aniadir(arma1,UtilConstants.FILE_ARMAS);
-        Arma arma2 = new Arma("Catana",2,2, 2, 0);
-        aniadir(arma2,UtilConstants.FILE_ARMAS);
-        Arma arma3 = new Arma("Cañon de mano", 3, 1, 2, 0);
-        aniadir(arma3,UtilConstants.FILE_ARMAS);
-        Arma arma4 = new Arma("Lanza Cohetes", 1,2, 3, 1);
-        aniadir(arma4,UtilConstants.FILE_ARMAS);
-        guardar();
-
-        Armadura armadura1 = new Armadura("Armadura de papel",2,0, 1);
-        aniadir(armadura1,UtilConstants.FILE_ARMADURAS);
-        Armadura armadura2 = new Armadura("Armadura de dioses",1, 1, 3);
-        aniadir(armadura2,UtilConstants.FILE_ARMADURAS);
-        Armadura armadura3 = new Armadura("Armadura ardiente", 1,3, 1);
-        aniadir(armadura3,UtilConstants.FILE_ARMADURAS);
-        Armadura armadura4 = new Armadura("Armadura siniestra",3, 2, 2);
-        aniadir(armadura4,UtilConstants.FILE_ARMADURAS);
-         */
     }
 
     //como he leido la info del fichero pues entonces los aributos ya tienen la información correspondiente
@@ -320,17 +300,17 @@ public class Manager implements Serializable {
             terminal.show("Combates de: "+usuario);
            for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
                Combate combate=entrada.getValue();
-               if (combate.getPersonaje1().getNombre().equals(usuario)||combate.getPersonaje2().getNombre().equals(usuario)){
+               if (combate.getPersonaje1().getNick().equals(usuario)||combate.getPersonaje2().getNick().equals(usuario)){
                    terminal.show(combate.getId());
                }
 
                /*UsuarioEstandar usuario1= combate.getPersonaje1();
                UsuarioEstandar usuario2=combate.getPersonaje2();
-               if (usuario.equals(usuario1.getNombre()) && usuario.equals(combate.getGanador())){
-                   terminal.show("El jugador: "+usuario+" ha combatido con "+usuario2.getNombre()+" en el que se apostó "+combate.getOroApostado()+" y salió vencedor");
+               if (usuario.equals(usuario1.getNick()()) && usuario.equals(combate.getGanador())){
+                   terminal.show("El jugador: "+usuario+" ha combatido con "+usuario2.getNick()()+" en el que se apostó "+combate.getOroApostado()+" y salió vencedor");
                }
-               else if (usuario.equals(usuario2.getNombre()) && usuario.equals(combate.getGanador())) {
-                   terminal.show("El jugador: "+usuario+" ha combatido con "+usuario1.getNombre()+" en el que se apostó "+combate.getOroApostado()+" y salió vencedor");
+               else if (usuario.equals(usuario2.getNick()()) && usuario.equals(combate.getGanador())) {
+                   terminal.show("El jugador: "+usuario+" ha combatido con "+usuario1.getNick()()+" en el que se apostó "+combate.getOroApostado()+" y salió vencedor");
                }*/
            }
 
@@ -352,61 +332,6 @@ public class Manager implements Serializable {
         return null;
     }
 
-    public void mostrarEquipo(int num) {
-        for (Map.Entry<String, Arma> entry : listaArmas.entrySet()) {
-            String key = entry.getKey();
-            Arma arma = listaArmas.get(key);
-            if (arma.getNum() == num) {
-                System.out.print( "* ");
-                System.out.print("Nombre: " + key + "    ");
-                System.out.print("Manos: " + String.valueOf(arma.getManos()) + "    ");
-                System.out.print("Modificador de Ataque: " + arma.getModificadorDeAtaque() + "    ");
-                System.out.println("Modificador de Defensa: " + arma.getModificadorDeDefensa());
-            }
-        }
-    }
-
-    public boolean existeEquipo(String opcion, int num) {
-        if (listaArmas.containsKey(opcion)){
-            Arma arma = listaArmas.get(opcion);
-            if (arma.getNum() == num){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int manosSuficientes(String opcion) {
-        if (existe(opcion,4)){
-            Arma arma = listaArmas.get(opcion);
-            return arma.getManos();
-        }
-        return 0;
-    }
-
-    public void mostrarEquipoArmadura(int num) {
-        for (Map.Entry<String, Armadura> entry : listaArmaduras.entrySet()) {
-            String key = entry.getKey();
-            Armadura armadura = listaArmaduras.get(key);
-            if (armadura.getNum() == num) {
-                System.out.print( "* ");
-                System.out.print("Nombre: " + key + "    ");
-                System.out.print("Modificador de Ataque: " + armadura.getModificadorDeAtaque() + "    ");
-                System.out.println("Modificador de Defensa: " + armadura.getModificadorDeDefensa());
-            }
-        }
-    }
-
-    public boolean existeEquipoArmadura(String opcion, int num) {
-        if (listaArmaduras.containsKey(opcion)){
-            Armadura armadura = listaArmaduras.get(opcion);
-            if (armadura.getNum() == num){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void actualizar(Personaje personajeNew,String nombre) {
         eliminar(nombre,UtilConstants.FILE_PERSONAJES);
         eliminar(personajeNew,UtilConstants.FILE_PERSONAJES);
@@ -419,7 +344,7 @@ public class Manager implements Serializable {
             comfirmacion=listaCombates.containsKey(combateseleccionado);
             if(comfirmacion){
                 Combate combate=listaCombates.get(combateseleccionado);
-                if (combate.getPersonaje1().getNombre().equals(nombreUsuario)||combate.getPersonaje2().getNombre().equals(nombreUsuario)){
+                if (combate.getPersonaje1().getNick().equals(nombreUsuario)||combate.getPersonaje2().getNick().equals(nombreUsuario)){
                     comfirmacion=true;
 
                 }else{
@@ -438,7 +363,7 @@ public class Manager implements Serializable {
         boolean desafiovacio=true;
         for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
             Combate combate=entrada.getValue();
-            if (combate.getPersonaje1().getNombre().equals(nombreUsuario)||combate.getPersonaje2().getNombre().equals(nombreUsuario)){
+            if (combate.getPersonaje1().getNick().equals(nombreUsuario)||combate.getPersonaje2().getNick().equals(nombreUsuario)){
                 desafiovacio=false;
             }
         }
@@ -449,7 +374,7 @@ public class Manager implements Serializable {
 
         for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
             Combate combate=entrada.getValue();
-            if (combate.getPersonaje1().getNombre().equals(nick)||combate.getPersonaje2().getNombre().equals(nick)){
+            if (combate.getPersonaje1().getNick().equals(nick)||combate.getPersonaje2().getNick().equals(nick)){
                  if(combate.getGanador()==null){
                     return combate;
                 }
@@ -473,9 +398,9 @@ public class Manager implements Serializable {
         boolean bool = false;
         for(Map.Entry<String,Combate>entrada:listaCombates.entrySet()){ //va a recorrer el mapa entero sacando el combate y viendo si el usuario está dentro de este
             Combate combate=entrada.getValue();
-            if (combate.getPersonaje1().getNombre().equals(usuario2.getNombre())||combate.getPersonaje2().getNombre().equals(usuario2.getNombre())){
+            if (combate.getPersonaje1().getNick().equals(usuario2.getNick())||combate.getPersonaje2().getNick().equals(usuario2.getNick())){
                 if (combate.getGanador() != null) {
-                    if (!combate.getGanador().equalsIgnoreCase(usuario2.getNombre())) {
+                    if (!combate.getGanador().equalsIgnoreCase(usuario2.getNick())) {
                         if (LocalDate.now().equals(combate.getFecha())) {
                             bool = true;
                         }

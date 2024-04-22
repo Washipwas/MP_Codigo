@@ -69,8 +69,4 @@ public abstract class MenuUsuario {
     public abstract Boolean comprobarDesafio();
 
 
-    //public void actualizarFichero(Object bj , fichero Fichero) {
-        // TODO implement here
-    //}
-
 }

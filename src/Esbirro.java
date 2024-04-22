@@ -20,19 +20,6 @@ public abstract class Esbirro implements Serializable {
        return this.vida;
     }
 
-    public int generarPotencialAtaque() {
-        // TODO implement here
-        return 0;
-    }
-    public int generarPotencialDefensa() {
-        // TODO implement here
-        return 0;
-    }
-
-    public void Operation1() {
-        // TODO implement here
-    }
-
     public void mostrar() {
         if (this instanceof Humano){
             System.out.print("Clase: Humano     ");

@@ -26,7 +26,7 @@ public abstract class HabilidadEspecial implements Serializable {
     }
 
 
-    public Object getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
@@ -61,7 +61,7 @@ public abstract class HabilidadEspecial implements Serializable {
         terminal.show("¿Cambiar modificador de defensa? ? (Si/No)");
         opcion = terminal.read();
         if ("Si".equalsIgnoreCase(opcion)) {
-            terminal.show(UtilConstants.ANSI_BLUE + "Puntos de modificador de ataque actual: " + this.valorDefensa + UtilConstants.ANSI_RESET);
+            terminal.show(UtilConstants.ANSI_BLUE + "Puntos de modificador de defensa actual: " + this.valorDefensa + UtilConstants.ANSI_RESET);
             terminal.show("Escribe el nuevo valor (entre 1 y 3)");
             int opcionNum = Integer.parseInt(terminal.read());
             while (opcionNum > 3 || opcionNum < 1 ){

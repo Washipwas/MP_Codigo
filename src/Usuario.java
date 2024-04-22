@@ -35,10 +35,6 @@ public abstract class Usuario implements Serializable {
         return null;
     }
 
-    public boolean getPersonajeNull() {
-        return true;
-    }
-
     public abstract void setDesafiante(Usuario usuarioActivo);
 
     public Object getDesafiante() {

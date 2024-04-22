@@ -72,17 +72,6 @@ public class Combate implements Serializable {
         return null;
     }
 
-    /**
-     * @return
-     */
-    public Boolean esbirrosVivos() {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
     public int calcularPotencialAtaque(PersonajeUser auxpersonaje) {
         int sumPontenciales=auxpersonaje.sumarPotencialAtaque();
         return sumPontenciales;
@@ -137,10 +126,12 @@ public class Combate implements Serializable {
         int peleador1defensa_combate=generPotencial(peleador1defensa);
         int peleador2defensa_combate=generPotencial(peleador2defensa);
         if (peleador1ataque_combate>peleador2defensa_combate){
+            ((Vampiro) this.personaje1.getPersonajeUser().getPersonaje()).sumarPuntosSangre();
             this.personaje2.getPersonajeUser().restarVida();
             terminal.show("Personaje: "+this.personaje2.getPersonaje().getNombre()+" del ususario "+this.personaje2.getNombre() +" pierde 1 de vida");
         }
         if (peleador2ataque_combate>peleador1defensa_combate){
+            ((Vampiro) this.personaje2.getPersonajeUser().getPersonaje()).sumarPuntosSangre();
             this.personaje1.getPersonajeUser().restarVida();
             terminal.show("Personaje: "+this.personaje1.getPersonaje().getNombre()+ " del ususario "+this.personaje1.getNombre()+" pierde 1 de vida");
         }
