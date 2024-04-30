@@ -128,4 +128,8 @@ public class MenuInicial {
             num = Integer.parseInt(terminal.read());
         }
     }
+
+    public Object getManager() {
+        return this.manager;
+    }
 }

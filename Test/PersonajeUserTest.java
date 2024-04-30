@@ -7,6 +7,8 @@ class PersonajeUserTest {
     @Test
     void sumarPotencialAtaque() {
 
+        //NO PUEDO INSTANCIAR UN PERSONAJE, SUMARPOTENCIALATAQUE Y DEFENSA NO SE PUEDEN HACER
+
 
     }
 
@@ -23,47 +25,7 @@ class PersonajeUserTest {
     }
 
     @Test
-    void setPersonaje() {
-    }
-
-    @Test
-    void getPersonaje() {
-    }
-
-    @Test
-    void setArmaIzq() {
-    }
-
-    @Test
-    void setArmaDer() {
-    }
-
-    @Test
-    void getManosLibres() {
-    }
-
-    @Test
-    void mostrarArmas() {
-    }
-
-    @Test
-    void mostrarArmadura() {
-    }
-
-    @Test
     void notieneArmadura() {
-    }
-
-    @Test
-    void setArmadura() {
-    }
-
-    @Test
-    void mostrarTodasArmas() {
-    }
-
-    @Test
-    void getArma() {
     }
 
     @Test
@@ -75,15 +37,7 @@ class PersonajeUserTest {
     }
 
     @Test
-    void mostrarTodasArmaduras() {
-    }
-
-    @Test
     void existeEquipoArmadura() {
-    }
-
-    @Test
-    void getArmadura() {
     }
 
     @Test
@@ -91,26 +45,6 @@ class PersonajeUserTest {
     }
 
     @Test
-    void getArmaduraActiva() {
-    }
-
-    @Test
-    void getArmaActiva() {
-    }
-
-    @Test
-    void setVida() {
-    }
-
-    @Test
-    void getVida() {
-    }
-
-    @Test
     void sumarOro() {
-    }
-
-    @Test
-    void getOro() {
     }
 }
