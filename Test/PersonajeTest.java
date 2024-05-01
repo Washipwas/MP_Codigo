@@ -77,20 +77,28 @@ class PersonajeTest {
         assertEquals(expectedOutput, outputStreamCaptor.toString());
     }
 
-
     @Test
     void mostrarEsbirros() {
+
+
+        //no termina de ejecutarse
+
+
         // Redirigir la salida estándar para capturarla en un ByteArrayOutputStream
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
+        TextTerminal terminal = new TextTerminal();
+
         // Crear una instancia de Cazador con valores conocidos
-        Cazador cazador = new Cazador("Gabi", 5, 4, 4, null);
+        Cazador cazador = new Cazador("Gabi", 5, 4, 4, terminal);
         cazador.aniadirEsbirros();
 
         // Simular entrada de usuario para el primer esbirro (Humano)
         ByteArrayInputStream in = new ByteArrayInputStream("Humano\nJuan\nSi\n3\nAlta\n".getBytes());
         System.setIn(in);
+
+        cazador.mostrarEsbirros();
 
         // Capturar la salida esperada
         String expectedOutput = "Esbirro Añadido\nNombre: Juan\nSalud: 3\nLealtad: Alta\n";
@@ -104,5 +112,16 @@ class PersonajeTest {
 
     @Test
     void mostrarHabilidadEspecial() {
+
+        // Redirigir la salida estándar para capturarla en un ByteArrayOutputStream
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        // Crear una instancia de Cazador con valores conocidos
+        Cazador cazador = new Cazador("Gabi", 5, 4, 4, null);
+
+        cazador.mostrarHabilidadEspecial();
+
+
     }
 }
