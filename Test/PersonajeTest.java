@@ -5,63 +5,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class PersonajeTest {
 
     @Test
-    void sumarPotencialAtaque() {
-
+    void mostrarAtributos() {
     }
 
     @Test
-    void sumarPotencialDefensa() {
+    void mostrarTodasArmas() {
     }
 
     @Test
-    void editar() {
+    void mostrarTodasArmaduras() {
     }
 
     @Test
-    void crearArmas() {
+    void mostrarEsbirros() {
     }
 
     @Test
-    void crearArmaduras() {
-    }
-
-    @Test
-    void editarModificadores() {
-    }
-
-    @Test
-    void aniadir() {
-    }
-
-    @Test
-    void aniadirArmas() {
-    }
-
-    @Test
-    void existeEquipo() {
-    }
-
-    @Test
-    void manosSuficientes() {
-    }
-
-    @Test
-    void existeEquipoArmadura() {
-    }
-
-    @Test
-    void editarEquipo() {
-    }
-
-    @Test
-    void editarEsbirros() {
-    }
-
-    @Test
-    void editarHabilidad() {
-    }
-
-    @Test
-    void hayHabilidad() {
+    void mostrarHabilidadEspecial() {
     }
 }
