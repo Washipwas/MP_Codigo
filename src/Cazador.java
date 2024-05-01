@@ -10,7 +10,7 @@ public class Cazador extends Personaje {
     private Talento talento;
 
     public Cazador(String nombre, int salud, int poder,int voluntad,TextTerminal terminal) {
-        super(nombre,poder,salud,terminal);
+        super(nombre,salud,poder,terminal);
         this.voluntad = voluntad;
         crearDebilidades();
         crearFortalezas();
@@ -34,7 +34,7 @@ public class Cazador extends Personaje {
             return 0;
         }else{
             int valor = super.getPoder() + talento.getValorDefensa() + voluntad ;
-            int valorModificador = getFortalezaActiva().getValor(); //Valor de la fortaleza presente
+            int valorModificador = getDebilidadActiva().getValor(); //Valor de la fortaleza presente
             return valor - valorModificador;// se le suma la fortaleza al potencial de ataque
         }
     }
@@ -72,7 +72,7 @@ public class Cazador extends Personaje {
 
     private void crearHabilidadEspecial() {
         Talento talento =  new Talento("Precisión", 3,1);
-        setHabilidad(talento);
+        this.talento = talento;
     }
 
 
@@ -96,5 +96,9 @@ public class Cazador extends Personaje {
             this.voluntad = opcionNum;
             terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de voluntad nuevo: " + this.voluntad + UtilConstants.ANSI_RESET);
         }
+    }
+
+    public int getVoluntad() {
+        return this.voluntad;
     }
 }

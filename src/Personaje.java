@@ -693,4 +693,16 @@ public abstract class Personaje implements Serializable {
     public boolean hayHabilidad() {
         return this.habilidad != null;
     }
+
+    public HabilidadEspecial getHabilidad() {
+        return this.habilidad;
+    }
+
+    public void setFortalezaActiva(Fortaleza fortalezaActiva) {
+        this.fortalezaActiva = fortalezaActiva;
+    }
+
+    public void setDebilidadActiva(Debilidad debilidadActiva) {
+        this.debilidadActiva = debilidadActiva;
+    }
 }
