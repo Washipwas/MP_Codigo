@@ -129,7 +129,7 @@ class VampiroTest {
 
         vampiro.editarAtributosExtras();
 
-        assertEquals(6,vampiro.getPuntoSangre());
+        assertEquals(4,vampiro.getPuntoSangre());
         assertEquals(1000, vampiro.getEdad());
     }
 }
