@@ -85,6 +85,7 @@ public class PersonajeUser implements Serializable {
         }
     }
 
+
     public void mostrarArmas() {
         boolean bool = false;
         if (armaIzq != null){

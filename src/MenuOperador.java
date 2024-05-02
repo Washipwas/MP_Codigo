@@ -48,6 +48,7 @@ public class MenuOperador extends MenuUsuario {
         if (this.manager.existe(opcion,2)){
             Personaje personaje = (this.manager.asociarPersonaje(opcion));
             String nombre = personaje.getNombre();
+            terminal.show("Editando Personaje");
             personaje.editar();
             if (personaje instanceof Vampiro){
                 ((Vampiro) personaje).editarAtributosExtras();

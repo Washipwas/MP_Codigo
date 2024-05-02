@@ -105,8 +105,11 @@ public class MenuUsuarioEstandar extends MenuUsuario {
             terminal.show("2. Escoger Armaduras");
             String opcion = terminal.read();
             if ("1".equalsIgnoreCase(opcion)) {
+                terminal.show("Escogiendo Armas");
                 escogerArmas();
+
             } else{
+                terminal.show("Escogiendo Armaduras");
                 escogerArmadura();
             }
         }

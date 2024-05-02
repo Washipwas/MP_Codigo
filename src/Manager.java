@@ -418,7 +418,9 @@ public class Manager implements Serializable {
                 if (!(((UsuarioEstandar) user).getBloqueado())){
                     if (!user.getNick().equalsIgnoreCase(nick)) {
                         if(user.getPersonaje()!=null){
+                            System.out.println("hola");
                             return true;
+
                         }
                     }
                 }

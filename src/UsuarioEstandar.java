@@ -63,7 +63,7 @@ public class UsuarioEstandar extends Usuario {
     public Object getArmaduraActiva() {
         return this.personajeUser.getArmaduraActiva();
     }
-@Override
+    @Override
     public Object getArmaActiva() {
         return this.personajeUser.getArmaActiva();
     }
