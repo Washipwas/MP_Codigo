@@ -44,7 +44,7 @@ public abstract class Personaje implements Serializable {
 
 
     public int sumarPotencialAtaque() {
-        int auxpoder=this.getPoder();
+        int auxpoder=this.getPoder();//3
         int auxhabilidad=this.habilidad.getValorAtaque();
         int auxmfortalezaactiva=this.fortalezaActiva.getValor();
         int auxdebilidadactiva=this.debilidadActiva.getValor();

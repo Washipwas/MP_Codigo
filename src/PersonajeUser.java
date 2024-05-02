@@ -99,7 +99,7 @@ public class PersonajeUser implements Serializable {
         }
         if (!bool){
             if (armaDer != null){
-                System.out.println("Mano derecha: " + armaIzq.getId());
+                System.out.println("Mano derecha: " + armaDer.getId());
             } else {
                 System.out.println("Mano derecha: Vacía");
             }

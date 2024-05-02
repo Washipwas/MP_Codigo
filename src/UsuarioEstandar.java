@@ -76,6 +76,10 @@ public class UsuarioEstandar extends Usuario {
         this.bloqueado = bool;
     }
 
+    public void setPersonajeUserFinal(PersonajeUser peronajeUsuario){
+        this.personajeUser=peronajeUsuario;
+    }
+
     @Override
     public void setPersonajeUser(Personaje personaje) {//deberia ser personaje, no PersonajeUser
         this.personajeUser.setPersonaje(personaje);

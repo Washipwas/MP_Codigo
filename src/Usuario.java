@@ -29,7 +29,7 @@ public abstract class Usuario implements Serializable {
     public void setPersonajeUser(PersonajeUser personaje) {
     }
 
-    public abstract void setPersonajeUser(Personaje personaje);
+    public abstract void setPersonajeUser(Personaje personaje);//no test
 
     public Personaje getPersonaje() {
         return null;
@@ -49,7 +49,7 @@ public abstract class Usuario implements Serializable {
         return null;
     }
 
-    public void setPersonaje(Object o) {
+    public void setPersonaje(Object o) {//no test
         setPersonajeUser((PersonajeUser) o);
     }
 
