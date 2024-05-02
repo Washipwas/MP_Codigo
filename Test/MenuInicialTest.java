@@ -64,11 +64,4 @@ class MenuInicialTest {
        assertEquals(true, manager.existe("javi123",1));
     }
 
-    @Test
-    void seleccionarOpcion() {
-
-        // Problemas pq no puedo verificar la salida
-
-
-    }
 }

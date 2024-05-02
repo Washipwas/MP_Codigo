@@ -97,4 +97,8 @@ public class Cazador extends Personaje {
             terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de voluntad nuevo: " + this.voluntad + UtilConstants.ANSI_RESET);
         }
     }
+
+    public int getvoluntad() {
+        return  this.voluntad;
+    }
 }

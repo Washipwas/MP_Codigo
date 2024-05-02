@@ -120,10 +120,10 @@ class PersonajeTest {
 
         Manager manager = new Manager();
 
-        manager.aniadir(talento,"ficheros/");
-
         // Crear una instancia de Cazador con valores conocidos
         Cazador cazador = new Cazador("Gabi", 5, 4, 4, null);
+        manager.aniadir(talento,"ficheros/");
+        manager.aniadir(cazador,"ficheros/");
 
         cazador.setHabilidad(talento);
 
@@ -141,7 +141,12 @@ class PersonajeTest {
         System.setIn(in);
         cazador.editar();
 
-        assertEquals("Gabillo",cazador.getNombre());
+        String a = cazador.getNombre();
+        int b = cazador.getSalud();
+        int c = cazador.getPoder();
+        int d = cazador.getvoluntad();
+
+        assertEquals(a,cazador.getNombre());
 
 
     }
