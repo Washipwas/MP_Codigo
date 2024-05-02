@@ -99,6 +99,7 @@ public class Cazador extends Personaje {
     }
 
 
-
+    public int getvoluntad() {
+        return this.voluntad;
     }
 }
