@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -144,9 +145,37 @@ class PersonajeTest {
         String a = cazador.getNombre();
         int b = cazador.getSalud();
         int c = cazador.getPoder();
-        int d = cazador.getvoluntad();
+        //int d = cazador.getvoluntad();
 
         assertEquals(a,cazador.getNombre());
+
+
+    }
+    @Test
+    void aniadirFortalezas(){
+        InputStream in = new ByteArrayInputStream("Conocimiento\nSentidos Agudizados\n4".getBytes());
+        System.setIn(in);
+
+        Personaje personaje = new Cazador("Arqueras", 1, 2, 3, new TextTerminal());
+        Fortaleza fortaleza = new Fortaleza("Conocimiento", 5);
+        personaje.setFortalezaActiva(fortaleza);
+
+        //Fortaleza fortaleza2 = new Fortaleza("Rayo", 5);
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        //personaje.aniadirFortalezas();//quitamos el acceso provado y ya estaria
+        assertTrue(outContent.toString().contains("Fortaleza añadida:"));
+    }
+
+    @Test
+    void aniadir() {
+        InputStream in = new ByteArrayInputStream("si\nsi\nsi\nsi\nsi\n".getBytes());
+        System.setIn(in);
+
+        Personaje personaje = new Cazador("Arqueras", 1, 2, 3, new TextTerminal());
+
+        personaje.aniadir();
 
 
     }
