@@ -10,5 +10,4 @@ public class Debilidad extends Modificador {
     }
 
 
-
 }

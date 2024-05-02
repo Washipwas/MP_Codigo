@@ -1,15 +1,25 @@
 public abstract class MenuUsuario {
+    public Manager getManager() {
+        return manager;
+    }
+
     public MenuUsuario(String nick, Manager manager) { //constructor llamado por el hijo
         this.terminal = new TextTerminal();
         this.manager = manager; //se le pasa el manager extraido en menu principal
         this.usuarioActivo = manager.asociarUsuario(nick); //a su atributo usuarioactivo se le asoscia aquel usuario que coincida con el nick
                                                             // del usuario que tenga en la lista el manager
     }
+
     //ahora la clase menu-usuario tiene en sus atributos a un mánager,
     //en su atributo usuario-activo tiene al usuario que cumpla con el nick pasado
     //tiene un atrubuto termina
 
     public TextTerminal terminal;
+
+    public Usuario getUsuarioActivo() {
+        return usuarioActivo;
+    }
+
     public Usuario usuarioActivo;
     public Manager manager;
 
