@@ -11,7 +11,28 @@ class MenuUsuarioTest {
     @Test
     void mostrarMenu() {
 
-        //no se puede por las instancias
+        // Redirigir la salida estándar para capturarla en un ByteArrayOutputStream
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        Manager manager = new Manager();
+        Manager manager1 = new Manager();
+        UsuarioEstandar usuarioEstandar = new UsuarioEstandar("Gabi","Gabi123","Gabi123123");
+        Operador operador = new Operador("Paquillo","Pacus","Paco3333");
+
+        manager.aniadir(usuarioEstandar,"Ficheros/");
+        manager.aniadir(operador,"Ficheros/" );
+
+        MenuUsuarioEstandar menuUsuarioEstandar = new MenuUsuarioEstandar("Gabi12",manager);
+        MenuOperador menuOperador = new MenuOperador("Pacus",manager1);
+
+        assertEquals(false,menuUsuarioEstandar.mostrarMenu());
+
+       // assertEquals();
+
+
+
+
     }
 
     @Test
@@ -27,7 +48,7 @@ class MenuUsuarioTest {
         System.setOut(new PrintStream(outputStreamCaptor));
 
         // Redirigir la entrada estándar para simular la entrada del usuario
-        ByteArrayInputStream in = new ByteArrayInputStream("no\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("@\n".getBytes());
         System.setIn(in);
 
         // Crear un nuevo Manager para la prueba

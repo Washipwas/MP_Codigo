@@ -44,7 +44,7 @@ class MenuInicialTest {
     void registrar() {
 
 
-        //ESTA BIEN PERO DEVUELVE FALSE
+
 
 
        // Preparar la entrada simulada del usuario

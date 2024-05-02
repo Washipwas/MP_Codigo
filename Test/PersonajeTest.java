@@ -116,12 +116,46 @@ class PersonajeTest {
         // Redirigir la salida estándar para capturarla en un ByteArrayOutputStream
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
+        Talento talento = new Talento("Talentoso",3,3);
+
+        Manager manager = new Manager();
+
+        manager.aniadir(talento,"ficheros/");
 
         // Crear una instancia de Cazador con valores conocidos
         Cazador cazador = new Cazador("Gabi", 5, 4, 4, null);
+
+        cazador.setHabilidad(talento);
 
         cazador.mostrarHabilidadEspecial();
 
 
     }
+
+    @Test
+    void editar(){
+
+        Cazador cazador = new Cazador("Gabi", 5, 4, 4, null);
+
+        ByteArrayInputStream in = new ByteArrayInputStream("Si\nGabillo\nno\nno\n".getBytes());
+        System.setIn(in);
+        cazador.editar();
+
+        assertEquals("Gabillo",cazador.getNombre());
+
+
+    }
+
+    //editarmodificadores
+
+            //aniadir
+
+   // aniadirEsbirros
+
+                    //aniadirFortaleza
+   // aniadirDebilidades
+                           // aniadirArmaduras
+    //aniadirArmas
+                                    //editarEquipo
+    //editar-Esbirros
 }
