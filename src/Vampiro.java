@@ -8,7 +8,7 @@ public class Vampiro extends Personaje {
 
 
     public Vampiro(String nombre, int salud, int poder,int puntoSangre,int edad,TextTerminal terminal) {
-        super(nombre,poder,salud,terminal);
+        super(nombre,salud,poder,terminal);
         this.puntoSangre = puntoSangre;
         this.edad = edad;
         crearDebilidades();
@@ -20,7 +20,7 @@ public class Vampiro extends Personaje {
 
     private void crearHabilidadEspecial() {
         Disciplina disciplina =  new Disciplina("Oscuridad total", 1,3,2);
-        setHabilidad(disciplina);
+        this.disciplina = disciplina;
     }
 
 
@@ -32,47 +32,32 @@ public class Vampiro extends Personaje {
             return sangre;
         }else{
              valorDisciplina = disciplina.getCoste();
-            int potencial = getPuntoSangre() + super.getPoder()  + getFortalezaActiva().getValor() ;
+            int potencial = getPuntoSangre() + super.getPoder()  + getFortalezaActiva().getValor();
             if (sangre > 5){
                 potencial+= 2;
-            }
-            if (sangre > valorDisciplina){
+            }if (sangre > valorDisciplina){
                 sangre -= valorDisciplina;
                 potencial += sangre;
-            }
-            return potencial;
+            }return potencial;
         }
-
-
-
     }
 
     @Override
     public int sumarPotencialDefensa() {
         int sangre = getPuntoSangre();
-
         if(this.disciplina==null){
-
             return sangre;
         }else{
             int valorDisciplina = disciplina.getCoste();
             int potencial = getPuntoSangre() + super.getPoder() - getDebilidadActiva().getValor() ;
             if (sangre > 5){
                 potencial+= 2;
-            }
-            if (sangre > valorDisciplina){
+            }if (sangre > valorDisciplina) {
                 sangre -= valorDisciplina;
                 potencial += sangre;
-            }
-
-            // aqui queda un if de sumar 4 si el ataque tiene exito
-            return potencial;
+            }return potencial;
         }
-
     }
-
-
-
     public int getPuntoSangre() {
         return this.puntoSangre;
     }
@@ -146,5 +131,9 @@ public class Vampiro extends Personaje {
             terminal.show(UtilConstants.ANSI_YELLOW + "Edad nueva: " + this.edad + UtilConstants.ANSI_RESET);
         }
 
+    }
+
+    public int getEdad() {
+        return this.edad;
     }
 }

@@ -8,7 +8,7 @@ public class Licantropo extends Personaje {
 
 
     public Licantropo(String nombre, int salud, int poder, int rabia,TextTerminal terminal) {
-        super(nombre, poder , salud,terminal);
+        super(nombre,salud,poder,terminal);
         this.rabia = rabia;
         crearDebilidades();
         crearFortalezas();
@@ -18,45 +18,32 @@ public class Licantropo extends Personaje {
 
     @Override
     public int sumarPotencialAtaque() {
-
-
         if(this.don==null){
             return 0;
-
         }else{
             int valor = super.getPoder() + rabia  + getFortalezaActiva().getValor();
             if (don.getRabia() < rabia){
                 rabia -= don.getRabia();
                 return valor + don.getValorAtaque();
-            }
-            else {
+            } else {
                 return valor;
             }
         }
-
-
     }
-
     @Override
     public int sumarPotencialDefensa() {
-
         if(this.don==null){
             return 0;
-
         }else{
-                int valor = super.getPoder() + rabia - getDebilidadActiva().getValor();
-                if (don.getRabia() < rabia){
-                    rabia -= don.getRabia();
-                    return valor + don.getValorDefensa();
-                }
-                else {
-
-                    return valor;
-                }
+            int valor = super.getPoder() + rabia - getDebilidadActiva().getValor();
+            if (don.getRabia() < rabia){
+                rabia -= don.getRabia();
+                return valor + don.getValorDefensa();
+            } else {
+                return valor;
+            }
         }
-
     }
-
     private void crearDebilidades(){
         Debilidad debilidad1 = new Debilidad("Agua Bendita", 3);
         getDebilidades().put(debilidad1.getNombre(), debilidad1);
@@ -90,7 +77,7 @@ public class Licantropo extends Personaje {
 
     private void crearHabilidadEspecial() {
         Don don =  new Don("Aullido", 2,1,2);
-        setHabilidad(don);
+        this.don = don;
     }
 
     public void mostrarAtributosExtras() {
@@ -113,5 +100,9 @@ public class Licantropo extends Personaje {
             this.rabia = opcionNum;
             terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de rabia nuevo: " + this.rabia + UtilConstants.ANSI_RESET);
         }
+    }
+
+    public int getRabia() {
+        return this.rabia;
     }
 }

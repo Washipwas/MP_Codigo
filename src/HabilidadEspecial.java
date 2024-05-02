@@ -73,7 +73,7 @@ public abstract class HabilidadEspecial implements Serializable {
             this.valorDefensa = opcionNum;
             terminal.show(UtilConstants.ANSI_YELLOW + "Puntos de modificador nuevo: " + this.valorDefensa + UtilConstants.ANSI_RESET);
         }
-        editarExtra();
+        /*editarExtra();*/
     }
 
     protected abstract void editarExtra();
