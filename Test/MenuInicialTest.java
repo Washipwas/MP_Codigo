@@ -8,15 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MenuInicialTest {
 
-    @Test
-    void menuInicial()
-    {
-
-        //no se puede saber si se ha creado o no el archivo,
-        // si pongo que devuelva algo, como un buleano peta el programa
-
-
-    }
 
     @Test
     void iniciarSesion() {
@@ -56,8 +47,6 @@ class MenuInicialTest {
         //ESTA BIEN PERO DEVUELVE FALSE
 
 
-
-
        // Preparar la entrada simulada del usuario
        ByteArrayInputStream inputStream = new ByteArrayInputStream("javierete\njavi123\njavi123123\nsi".getBytes());
        System.setIn(inputStream);
@@ -72,7 +61,7 @@ class MenuInicialTest {
        Manager manager = new Manager();
 
        // Verificar si la salida capturada coincide con el resultado esperado
-       assertEquals(true, manager.existe("gabi123",1));
+       assertEquals(true, manager.existe("javi123",1));
     }
 
     @Test

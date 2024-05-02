@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagerTest {
@@ -13,10 +16,20 @@ class ManagerTest {
 
     @Test
     void aniadir() {
-    }
 
-    @Test
-    void guardar() {
+        // Redirigir la salida estándar para capturarla en un ByteArrayOutputStream
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        UsuarioEstandar usuarioEstandar = new UsuarioEstandar("Alex", "Alex123", "Alex123123");
+
+
+        Manager manager = new Manager();
+
+        manager.aniadir(usuarioEstandar, "ficheros/");
+
+        assertEquals(true, manager.existe("Alex123", 1));
+
     }
 
     @Test
@@ -25,22 +38,22 @@ class ManagerTest {
 
     @Test
     void existe() {
+
+        //hace lo mismo que añadir
+
     }
 
     @Test
-    void datosCorrectos() {
+    void mostrar() {
     }
 
     @Test
-    void asociarUsuario() {
+    void mostrarUsuariosBloqueados() {
+
     }
 
     @Test
-    void asociarPersonaje() {
-    }
-
-    @Test
-    void datosUsuarioEstandar() {
+    void mostrarUsuariosNoNormas() {
     }
 
     @Test
@@ -48,42 +61,16 @@ class ManagerTest {
     }
 
     @Test
-    void existeDesafiar() {
+    void mostrarRegistro() {
     }
 
-    @Test
-    void asociarDesafio() {
-    }
 
-    @Test
-    void actualizar() {
-    }
 
-    @Test
-    void existeCombate() {
-    }
 
-    @Test
-    void desafioVacio() {
-    }
 
-    @Test
-    void hayDesafios() {
-    }
 
-    @Test
-    void perdidoMenosHoras() {
-    }
 
-    @Test
-    void hayUsuariosParaDesafiar() {
-    }
 
-    @Test
-    void hayUsuariosNoNormas() {
-    }
 
-    @Test
-    void hayUsuariosBloqueados() {
-    }
+
 }
