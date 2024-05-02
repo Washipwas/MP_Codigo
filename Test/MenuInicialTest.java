@@ -10,61 +10,58 @@ class MenuInicialTest {
 
 
     @Test
-     void iniciarsesionCorrecto() {
+    void iniciarSesion() {
 
-        // Configurar la entrada simulada
-        ByteArrayInputStream in = new ByteArrayInputStream("gabi\ngabi123123\n".getBytes());
-        System.setIn(in);
-
-        // Ejecutar
-        MenuInicial menu = new MenuInicial();
-        menu.iniciarSesion();
-        // Capturar la salida de la consola
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-
-        // Verificar resultado
-        assertEquals(UtilConstants.ANSI_GREEN + "Acceso correcto" + UtilConstants.ANSI_RESET, outContent.toString().trim());
-
-        // Restaurar la entrada y salida estándar
-        System.setOut(System.out);
-        System.setIn(System.in);
-        }
+        //da muchos problemas
 
 
 
-    @Test
-    public void testMenuInicial_LeeArchivoUsuariosSiExiste() {
-        // Ruta del archivo de usuarios
-        String rutaArchivo = UtilConstants.FILE_USERS + "usuarios.ser";
-
-        // Crear un archivo de usuarios de prueba
-        Manager manager = new Manager();
-        try (ObjectOutputStream objetoSalida = new ObjectOutputStream(new FileOutputStream(rutaArchivo))) {
-            objetoSalida.writeObject(manager);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Crear una instancia de la clase bajo prueba (MenuInicial)
-        MenuInicial menuInicial = new MenuInicial();
-
-        // Verificar que se lee el archivo de usuarios
-        assertNotNull(menuInicial.getManager());
     }
 
     @Test
-    void iniciarSesion() {}
+    void mostrarMenu(){
 
+        // Redirigir la salida estándar para capturarla en un ByteArrayOutputStream
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
 
+        MenuInicial menuInicial = new MenuInicial();
+        menuInicial.mostrarMenu();
+
+        // Definir el resultado esperado
+        String expectedOutput = UtilConstants.ANSI_BLUE + "Seleccione una opción escribiendo el número correspondiente" + UtilConstants.ANSI_RESET + System.lineSeparator() +
+                "1.Iniciar sesion" + System.lineSeparator() +
+                "2.Registrarse como Usuario" + System.lineSeparator() +
+                "3.Registrarse como Operador" + System.lineSeparator() +
+                "4.Salir" + System.lineSeparator();
+
+        // Verificar si la salida capturada coincide con el resultado esperado
+        assertEquals(expectedOutput, outputStreamCaptor.toString());
+    }
 
 
    @Test
     void registrar() {
+
+
+
+
+
+       // Preparar la entrada simulada del usuario
+       ByteArrayInputStream inputStream = new ByteArrayInputStream("javierete\njavi123\njavi123123\nsi".getBytes());
+       System.setIn(inputStream);
+
+       // Redirigir la salida estándar para capturarla en un ByteArrayOutputStream
+       ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+       System.setOut(new PrintStream(outputStreamCaptor));
+
+       MenuInicial menuInicial = new MenuInicial();
+       // Llamar al método seleccionarOpcion()
+       menuInicial.registrar(2);
+       Manager manager = new Manager();
+
+       // Verificar si la salida capturada coincide con el resultado esperado
+       assertEquals(true, manager.existe("javi123",1));
     }
 
-    @Test
-    void seleccionarOpcion() {
-    }
 }

@@ -274,7 +274,7 @@ public abstract class Personaje implements Serializable {
         }
     }
 
-    private void aniadirEsbirros() {
+    public void aniadirEsbirros() {
         TextTerminal terminal = new TextTerminal();
         terminal.show("Escribe el tipo de Esbirro (Humano/Ghoul/Demonio)");
         String opcionTipo = terminal.read();
